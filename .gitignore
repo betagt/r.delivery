@@ -1,0 +1,6 @@
+/.idea/
+/vendor/
+/.env
+/composer.lock
+/public/images/
+/public/src/node_modules/
