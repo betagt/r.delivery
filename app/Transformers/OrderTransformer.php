@@ -27,7 +27,8 @@ class OrderTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$model->id,
-            'total' => (float)$model->total,
+            'total' => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->total)),
+            'total_label' => (string)$model->total,
             'status' => (int)$model->status,
             'product_names' => $this->getArrayProductNames($model->items),
             'hash' => $model->hash,

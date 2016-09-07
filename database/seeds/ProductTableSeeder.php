@@ -44,5 +44,13 @@ class ProductTableSeeder extends Seeder
                 $e->funcionamentos()->save(factory(\CodeDelivery\Models\EstabelecimentoFuncionamento::class)->make());
             }
         }
+
+        for ($l = 0; $l < 20; $l++)
+        {
+            $id = $l + 1;
+            DB::table('product_extras')->insert([
+                ['product_id' => $id, 'category_extra_id' => random_int(1, 30), 'price' => random_int(1, 15)]
+            ]);
+        }
     }
 }

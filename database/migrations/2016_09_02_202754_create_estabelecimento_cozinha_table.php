@@ -17,6 +17,7 @@ class CreateEstabelecimentoCozinhaTable extends Migration
             $table->foreign('estabelecimento_id')->references('id')->on('estabelecimentos');
             $table->integer('cozinha_id')->unsigned();
             $table->foreign('cozinha_id')->references('id')->on('cozinhas');
+            $table->primary(['estabelecimento_id', 'cozinha_id']);
             $table->timestamps();
             $table->softDeletes();
         });

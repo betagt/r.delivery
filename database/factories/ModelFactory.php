@@ -81,7 +81,7 @@ $factory->define(\CodeDelivery\Models\EstabelecimentoEndereco::class, function (
 $factory->define(\CodeDelivery\Models\EstabelecimentoFuncionamento::class, function (Faker\Generator $faker) {
     return [
         'dia_funcionamento' => random_int(1, 7),
-        'horario_funcionamento' => random_int(1, 12),
+        'horario_funcionamento' => random_int(1, 5),
     ];
 });
 

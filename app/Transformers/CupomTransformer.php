@@ -23,7 +23,8 @@ class CupomTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'code'       => $model->code,
-            'value'      => (float)$model->value,
+            'value'      => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->value)),
+            'value_label'      => (string)$model->value,
             /* place your other model properties here */
 
             'created_at' => $model->created_at,

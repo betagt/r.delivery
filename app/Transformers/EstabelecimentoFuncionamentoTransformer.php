@@ -22,8 +22,10 @@ class EstabelecimentoFuncionamentoTransformer extends TransformerAbstract
     {
         return [
             'id'                    => (int) $model->id,
-            'dia_funcionamento'     => (string) $this->returnDiaFuncionamento($model->dia_funcionamento),
-            'horario_funcionamento' => (string) $this->returnHorarioFuncionamento($model->horario_funcionamento),
+            'dia_funcionamento'     => (int) $model->dia_funcionamento,
+            'horario_funcionamento' => (int) $model->horario_funcionamento,
+            'dia_funcionamento_label'     => (string) $this->returnDiaFuncionamento($model->dia_funcionamento),
+            'horario_funcionamento_label' => (string) $this->returnHorarioFuncionamento($model->horario_funcionamento),
             /* place your other model properties here */
 
             'created_at' => $model->created_at,

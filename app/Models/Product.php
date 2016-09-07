@@ -40,4 +40,9 @@ class Product extends Model implements Transformable
     {
         return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
     }
+
+    public function extras()
+    {
+        return $this->hasManyThrough(CategoryExtra::class, 'product_extras', 'product_id', 'category_extra_id');
+    }
 }

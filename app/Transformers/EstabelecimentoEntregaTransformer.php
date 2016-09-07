@@ -22,9 +22,9 @@ class EstabelecimentoEntregaTransformer extends TransformerAbstract
     {
         return [
             'id'                => (int) $model->id,
-            'tempo_entrega'     => (int)$model->tempo_entrega,
-            'faixa_preco'       =>(int)$model->faixa_preco,
-            'tipo_pagamento'    => (int)$model->tipo_pagamento,
+            'tempo_entrega'     => (int) $model->tempo_entrega,
+            'faixa_preco'       => (int) $model->faixa_preco,
+            'tipo_pagamento'    => (int) $model->tipo_pagamento,
             'tipo_entrega'      => (int) $model->tipo_entrega,
             'label_tempo_entrega'     => (string) $this->returnTempoEntrega($model->tempo_entrega),
             'label_faixa_preco'       => (string) $this->returnFaixaPreco($model->faixa_preco),

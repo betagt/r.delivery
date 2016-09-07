@@ -12,8 +12,20 @@ class CreateProductsExtrasTable extends Migration
      */
     public function up()
     {
-        Schema::table('product_extras', function (Blueprint $table) {
-            //
+        Schema::create('product_extras', function (Blueprint $table) {
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')
+                ->onUpdate('cascade')
+                ->onDelete('cascade')
+            ;
+            $table->integer('category_extra_id')->unsigned();
+            $table->foreign('category_extra_id')->references('id')->on('category_extras')
+                ->onUpdate('cascade')
+                ->onDelete('cascade')
+            ;
+            $table->primary(['product_id', 'category_extra_id']);
+            $table->decimal('price')->default(0);
+            $table->integer('status')->default(1);
         });
     }
 
@@ -24,8 +36,6 @@ class CreateProductsExtrasTable extends Migration
      */
     public function down()
     {
-        Schema::table('product_extras', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('product_extras');
     }
 }

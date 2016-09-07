@@ -25,11 +25,12 @@ class ProductTransformer extends TransformerAbstract
     {
         return [
             'id'                    => (int) $model->id,
-            'estabelecimento_id'    => $model->estabelecimento_id,
-            'category_id'           => $model->category_id,
-            'name'                  => $model->name,
-            'description'           => $model->description,
-            'price'                 => $model->price,
+            'estabelecimento_id'    => (int) $model->estabelecimento_id,
+            'category_id'           => (int) $model->category_id,
+            'name'                  => (string) $model->name,
+            'description'           => (string) $model->description,
+            'price'                 => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
+            'price_label'                 => (string) $model->price,
             /* place your other model properties here */
 
             'created_at'            => $model->created_at,

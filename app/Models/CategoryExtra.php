@@ -22,4 +22,9 @@ class CategoryExtra extends Model implements Transformable
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, 'product_extras', 'product_id', 'category_extra_id');
+    }
 }
