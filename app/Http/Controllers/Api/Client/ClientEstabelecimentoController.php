@@ -60,7 +60,9 @@ class ClientEstabelecimentoController extends Controller
         $result = [];
         foreach ($data as $value)
         {
-            $value->products = $this->productRepository->skipPresenter('false')->findWhere(['category_id' => $value->id]);
+            $value->products = [
+                'data' => $this->productRepository->skipPresenter('false')->findWhere(['category_id' => $value->id])
+            ];
             $result[] = $value;
         }
         return response()->json(['data' => $result ]);

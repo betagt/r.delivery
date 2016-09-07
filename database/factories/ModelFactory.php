@@ -136,6 +136,12 @@ $factory->define(\CodeDelivery\Models\Category::class, function (Faker\Generator
     ];
 });
 
+$factory->define(\CodeDelivery\Models\CategoryExtra::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
 $factory->define(\CodeDelivery\Models\Cupom::class, function (Faker\Generator $faker) {
     return [
         'code' => random_int(100, 1000),

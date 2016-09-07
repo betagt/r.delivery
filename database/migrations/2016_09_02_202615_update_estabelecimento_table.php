@@ -27,13 +27,21 @@ class UpdateEstabelecimentoTable extends Migration
      */
     public function down()
     {
-        Schema::table('estabelecimentos',function (Blueprint $table){
-            $table->dropForeign('estabelecimentos_cidade_id_foreign');
-            $table->dropColumn('cidade_id');
-            $table->dropColumn('icone_link');
-            $table->dropColumn('power');
-        });
-        Schema::drop('estabelecimentos');
-        Schema::drop('cidades');
+        if (Schema::hasColumn('estabelecimentos', 'cidade_id')) {
+            Schema::table('estabelecimentos',function (Blueprint $table){
+                $table->dropForeign('estabelecimentos_cidade_id_foreign');
+                $table->dropColumn('cidade_id');
+            });
+        }
+        if (Schema::hasColumn('estabelecimentos', 'icone_link')) {
+            Schema::table('estabelecimentos',function (Blueprint $table){
+                $table->dropColumn('icone_link');
+            });
+        }
+        if (Schema::hasColumn('estabelecimentos', 'power')) {
+            Schema::table('estabelecimentos',function (Blueprint $table){
+                $table->dropColumn('power');
+            });
+        }
     }
 }

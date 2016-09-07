@@ -4,6 +4,8 @@ namespace CodeDelivery\Providers;
 
 use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\AvaliacaoRepositoryEloquent;
+use CodeDelivery\Repositories\CategoryExtrasRepository;
+use CodeDelivery\Repositories\CategoryExtrasRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
@@ -60,6 +62,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             AvaliacaoRepository::class,
             AvaliacaoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            CategoryExtraRepository::class,
+            CategoryExtraRepositoryEloquent::class
         );
     }
 }

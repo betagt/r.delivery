@@ -17,7 +17,13 @@ class Category extends Model implements Transformable
 
     protected $dates = ['deleted_at'];
 
-    public function products(){
+    public function products()
+    {
         return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
+    public function extras()
+    {
+        return $this->hasMany(CategoryExtras::class, 'category_id', 'id');
     }
 }

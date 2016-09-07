@@ -11,6 +11,7 @@ use CodeDelivery\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = ['extras'];
     /**
      * Transform the \Category entity
      * @param \Category $model
@@ -30,11 +31,11 @@ class CategoryTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeProducts(Category $model)
+    public function includeExtras(Category $model)
     {
-        if (!$model->products) {
+        if (!$model->extras) {
             return null;
         }
-        return $this->collection($model->products, new ProductTransformer());
+        return $this->collection($model->extras, new CategoryExtraTransformer());
     }
 }
