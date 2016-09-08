@@ -26,7 +26,7 @@ class Product extends Model implements Transformable
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function setPriceAttribute($value)
+    /*public function setPriceAttribute($value)
     {
         $this->attributes['price'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
     }
@@ -34,7 +34,7 @@ class Product extends Model implements Transformable
     public function getPriceAttribute()
     {
         return number_format($this->attributes['price'], 2, ",", ".");
-    }
+    }*/
 
     public function estabelecimento()
     {
