@@ -302,7 +302,7 @@ Route::group(['middleware' => 'cors'], function () {
         });
 
         Route::group(['prefix' => 'deliveryman', 'middleware' => 'oauth.checkrole:deliveryman', 'as' => 'deliveryman.', 'namespace' => 'Api\Deliveryman'], function () {
-            Route::group(['prefix' => 'order', 'as' => 'orders.'], function(){
+
                 Route::resource('order', 'DeliverymanCheckoutController', [
                     'except' => [
                         'edit', 'update', 'destroy'
@@ -316,7 +316,6 @@ Route::group(['middleware' => 'cors'], function () {
                     'as' => 'geo',
                     'uses' => 'DeliverymanCheckoutController@geo'
                 ]);
-            });
         });
         Route::get('authenticated', 'Api\UserController@authenticated');
         Route::get('cep/{cep}/json', 'Api\UtilController@cep');
