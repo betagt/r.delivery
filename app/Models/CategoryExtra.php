@@ -25,6 +25,6 @@ class CategoryExtra extends Model implements Transformable
 
     public function products()
     {
-        return $this->hasManyThrough(Product::class, 'product_extras', 'product_id', 'category_extra_id');
+        return $this->hasMany(ProductExtra::class, 'product_id', 'id');
     }
 }

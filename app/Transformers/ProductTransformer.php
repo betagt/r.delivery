@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Transformers;
 
+use CodeDelivery\Models\CategoryExtra;
 use League\Fractal\TransformerAbstract;
 use CodeDelivery\Models\Product;
 
@@ -12,7 +13,7 @@ use CodeDelivery\Models\Product;
 class ProductTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = [ 'estabelecimento', 'category' ];
+    protected $availableIncludes = [ 'estabelecimento', 'category', 'extras' ];
 
     //protected $defaultIncludes = ['category'];
     /**
@@ -30,7 +31,7 @@ class ProductTransformer extends TransformerAbstract
             'name'                  => (string) $model->name,
             'description'           => (string) $model->description,
             'price'                 => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
-            'price_label'                 => (string) $model->price,
+            'price_label'           => (string) $model->price,
             /* place your other model properties here */
 
             'created_at'            => $model->created_at,
@@ -54,5 +55,14 @@ class ProductTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->category, new CategoryTransformer());
+    }
+
+    public function includeExtras(Product $model)
+    {
+        if (!$model->extras)
+        {
+            return null;
+        }
+        return $this->collection($model->extras, new ProductExtraTransformer());
     }
 }
