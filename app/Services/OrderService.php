@@ -78,6 +78,12 @@ class OrderService
                 $order->total = $total - $cupom->value;
             }
             $order->save();
+
+            DB::insert(
+                'INSERT INTO order_delivery_addresses (order_id, user_address_id) VALUES (?, ?)',
+                [ $order->id, $data['user_delivery_id']]
+            );
+
             DB::commit();
             return $order;
         } catch (\Exception $e) {
