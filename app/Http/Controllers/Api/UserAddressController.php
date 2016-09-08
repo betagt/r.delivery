@@ -19,6 +19,14 @@ class UserAddressController extends Controller
         $this->repository = $repository;
     }
 
+    public function index(){
+        $id = Authorizer::getResourceOwnerId();
+        $addresses = $this->repository
+            ->skipPresenter(false)
+            ->findByField('user_id',$id);
+        return $addresses;
+    }
+
     public function store(AdminUserAddressRequest $request)
     {
         $data = $request->all();

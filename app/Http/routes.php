@@ -270,7 +270,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function(){
             Route::resource('address', 'UserAddressController', [
                 'except' => [
-                   'create', 'edit', 'index', 'show',
+                   'create', 'edit', 'show',
                 ]
             ]);
             Route::get('restore/{id}', 'UserAddressController@restore');
