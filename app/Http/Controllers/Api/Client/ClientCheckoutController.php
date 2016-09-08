@@ -88,9 +88,10 @@ class ClientCheckoutController extends Controller
     public function store(CheckoutRequest $request)
     {
         $data = $request->all();
-        $id = Authorizer::getResourceOwnerId();
-        $clientId = $this->userRepository->find($id)->client->id;
-        $data['client_id'] = $clientId;
+//        $id = Authorizer::getResourceOwnerId();
+//        $clientId = $this->userRepository->find($id)->client->id;
+//        $data['client_id'] = $clientId;
+        $data['client_id'] = Authorizer::getResourceOwnerId();
         $o = $this->service->create($data);
         return $this->repository->skipPresenter(false)->with($this->with)->find($o->id);
     }

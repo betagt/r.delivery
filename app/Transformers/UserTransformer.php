@@ -11,7 +11,7 @@ use CodeDelivery\Models\User;
  */
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['client'];
+    protected $defaultIncludes = ['client'];
     /**
      * Transform the \User entity
      * @param \User $model

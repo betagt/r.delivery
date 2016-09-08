@@ -67,7 +67,7 @@ class OrderTransformer extends TransformerAbstract
         if (!$model->client) {
             return null;
         }
-        return $this->item($model->client, new ClientTransformer());
+        return $this->item($model->client, new UserTransformer());
     }
 
     public function includeEstabelecimento(Order $model)
