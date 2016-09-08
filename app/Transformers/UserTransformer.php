@@ -36,6 +36,6 @@ class UserTransformer extends TransformerAbstract
         if(!$model->addresses)
             return null;
 
-        return $this->item($model->addresses, new UserAddressTransformer());
+        return $this->collection($model->addresses, new UserAddressTransformer());
     }
 }
