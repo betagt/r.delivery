@@ -37,7 +37,7 @@ class User extends Model implements Transformable, AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'dica_senha'];
+    protected $fillable = ['name', 'email', 'password', 'dica_senha', 'telefone_fixo', 'telefone_celular'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -45,5 +45,10 @@ class User extends Model implements Transformable, AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class, 'user_id', 'id');
+    }
 
 }

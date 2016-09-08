@@ -10,30 +10,31 @@ namespace CodeDelivery\Services;
 
 
 use CodeDelivery\Repositories\ClientRepository;
+use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserRepository;
 
 class ClientService
 {
     /**
-     * @var ClientRepository
-     */
-    private $clientRepository;
-    /**
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var UserAddressRepository
+     */
+    private $addressRepository;
 
-    public function __construct(ClientRepository $clientRepository, UserRepository $userRepository)
+    public function __construct(UserAddressRepository $addressRepository, UserRepository $userRepository)
     {
-        $this->clientRepository = $clientRepository;
         $this->userRepository = $userRepository;
+        $this->addressRepository = $addressRepository;
     }
 
     public function update(array $data, $id)
     {
-        $this->clientRepository->update($data, $id);
+        $this->addressRepository->update($data, $id);
 
-        $userId = $this->clientRepository->find($id, ['user_id'])->user_id;
+        $userId = $this->addressRepository->find($id, ['user_id'])->user_id;
 
         $this->userRepository->update($data['user'], $userId);
     }
@@ -46,6 +47,6 @@ class ClientService
         $user = $this->userRepository->create($data['user']);
 
         $data['user_id'] = $user->id;
-        return $this->clientRepository->create($data);
+        return $this->addressRepository->create($data);
     }
 }

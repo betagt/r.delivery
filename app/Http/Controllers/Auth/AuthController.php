@@ -48,6 +48,7 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
             'dica_senha' => 'required',
+            'telefone_celular' => 'required',
         ]);
     }
 
@@ -64,6 +65,8 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'dica_senha' => $data['dica_senha'],
+            'telefone_fixo' => $data['telefone_fixo'],
+            'telefone_celular' => $data['telefone_celular'],
         ]);
     }
 }

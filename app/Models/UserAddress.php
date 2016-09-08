@@ -6,17 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Client extends Model implements Transformable
+class UserAddress extends Model implements Transformable
 {
     use TransformableTrait;
 
     protected $fillable = [
-        'user_id',
-        'phone'
-    ];
+		'user_id',
+		'address',
+		'complement',
+        'reference_point',
+		'number',
+		'neighborhood',
+		'city',
+		'state',
+		'zipcode',
+		'status',
+	];
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 }

@@ -266,6 +266,16 @@ Route::group(['middleware' => 'cors'], function () {
 
     Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.' ], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
+
+        Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function(){
+            Route::resource('address', 'UserAddressController', [
+                'except' => [
+                   'create', 'edit', 'index', 'show',
+                ]
+            ]);
+            Route::get('restore/{id}', 'UserAddressController@restore');
+        });
+
         Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client', 'as' => 'client.', 'namespace' => 'Api\Client'], function () {
             Route::resource('order', 'ClientCheckoutController', [
                 'except' => [

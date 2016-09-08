@@ -17,6 +17,8 @@ $factory->define(CodeDelivery\Models\User::class, function (Faker\Generator $fak
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'dica_senha' => $faker->text(),
+        'telefone_celular' => $faker->phoneNumber,
+        'telefone_fixo' => $faker->phoneNumber,
         'remember_token' => str_random(10),
     ];
 });
@@ -93,10 +95,13 @@ $factory->define(\CodeDelivery\Models\Product::class, function (Faker\Generator 
     ];
 });
 
-$factory->define(\CodeDelivery\Models\Client::class, function (Faker\Generator $faker) {
+$factory->define(\CodeDelivery\Models\UserAddress::class, function (Faker\Generator $faker) {
     return [
-        'phone' => $faker->phoneNumber,
         'address' => $faker->address,
+        'complement' => $faker->paragraph,
+        'reference_point' => $faker->paragraph,
+        'neighborhood' => $faker->word,
+        'number' => random_int(1, 200),
         'city' => $faker->city,
         'state' => $faker->state,
         'zipcode' => $faker->postcode,

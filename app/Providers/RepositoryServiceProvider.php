@@ -10,6 +10,8 @@ use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
+use CodeDelivery\Repositories\UserAddressRepository;
+use CodeDelivery\Repositories\UserAddressRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -66,6 +68,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CategoryExtraRepository::class,
             CategoryExtraRepositoryEloquent::class
+        );
+        $this->app->bind(
+            UserAddressRepository::class,
+            UserAddressRepositoryEloquent::class
         );
     }
 }

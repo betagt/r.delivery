@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
             'email' => 'teste@teste.com',
             'password' => bcrypt('0409901'),
             'remember_token' => str_random(10),
-        ])->client()->save(factory(\CodeDelivery\Models\Client::class)->make());
+        ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
 
         // Usuário Diuliano
         factory(\CodeDelivery\Models\User::class)->create([
@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('0409901'),
             'role' => 'admin',
             'remember_token' => str_random(10),
-        ])->client()->save(factory(\CodeDelivery\Models\Client::class)->make());
+        ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
 
         // Usuário Allan
         factory(\CodeDelivery\Models\User::class)->create([
@@ -35,11 +35,11 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('kerberos280104'),
             'role' => 'admin',
             'remember_token' => str_random(10),
-        ])->client()->save(factory(\CodeDelivery\Models\Client::class)->make());
+        ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
 
         // Usuários - Clientes
         factory(\CodeDelivery\Models\User::class, 10)->create()->each(function ($u) {
-            $u->client()->save(factory(\CodeDelivery\Models\Client::class)->make());
+            $u->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
         });
 
         // Usuários - Entregadores

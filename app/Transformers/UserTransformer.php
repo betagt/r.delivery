@@ -11,7 +11,7 @@ use CodeDelivery\Models\User;
  */
 class UserTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['client'];
+    protected $defaultIncludes = [ 'address' ];
     /**
      * Transform the \User entity
      * @param \User $model
@@ -32,10 +32,10 @@ class UserTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeClient(User $model){
-        if(!$model->client)
+    public function includeAddress(User $model){
+        if(!$model->addresses)
             return null;
 
-        return $this->item($model->client, new ClientTransformer());
+        return $this->item($model->addresses, new UserAddressTransformer());
     }
 }

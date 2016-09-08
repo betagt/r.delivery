@@ -7,6 +7,7 @@ use CodeDelivery\Http\Requests\CheckoutRequest;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
+use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
 use CodeDelivery\Http\Controllers\Controller;
@@ -33,6 +34,10 @@ class ClientCheckoutController extends Controller
      * @var OrderAvaliacaoRepository
      */
     private $orderAvalicaoRepository;
+    /**
+     * @var UserAddressRepository
+     */
+    private $userAddressRepository;
 
     public function __construct(
         OrderRepository $repository,
