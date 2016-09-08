@@ -23,6 +23,7 @@ class TestController extends Controller
 
     public function index()
     {
-        return 'teste';
+        $data = DB::select('select * from users where id = :id', ['id' => 1]);
+        return $data[0]->id;
     }
 }

@@ -69,4 +69,9 @@ class Order extends Model implements Transformable
     {
         return $this->hasOne(OrderAvaliacao::class, 'order_id', 'id');
     }
+
+    public function deliveryAddresses()
+    {
+        return $this->hasManyThrough(UserAddress::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
+    }
 }
