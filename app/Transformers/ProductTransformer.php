@@ -13,7 +13,9 @@ use CodeDelivery\Models\Product;
 class ProductTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = [ 'estabelecimento', 'category', 'extras' ];
+    protected $availableIncludes = [ 'estabelecimento', 'category' ];
+
+    protected $defaultIncludes = ['extras'];
 
     //protected $defaultIncludes = ['category'];
     /**

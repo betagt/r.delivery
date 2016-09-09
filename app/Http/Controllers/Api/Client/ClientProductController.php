@@ -22,4 +22,9 @@ class ClientProductController extends Controller
         return $products;
     }
 
+    public function show($id){
+        $products = $this->repository->skipPresenter(false)->find($id);
+        return $products;
+    }
+
 }

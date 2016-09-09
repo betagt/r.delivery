@@ -270,6 +270,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function(){
             Route::resource('address', 'UserAddressController');
             Route::get('restore/{id}', 'UserAddressController@restore');
+            Route::patch('updatefone', 'UserController@updateFone');
         });
 
         Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client', 'as' => 'client.', 'namespace' => 'Api\Client'], function () {
@@ -285,6 +286,10 @@ Route::group(['middleware' => 'cors'], function () {
             Route::get('products', [
                 'as' => 'products.index',
                 'uses' => 'ClientProductController@index'
+            ]);
+            Route::get('product/{id}', [
+                'as' => 'products.index',
+                'uses' => 'ClientProductController@show'
             ]);
             Route::resource('estabelecimentos', 'ClientEstabelecimentoController', [
                 'except' => [

@@ -50,4 +50,12 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $model->save();
         return $this->parserResult($model);
     }
+
+    public function updateFone($id, $telefoneCelular)
+    {
+        $model = $this->model->find($id);
+        $model->telefone_celular = $telefoneCelular;
+        $model->save();
+        return $this->parserResult($model);
+    }
 }

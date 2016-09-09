@@ -31,4 +31,10 @@ class UserController extends Controller
         return $this->repository->updateDeviceToken($id,$deviceToken);
     }
 
+    public function updateFone(Request $request){
+        $id = Authorizer::getResourceOwnerId();
+        $telefoneCelular = $request->get('telefone_celular');
+        return $this->repository->updateFone($id,$telefoneCelular);
+    }
+
 }
