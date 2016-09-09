@@ -23,7 +23,15 @@ class UserAddressController extends Controller
         $id = Authorizer::getResourceOwnerId();
         $addresses = $this->repository
             ->skipPresenter(false)
-            ->findByField('user_id',$id);
+            ->scopeQuery(function ($query) use ($id) {
+                return $query->where('user_id', '=', $id)->where('status', '=', 1);
+            })->all();
+        return $addresses;
+    }
+    public function show($id){
+        $addresses = $this->repository
+            ->skipPresenter(false)
+            ->find($id);
         return $addresses;
     }
 

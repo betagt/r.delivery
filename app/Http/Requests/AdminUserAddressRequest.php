@@ -25,10 +25,10 @@ class AdminUserAddressRequest extends Request
     {
         return [
             'address' => 'required|min:3|max:255',
-            'number' => 'required|min:3|max:255',
+            'number' => 'required|max:255',
             'neighborhood' => 'required|min:3|max:255',
             'city' => 'required|min:3|max:255',
-            'state' => 'required|min:3|max:255',
+            'state' => 'required|min:2|max:255',
             'zipcode' => 'required|min:3|max:255',
         ];
     }

@@ -268,11 +268,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
 
         Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function(){
-            Route::resource('address', 'UserAddressController', [
-                'except' => [
-                   'create', 'edit', 'show',
-                ]
-            ]);
+            Route::resource('address', 'UserAddressController');
             Route::get('restore/{id}', 'UserAddressController@restore');
         });
 

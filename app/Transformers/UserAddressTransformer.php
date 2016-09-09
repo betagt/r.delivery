@@ -24,11 +24,11 @@ class UserAddressTransformer extends TransformerAbstract
             'id'         => (int) $model->id,
             'address'    => (string) $model->address,
             'complement' => (string) $model->complement,
-            'number'     => (string) $model->number,
+            'number'     => (int) $model->number,
             'neighborhood' => (string) $model->neighborhood,
             'city'       => (string) $model->city,
             'state'      => (string) $model->state,
-            'zipcode'    => (string) $model->zipcode,
+            'zipcode'    => (int) $model->zipcode,
 
             /* place your other model properties here */
 
