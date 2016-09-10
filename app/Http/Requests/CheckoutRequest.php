@@ -3,7 +3,8 @@
 namespace CodeDelivery\Http\Requests;
 
 
-use Illuminate\Http\Request;
+
+use Illuminate\Http\Request as NRequest;
 
 class CheckoutRequest extends Request
 {
@@ -22,7 +23,7 @@ class CheckoutRequest extends Request
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules(NRequest $request)
     {
         $rules = [
             'cupom_code' => 'exists:cupoms,code,used,0',
