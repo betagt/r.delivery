@@ -72,6 +72,6 @@ class Order extends Model implements Transformable
 
     public function deliveryAddresses()
     {
-        return $this->hasManyThrough(UserAddress::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
+        return $this->belongsToMany(UserAddress::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
     }
 }

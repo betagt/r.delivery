@@ -30,7 +30,7 @@ class UserAddress extends Model implements Transformable
 
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
+        return $this->belongsToMany(Order::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
     }
 
 }
