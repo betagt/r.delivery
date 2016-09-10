@@ -27,6 +27,7 @@ class CheckoutRequest extends Request
     {
         $rules = [
             'cupom_code' => 'exists:cupoms,code,used,0',
+            'user_address_id' => 'require',
         ];
 
         $this->buildRulesItems(0, $rules);
@@ -50,6 +51,7 @@ class CheckoutRequest extends Request
     {
         $attribute = [
             'cupom_code' => 'Código do Cupom',
+            'user_address_id' => 'Endereço de Entreta',
         ];
         foreach($this->request->get('items') as $key => $val)
         {
