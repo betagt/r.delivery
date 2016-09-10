@@ -12,12 +12,14 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         // Usuário Teste
-        factory(\CodeDelivery\Models\User::class)->create([
-            'name' => 'User',
-            'email' => 'teste@teste.com',
-            'password' => bcrypt('0409901'),
-            'remember_token' => str_random(10),
-        ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+        $user = factory(\CodeDelivery\Models\User::class)->create([
+                'name' => 'User',
+                'email' => 'teste@teste.com',
+                'password' => bcrypt('0409901'),
+                'remember_token' => str_random(10),
+            ]);
+        $user->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+        $user->mensagens()->save(factory(\CodeDelivery\Models\Contato::class)->make());
 
         // Usuário Diuliano
         factory(\CodeDelivery\Models\User::class)->create([
@@ -40,6 +42,7 @@ class UserTableSeeder extends Seeder
         // Usuários - Clientes
         factory(\CodeDelivery\Models\User::class, 10)->create()->each(function ($u) {
             $u->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+            $u->mensagens()->save(factory(\CodeDelivery\Models\Contato::class)->make());
         });
 
         // Usuários - Entregadores

@@ -51,4 +51,9 @@ class User extends Model implements Transformable, AuthenticatableContract,
         return $this->hasMany(UserAddress::class, 'user_id', 'id');
     }
 
+    public function mensagens()
+    {
+        return $this->hasMany(Contato::class, 'user_id', 'id');
+    }
+
 }

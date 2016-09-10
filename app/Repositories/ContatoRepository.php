@@ -5,10 +5,10 @@ namespace CodeDelivery\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface AssuntoContatosRepository
+ * Interface ContatoRepository
  * @package namespace CodeDelivery\Repositories;
  */
-interface AssuntoContatosRepository extends RepositoryInterface
+interface ContatoRepository extends RepositoryInterface
 {
     //
 }

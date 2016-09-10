@@ -6,6 +6,8 @@ use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\AvaliacaoRepositoryEloquent;
 use CodeDelivery\Repositories\CategoryExtrasRepository;
 use CodeDelivery\Repositories\CategoryExtrasRepositoryEloquent;
+use CodeDelivery\Repositories\ContatoRepository;
+use CodeDelivery\Repositories\ContatoRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
@@ -72,6 +74,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             UserAddressRepository::class,
             UserAddressRepositoryEloquent::class
+        );
+        $this->app->bind(
+            ContatoRepository::class,
+            ContatoRepositoryEloquent::class
         );
     }
 }

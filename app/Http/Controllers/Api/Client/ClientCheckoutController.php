@@ -3,7 +3,9 @@
 namespace CodeDelivery\Http\Controllers\Api\Client;
 
 use CodeDelivery\Http\Requests\AdminOrderAvaliacaoRequest;
+use CodeDelivery\Http\Requests\CheckoutContatoRequest;
 use CodeDelivery\Http\Requests\CheckoutRequest;
+use CodeDelivery\Repositories\ContatoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
@@ -38,13 +40,18 @@ class ClientCheckoutController extends Controller
      * @var UserAddressRepository
      */
     private $userAddressRepository;
+    /**
+     * @var ContatoRepository
+     */
+    private $contatoRepository;
 
     public function __construct(
         OrderRepository $repository,
         ProductRepository $productRepository,
         UserRepository $userRepository,
         OrderAvaliacaoRepository $orderAvalicaoRepository,
-        OrderService $service
+        OrderService $service,
+        ContatoRepository $contatoRepository
     )
     {
         $this->repository = $repository;
@@ -52,6 +59,7 @@ class ClientCheckoutController extends Controller
         $this->userRepository = $userRepository;
         $this->orderAvalicaoRepository = $orderAvalicaoRepository;
         $this->service = $service;
+        $this->contatoRepository = $contatoRepository;
     }
 
     /**
@@ -103,6 +111,17 @@ class ClientCheckoutController extends Controller
         $entity = $this->orderAvalicaoRepository->create($request->all());
 
         return $this->repository->skipPresenter(false)->find($entity->id);
+    }
+
+    public function storeContato(CheckoutContatoRequest $request)
+    {
+        $data = $request->all();
+
+        $data['user_id'] = Authorizer::getResourceOwnerId();
+
+        $entity = $this->contatoRepository->create($data);
+
+        return response()->json([ 'mensagem' => $entity->id ]);
     }
 
     public function show($id)

@@ -11,6 +11,7 @@ use CodeDelivery\Models\User;
  */
 class UserTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [ 'mensagens' ];
     protected $defaultIncludes = [ 'address' ];
     /**
      * Transform the \User entity

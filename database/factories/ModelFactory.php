@@ -161,3 +161,10 @@ $factory->define(\CodeDelivery\Models\OauthClient::class, function (Faker\Genera
         'name' => $faker->word,
     ];
 });
+
+$factory->define(\CodeDelivery\Models\Contato::class, function (Faker\Generator $faker) {
+    return [
+        'assunto' => $faker->paragraph,
+        'mensagem' => $faker->text,
+    ];
+});
