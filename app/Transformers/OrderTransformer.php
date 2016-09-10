@@ -31,6 +31,7 @@ class OrderTransformer extends TransformerAbstract
             'total_label' => (string)$model->total,
             'status' => (int)$model->status,
             'product_names' => $this->getArrayProductNames($model->items),
+            'endereco' => $model->deliveryAddresses,
             'hash' => $model->hash,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at,

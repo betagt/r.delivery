@@ -107,6 +107,6 @@ class ClientCheckoutController extends Controller
 
     public function show($id)
     {
-        return $this->repository->skipPresenter(false)->with($this->with)->find($id);
+        return $this->repository->skipPresenter(false)->find($id);
     }
 }
