@@ -91,7 +91,11 @@ class OrderService
             throw $e;
         }
     }
-
+    public function show($id){
+        $order = $this->orderRepository->skipPresenter(false)->find($id);
+        $order['data']['endereco'] = $order['data']['endereco']->first();
+        return $order;
+    }
     public function updateStatus($id,$idDeliveryman,$status){
         $order = $this->orderRepository->getByIdAndDeliveryman($id,$idDeliveryman);
         $order->status = $status;
