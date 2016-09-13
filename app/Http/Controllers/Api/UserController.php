@@ -47,7 +47,7 @@ class UserController extends Controller
 
             $this->repository->update($request->all(), $entity->id);
 
-            return response()->json([ 'data' => $this->repository->skipPresenter(false)->find($id) ]);
+            return $this->repository->skipPresenter(false)->find($id);
 
         } catch (\Exception $ex)
         {
@@ -60,9 +60,7 @@ class UserController extends Controller
         try {
             $user = $this->repository->create($request->all());
 
-            $entity = $this->repository->skipPresenter(false)->find($user->id);
-
-            return response()->json([ 'data' =>  $entity ]);
+            return $this->repository->skipPresenter(false)->find($user->id);
 
         } catch (\Exception $ex)
         {
