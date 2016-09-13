@@ -54,11 +54,6 @@ class User extends Model implements Transformable, AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function setPasswordAttributes($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function addresses()
     {
         return $this->hasMany(UserAddress::class, 'user_id', 'id');

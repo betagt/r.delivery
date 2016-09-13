@@ -45,6 +45,13 @@ class UserController extends Controller
         try {
             $entity = $this->repository->find($id);
 
+            $data = $request->all();
+
+            if (!empty($data['password']))
+            {
+                $data['password'] = bcrypt($data['password']);
+            }
+
             $this->repository->update($request->all(), $entity->id);
 
             return $this->repository->skipPresenter(false)->find($id);
@@ -58,7 +65,11 @@ class UserController extends Controller
     public function storeUser(AdminUserRequest $request)
     {
         try {
-            $user = $this->repository->create($request->all());
+            $data = $request->all();
+
+            $data['password'] = bcrypt($data['password']);
+
+            $user = $this->repository->create($data);
 
             return $this->repository->skipPresenter(false)->find($user->id);
 
