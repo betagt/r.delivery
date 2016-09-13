@@ -47,11 +47,11 @@ class UserController extends Controller
 
             $this->repository->update($request->all(), $entity->id);
 
-            return response()->json([ 'mensagem' => $this->repository->skipPresenter(false)->find($id) ]);
+            return response()->json([ 'data' => $this->repository->skipPresenter(false)->find($id) ]);
 
         } catch (\Exception $ex)
         {
-            return response()->json([ 'error' => $ex->getMessage() ], $ex->getCode());
+            return abort($ex->getCode(), $ex->getMessage());
         }
     }
 
@@ -62,11 +62,11 @@ class UserController extends Controller
 
             $entity = $this->repository->skipPresenter(false)->find($user->id);
 
-            return response()->json([ 'mensagem' =>  $entity ]);
+            return response()->json([ 'data' =>  $entity ]);
 
         } catch (\Exception $ex)
         {
-            return response()->json([ 'error' => $ex->getMessage() ], $ex->getCode());
+            return abort($ex->getCode(), $ex->getMessage());
         }
     }
 
