@@ -23,11 +23,23 @@ class AdminUserRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'data_nascimento' => 'required',
-            'telefone_celular' => 'required'
-        ];
+        if ($this->method() == 'PUT')
+        {
+            $rules = [
+                'name' => 'required|min:3|max:255',
+                'data_nascimento' => 'required',
+                'telefone_celular' => 'required',
+            ];
+        } else {
+            $rules = [
+                'name' => 'required|min:3|max:255',
+                'email' => 'required|email|max:255|unique:usuarios',
+                'data_nascimento' => 'required',
+                'telefone_celular' => 'required',
+                'password' => 'required|min:6|confirmed',
+            ];
+        }
+        return $rules;
     }
 
     public function attributes()
@@ -35,7 +47,9 @@ class AdminUserRequest extends Request
         return [
             'name' => 'Nome',
             'data_nascimento' => 'Data de Nascimento',
-            'telefone_celular' => 'Celular'
+            'email' => 'E-mail',
+            'telefone_celular' => 'Celular',
+            'password' => 'Senha',
         ];
     }
 }

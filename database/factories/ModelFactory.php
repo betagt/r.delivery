@@ -18,7 +18,6 @@ $factory->define(CodeDelivery\Models\User::class, function (Faker\Generator $fak
         'data_nascimento' => $date->format('Y-m-d'),
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
-        'dica_senha' => $faker->text(),
         'telefone_celular' => $faker->phoneNumber,
         'telefone_fixo' => $faker->phoneNumber,
         'remember_token' => str_random(10),

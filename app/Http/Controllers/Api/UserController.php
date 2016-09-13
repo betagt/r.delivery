@@ -55,4 +55,19 @@ class UserController extends Controller
         }
     }
 
+    public function storeUser(AdminUserRequest $request)
+    {
+        try {
+            $user = $this->repository->create($request->all());
+
+            $entity = $this->repository->skipPresenter(false)->find($user->id);
+
+            return response()->json([ 'mensagem' =>  $entity ]);
+
+        } catch (\Exception $ex)
+        {
+            return response()->json([ 'error' => $ex->getMessage() ], $ex->getCode());
+        }
+    }
+
 }

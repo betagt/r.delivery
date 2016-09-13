@@ -43,7 +43,6 @@ class User extends Model implements Transformable, AuthenticatableContract,
         'sexo',
         'email',
         'password',
-        'dica_senha',
         'telefone_fixo',
         'telefone_celular'
     ];
