@@ -17,6 +17,11 @@ class EstabelecimentoRepositoryEloquent extends BaseRepository implements Estabe
 
     protected $skipPresenter = true;
 
+    protected $fieldSearchable = [
+        'endereco.cidade' => 'like',
+        'endereco.estado' => 'like',
+    ];
+
     /**
      * Specify Model class name
      *

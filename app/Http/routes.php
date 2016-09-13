@@ -271,6 +271,10 @@ Route::group(['middleware' => 'cors'], function () {
             Route::resource('address', 'UserAddressController');
             Route::get('restore/{id}', 'UserAddressController@restore');
             Route::patch('updatefone', 'UserController@updateFone');
+            Route::put('update_user', [
+                'as' => 'update_user',
+                'uses' => 'UserController@updateUser'
+            ]);
         });
 
         Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client', 'as' => 'client.', 'namespace' => 'Api\Client'], function () {

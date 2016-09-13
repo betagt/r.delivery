@@ -3,6 +3,7 @@
 namespace CodeDelivery\Http\Controllers\Api;
 
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Http\Requests\AdminUserRequest;
 use CodeDelivery\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
@@ -35,6 +36,23 @@ class UserController extends Controller
         $id = Authorizer::getResourceOwnerId();
         $telefoneCelular = $request->get('telefone_celular');
         return $this->repository->updateFone($id,$telefoneCelular);
+    }
+
+    public function updateUser(AdminUserRequest $request)
+    {
+        $id = Authorizer::getResourceOwnerId();
+
+        try {
+            $entity = $this->repository->find($id);
+
+            $this->repository->update($request->all(), $entity->id);
+
+            return response()->json([ 'mensagem' => $entity->id ]);
+
+        } catch (\Exception $ex)
+        {
+            return response()->json([ 'error' => $ex->getMessage() ], $ex->getCode());
+        }
     }
 
 }

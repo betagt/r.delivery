@@ -3,6 +3,7 @@
 namespace CodeDelivery\Http\Controllers\Api\Client;
 
 use CodeDelivery\Http\Requests\AdminOrderAvaliacaoRequest;
+use CodeDelivery\Http\Requests\AdminUserRequest;
 use CodeDelivery\Http\Requests\CheckoutContatoRequest;
 use CodeDelivery\Http\Requests\CheckoutRequest;
 use CodeDelivery\Repositories\ContatoRepository;
@@ -105,6 +106,8 @@ class ClientCheckoutController extends Controller
         $o = $this->service->create($data);
         return $this->repository->skipPresenter(false)->with($this->with)->find($o->id);
     }
+
+
 
     public function storeAvaliacao(AdminOrderAvaliacaoRequest $request)
     {
