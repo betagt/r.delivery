@@ -52,7 +52,7 @@ class UserController extends Controller
                 $data['password'] = bcrypt($data['password']);
             }
 
-            $this->repository->update($request->all(), $entity->id);
+            $this->repository->update($data, $entity->id);
 
             return $this->repository->skipPresenter(false)->find($id);
 
