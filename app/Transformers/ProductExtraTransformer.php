@@ -13,6 +13,8 @@ class ProductExtraTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [ 'extra' ];
 
+    protected $availableIncludes = [ 'items' ];
+
     /**
      * Transform the \ProductExtra entity
      * @param \ProductExtra $model
@@ -23,11 +25,7 @@ class ProductExtraTransformer extends TransformerAbstract
     {
         return [
             'id'            => (int) $model->id,
-            'price'         => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
-            'price_label'   => (string) $model->price,
-
-            /* place your other model properties here */
-
+            'tipo'         => (int) $model->tipo,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
@@ -40,5 +38,14 @@ class ProductExtraTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->extra, new CategoryExtraTransformer());
+    }
+
+    public function includeItems(ProductExtra $model)
+    {
+        if (!$model->items)
+        {
+            return null;
+        }
+        return $this->collection($model->items, new ProductExtraItemTransformer());
     }
 }

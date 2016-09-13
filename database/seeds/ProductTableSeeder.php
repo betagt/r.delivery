@@ -49,7 +49,7 @@ class ProductTableSeeder extends Seeder
         {
             $id = $l + 1;
             DB::table('product_extras')->insert([
-                ['product_id' => $id, 'category_extra_id' => random_int(1, 30), 'price' => random_int(1, 15)]
+                ['product_id' => $id, 'category_extra_id' => random_int(1, 30), 'tipo' => random_int(1, 2)]
             ]);
         }
     }

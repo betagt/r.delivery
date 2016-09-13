@@ -15,19 +15,9 @@ class ProductExtra extends Model implements Transformable
     protected $fillable = [
 		'product_id',
 		'category_extra_id',
-		'price',
+        'tipo',
 		'status',
 	];
-
-    public function setPriceAttribute($value)
-    {
-        $this->attributes['price'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
-    }
-
-    public function getPriceAttribute()
-    {
-        return number_format($this->attributes['price'], 2, ",", ".");
-    }
 
     public function product()
     {
@@ -36,6 +26,11 @@ class ProductExtra extends Model implements Transformable
 
     public function extra()
     {
-        return $this->belongsTo(CategoryExtra::class, 'category_extra_id');
+        return $this->belongsTo(CategoryExtra::class, 'category_extra_id', 'id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(ProductExtraItem::class, 'product_extra_id', 'id');
     }
 }

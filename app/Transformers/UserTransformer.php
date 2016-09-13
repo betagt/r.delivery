@@ -22,11 +22,12 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $model)
     {
         return [
-            'id'         => (int) $model->id,
-            'name'       => $model->name,
-            'email'       => $model->email,
-            'telefone_celular'       => $model->telefone_celular,
-            'role'       => $model->role,
+            'id'                    => (int) $model->id,
+            'name'                  => (string) $model->name,
+            'data_nascimento'       =>  $model->data_nascimento,
+            'email'                 => $model->email,
+            'telefone_celular'      => $model->telefone_celular,
+            'role'                  => $model->role,
             /* place your other model properties here */
 
             /*'created_at' => $model->created_at,

@@ -12,6 +12,10 @@ use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
+use CodeDelivery\Repositories\ProductExtraItemRepository;
+use CodeDelivery\Repositories\ProductExtraItemRepositoryEloquent;
+use CodeDelivery\Repositories\ProductExtraRepository;
+use CodeDelivery\Repositories\ProductExtraRepositoryEloquent;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserAddressRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
@@ -78,6 +82,14 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ContatoRepository::class,
             ContatoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            ProductExtraRepository::class,
+            ProductExtraRepositoryEloquent::class
+        );
+        $this->app->bind(
+            ProductExtraItemRepository::class,
+            ProductExtraItemRepositoryEloquent::class
         );
     }
 }
