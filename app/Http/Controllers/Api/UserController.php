@@ -47,7 +47,7 @@ class UserController extends Controller
 
             $this->repository->update($request->all(), $entity->id);
 
-            return response()->json([ 'mensagem' => $entity->id ]);
+            return response()->json([ 'mensagem' => $this->repository->skipPresenter(false)->find($id) ]);
 
         } catch (\Exception $ex)
         {
