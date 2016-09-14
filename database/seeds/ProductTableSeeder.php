@@ -26,6 +26,7 @@ class ProductTableSeeder extends Seeder
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
                 'cidade_id' => 1,
+                'power'=>rand(1,2),
             ]);
 
             $e->endereco()->save(factory(\CodeDelivery\Models\EstabelecimentoEndereco::class)->make());
