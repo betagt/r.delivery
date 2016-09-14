@@ -84,7 +84,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
         return $this->item($model->entrega, new EstabelecimentoEntregaTransformer());
     }
 
-    public function includeAvalicaoes(Estabelecimento $model)
+    public function includeAvaliacoes(Estabelecimento $model)
     {
         if (!$model->avaliacoes)
         {

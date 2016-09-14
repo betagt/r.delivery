@@ -25,8 +25,7 @@ class OrderAvaliacaoTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'mensagem'   => (string) $model->mensagem,
-            'nota'   => (int) $model->nota,
-            'status'   => (int) $model->status,
+            'status'     => (int) $model->status,
 
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
