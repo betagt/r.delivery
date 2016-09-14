@@ -22,7 +22,7 @@ class ProductTableSeeder extends Seeder
 
         $estado->cidades()->save($cidade);
 
-        for ($i = 0; $i < 20 ;$i++)
+        for ($i = 0; $i < 9 ;$i++)
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
                 'cidade_id' => 1,
@@ -33,7 +33,7 @@ class ProductTableSeeder extends Seeder
 
             $e->entrega()->save(factory(\CodeDelivery\Models\EstabelecimentoEntrega::class)->make());
 
-            for ($j = 0; $j < 5; $j++)
+            for ($j = 0; $j < 2; $j++)
             {
                 $e->produtos()->save(factory(\CodeDelivery\Models\Product::class)->make([
                     'category_id' => random_int(1, 5)
@@ -46,7 +46,7 @@ class ProductTableSeeder extends Seeder
             }
         }
 
-        for ($l = 0; $l < 20; $l++)
+        for ($l = 0; $l < 10; $l++)
         {
             $id = $l + 1;
             DB::table('product_extras')->insert([
