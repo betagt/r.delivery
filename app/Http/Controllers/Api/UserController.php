@@ -82,8 +82,10 @@ class UserController extends Controller
     public function rememberMe(Request $request)
     {
         $email = $request->get('email');
+
         if (empty($email))
             return abort(403, 'O E-mail é obrigatório');
+
         try
         {
             return $this->repository->skipPresenter(false)->scopeQuery(function ($query) use ($email) {
