@@ -280,6 +280,10 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'store_user',
                 'uses' => 'UserController@storeUser'
             ]);
+            Route::post('remember_me', [
+                'as' => 'remember_me',
+                'uses' => 'UserController@rememberMe'
+            ]);
         });
 
         Route::group(['prefix' => 'client', 'middleware' => 'oauth.checkrole:client', 'as' => 'client.', 'namespace' => 'Api\Client'], function () {
