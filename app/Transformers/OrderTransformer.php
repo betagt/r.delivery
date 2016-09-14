@@ -26,15 +26,16 @@ class OrderTransformer extends TransformerAbstract
     public function transform(Order $model)
     {
         return [
-            'id' => (int)$model->id,
-            'total' => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->total)),
-            'total_label' => (string)$model->total,
-            'status' => (int)$model->status,
-            'product_names' => $this->getArrayProductNames($model->items),
-            'endereco' => $model->deliveryAddresses,
-            'hash' => $model->hash,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at,
+            'id'                => (int)$model->id,
+            'total'             => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->total)),
+            'total_label'       => (string)$model->total,
+            'taxa_entrega'      => (float) $model->taxa_entrega,
+            'status'            => (int)$model->status,
+            'product_names'     => $this->getArrayProductNames($model->items),
+            'endereco'          => $model->deliveryAddresses,
+            'hash'              => $model->hash,
+            'created_at'        => $model->created_at,
+            'updated_at'        => $model->updated_at,
         ];
     }
 

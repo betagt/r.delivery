@@ -17,6 +17,7 @@ class Order extends Model implements Transformable
         'user_deliveryman_id',
         'estabelecimento_id',
         'total',
+        'taxa_entrega',
         'status'
     ];
 
