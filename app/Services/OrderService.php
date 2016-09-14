@@ -71,11 +71,11 @@ class OrderService
             foreach ($items as $item) {
                 $item['price'] = $this->productRepository->find($item['product_id'])->price;
                 $order->items()->create($item);
-                $total = $item['price'] * $item['qtd'];
+                $total += $item['price'] * $item['qtd'];
             }
             $order->total = $total;
             if (isset($cupom)) {
-                $order->total = $total - $cupom->value;
+                $order->total = $data['taxa']+$total - $cupom->value;
             }
             $order->save();
 
@@ -91,11 +91,13 @@ class OrderService
             throw $e;
         }
     }
+
     public function show($id){
         $order = $this->orderRepository->skipPresenter(false)->find($id);
         $order['data']['endereco'] = $order['data']['endereco']->first();
         return $order;
     }
+
     public function updateStatus($id,$idDeliveryman,$status){
         $order = $this->orderRepository->getByIdAndDeliveryman($id,$idDeliveryman);
         $order->status = $status;
