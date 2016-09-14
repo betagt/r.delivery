@@ -15,5 +15,6 @@ class VerifyCsrfToken extends BaseVerifier
         'oauth/access_token',
         'api/*',
         'store_user',
+        'remember_me',
     ];
 }

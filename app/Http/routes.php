@@ -269,6 +269,11 @@ Route::group(['middleware' => 'cors'], function () {
         'uses' => 'Api\UserController@storeUser'
     ]);
 
+    Route::patch('remember_me', [
+        'as' => 'remember_me',
+        'uses' => 'Api\UserController@rememberMe'
+    ]);
+
     Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.' ], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
 
@@ -279,11 +284,6 @@ Route::group(['middleware' => 'cors'], function () {
             Route::put('update_user', [
                 'as' => 'update_user',
                 'uses' => 'UserController@updateUser'
-            ]);
-
-            Route::post('remember_me', [
-                'as' => 'remember_me',
-                'uses' => 'UserController@rememberMe'
             ]);
         });
 
