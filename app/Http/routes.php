@@ -264,6 +264,10 @@ Route::group(['middleware' => 'cors'], function () {
         return Response::json(Authorizer::issueAccessToken());
     });
 
+    Route::post('store_user', [
+        'as' => 'store_user',
+        'uses' => 'UserController@storeUser'
+    ]);
 
     Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.' ], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
@@ -276,10 +280,7 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'update_user',
                 'uses' => 'UserController@updateUser'
             ]);
-            Route::post('store_user', [
-                'as' => 'store_user',
-                'uses' => 'UserController@storeUser'
-            ]);
+
             Route::post('remember_me', [
                 'as' => 'remember_me',
                 'uses' => 'UserController@rememberMe'

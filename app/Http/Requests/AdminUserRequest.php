@@ -29,10 +29,12 @@ class AdminUserRequest extends Request
                 'name' => 'required|min:3|max:255',
                 'data_nascimento' => 'required',
                 'telefone_celular' => 'required',
+                'cpf' => 'required',
             ];
         } else {
             $rules = [
                 'name' => 'required|min:3|max:255',
+                'cpf' => 'required',
                 'email' => 'required|email|max:255|unique:usuarios',
                 'data_nascimento' => 'required',
                 'telefone_celular' => 'required',
@@ -46,6 +48,7 @@ class AdminUserRequest extends Request
     {
         return [
             'name' => 'Nome',
+            'cpf' => 'CPF',
             'data_nascimento' => 'Data de Nascimento',
             'email' => 'E-mail',
             'telefone_celular' => 'Celular',
