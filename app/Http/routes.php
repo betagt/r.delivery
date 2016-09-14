@@ -266,7 +266,7 @@ Route::group(['middleware' => 'cors'], function () {
 
     Route::post('store_user', [
         'as' => 'store_user',
-        'uses' => 'UserController@storeUser'
+        'uses' => 'Api\UserController@storeUser'
     ]);
 
     Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.' ], function () {
