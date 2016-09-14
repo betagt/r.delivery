@@ -24,6 +24,7 @@ class UserTransformer extends TransformerAbstract
         return [
             'id'                    => (int) $model->id,
             'name'                  => (string) $model->name,
+            'cpf'                   => (string) $model->cpf,
             'data_nascimento'       => (string) $model->data_nascimento,
             'sexo'                  => (string) $model->sexo,
             'email'                 => (string) $model->email,

@@ -39,6 +39,7 @@ class User extends Model implements Transformable, AuthenticatableContract,
      */
     protected $fillable = [
         'name',
+        'cpf',
         'data_nascimento',
         'sexo',
         'email',
