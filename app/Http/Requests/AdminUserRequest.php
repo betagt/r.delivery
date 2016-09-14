@@ -35,7 +35,7 @@ class AdminUserRequest extends Request
             $rules = [
                 'name' => 'required|min:3|max:255',
                 'cpf' => 'required',
-                'email' => 'required|email|max:255|unique:usuarios',
+                'email' => 'required|email|max:255|unique:users',
                 'data_nascimento' => 'required',
                 'telefone_celular' => 'required',
                 'password' => 'required|min:6|confirmed',
