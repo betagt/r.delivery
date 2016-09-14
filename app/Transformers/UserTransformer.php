@@ -28,6 +28,7 @@ class UserTransformer extends TransformerAbstract
             'sexo'                  => (string) $model->sexo,
             'email'                 => (string) $model->email,
             'telefone_celular'      => (string) $model->telefone_celular,
+            'telefone_fixo'      => (string) $model->telefone_fixo,
             'role'                  => (string) $model->role,
             /* place your other model properties here */
 
