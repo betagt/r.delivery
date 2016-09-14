@@ -15,6 +15,7 @@ $factory->define(CodeDelivery\Models\User::class, function (Faker\Generator $fak
     $date = new \DateTime('now');
     return [
         'name' => $faker->name,
+        'cpf' => $faker->word,
         'data_nascimento' => $date->format('Y-m-d'),
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
