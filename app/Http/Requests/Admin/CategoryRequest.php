@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeDelivery\Http\Requests;
+namespace CodeDelivery\Http\Requests\Admin;
 
 use CodeDelivery\Http\Requests\Request;
 
-class AdminCategoryRequest extends Request
+class CategoryRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

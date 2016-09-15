@@ -48,11 +48,6 @@ class Estabelecimento extends Model implements Transformable
         return $this->hasOne(EstabelecimentoEntrega::class, 'estabelecimento_id', 'id');
     }
 
-    public function avaliacoes()
-    {
-        return $this->hasMany(EstabelecimentoAvaliacao::class, 'estabelecimento_id', 'id');
-    }
-
     public function funcionamentos()
     {
         return $this->hasMany(EstabelecimentoFuncionamento::class, 'estabelecimento_id', 'id');

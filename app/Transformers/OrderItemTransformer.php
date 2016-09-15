@@ -23,12 +23,12 @@ class OrderItemTransformer extends TransformerAbstract
     public function transform(OrderItem $model)
     {
         return [
-            'id'         => (int) $model->id,
-            'product_id' => (int) $model->product_id,
-            'qtd'        => (int) $model->qtd,
+            'id'                => (int) $model->id,
+            'product_id'        => (int) $model->product_id,
+            'qtd'               => (int) $model->qtd,
             'taxa_entrega'      => (float) $model->taxa_entrega,
-            'price'      => (float) $model->price,
-            'price_label'      => (string)str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
+            'price'             => (float) $model->price,
+            'price_label'       => (string)str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
             /* place your other model properties here */
 
             'created_at' => $model->created_at,

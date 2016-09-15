@@ -25,40 +25,161 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
         'as' => 'home',
         'uses' => 'DashboardController@index'
     ]);
-    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+    Route::group(['prefix' => 'avaliacoes', 'as' => 'avaliacoes.'], function () {
         Route::get('', [
             'as' => 'index',
-            'uses' => 'CategoriesController@index'
+            'uses' => 'Admin\AvaliacoesController@index'
         ]);
         Route::get('create', [
             'as' => 'create',
-            'uses' => 'CategoriesController@create'
+            'uses' => 'Admin\AvaliacoesController@create'
+        ]);
+        Route::get('print/{id}', [
+            'as' => 'print',
+            'uses' => 'Admin\AvaliacoesController@printReport'
         ]);
         Route::get('show/{id}', [
             'as' => 'show',
-            'uses' => 'CategoriesController@show'
+            'uses' => 'Admin\AvaliacoesController@show'
         ]);
         Route::get('edit/{id}', [
             'as' => 'edit',
-            'uses' => 'CategoriesController@edit'
+            'uses' => 'Admin\AvaliacoesController@edit'
         ]);
         Route::post('store', [
             'as' => 'store',
-            'uses' => 'CategoriesController@store'
+            'uses' => 'Admin\AvaliacoesController@store'
         ]);
         Route::post('update/{id}', [
             'as' => 'update',
-            'uses' => 'CategoriesController@update'
+            'uses' => 'Admin\AvaliacoesController@update'
         ]);
         Route::get('destroy/{id}', [
             'as' => 'destroy',
-            'uses' => 'CategoriesController@destroy'
+            'uses' => 'Admin\AvaliacoesController@destroy'
         ]);
         Route::post('destroy', [
             'as' => 'destroySelected',
-            'uses' => 'CategoriesController@destroySelected'
+            'uses' => 'Admin\AvaliacoesController@destroySelected'
         ]);
     });
+    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {
+        Route::get('', [
+            'as' => 'index',
+            'uses' => 'Admin\CategoriesController@index'
+        ]);
+        Route::get('create', [
+            'as' => 'create',
+            'uses' => 'Admin\CategoriesController@create'
+        ]);
+        Route::get('show/{id}', [
+            'as' => 'show',
+            'uses' => 'Admin\CategoriesController@show'
+        ]);
+        Route::get('print/{id}', [
+            'as' => 'print',
+            'uses' => 'Admin\CategoriesController@printReport'
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'edit',
+            'uses' => 'Admin\CategoriesController@edit'
+        ]);
+        Route::post('store', [
+            'as' => 'store',
+            'uses' => 'Admin\CategoriesController@store'
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'update',
+            'uses' => 'Admin\CategoriesController@update'
+        ]);
+        Route::get('destroy/{id}', [
+            'as' => 'destroy',
+            'uses' => 'Admin\CategoriesController@destroy'
+        ]);
+        Route::post('destroy', [
+            'as' => 'destroySelected',
+            'uses' => 'Admin\CategoriesController@destroySelected'
+        ]);
+
+        Route::group(['prefix' => 'extras/', 'as' => 'extras.'], function () {
+            Route::get('', [
+                'as' => 'index',
+                'uses' => 'Admin\CatergoryExtrasController@index'
+            ]);
+            Route::get('create', [
+                'as' => '{fk}/create',
+                'uses' => 'Admin\CatergoryExtrasController@create'
+            ]);
+            Route::get('{fk}/show/{id}', [
+                'as' => 'show',
+                'uses' => 'Admin\CatergoryExtrasController@show'
+            ]);
+            Route::get('{fk}/print/{id}', [
+                'as' => 'show',
+                'uses' => 'Admin\CatergoryExtrasController@printReport'
+            ]);
+            Route::get('{fk}/edit/{id}', [
+                'as' => 'edit',
+                'uses' => 'Admin\CatergoryExtrasController@edit'
+            ]);
+            Route::post('{fk}/store', [
+                'as' => 'store',
+                'uses' => 'Admin\CatergoryExtrasController@store'
+            ]);
+            Route::post('update/{id}', [
+                'as' => 'update',
+                'uses' => 'Admin\CatergoryExtrasController@update'
+            ]);
+            Route::get('{fk}/destroy/{id}', [
+                'as' => 'destroy',
+                'uses' => 'Admin\CatergoryExtrasController@destroy'
+            ]);
+            Route::post('{fk}/destroy', [
+                'as' => 'destroySelected',
+                'uses' => 'Admin\CatergoryExtrasController@destroySelected'
+            ]);
+        });
+    });
+    Route::group(['prefix' => 'estados', 'as' => 'estados.'], function () {
+        Route::get('', [
+            'as' => 'index',
+            'uses' => 'Admin\EstadosController@index'
+        ]);
+        Route::get('create', [
+            'as' => 'create',
+            'uses' => 'Admin\EstadosController@create'
+        ]);
+        Route::get('print/{id}', [
+            'as' => 'print',
+            'uses' => 'Admin\EstadosController@printReport'
+        ]);
+        Route::get('show/{id}', [
+            'as' => 'show',
+            'uses' => 'Admin\EstadosController@show'
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'edit',
+            'uses' => 'Admin\EstadosController@edit'
+        ]);
+        Route::post('store', [
+            'as' => 'store',
+            'uses' => 'Admin\EstadosController@store'
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'update',
+            'uses' => 'Admin\EstadosController@update'
+        ]);
+        Route::get('destroy/{id}', [
+            'as' => 'destroy',
+            'uses' => 'Admin\EstadosController@destroy'
+        ]);
+        Route::post('destroy', [
+            'as' => 'destroySelected',
+            'uses' => 'Admin\EstadosController@destroySelected'
+        ]);
+    });
+    
+
 
     Route::group(['prefix' => 'clients', 'as' => 'clients.'], function () {
         Route::get('', [
@@ -90,7 +211,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
             'uses' => 'ClientsController@update'
         ]);
     });
-
     Route::group(['prefix' => 'estabelecimentos', 'as' => 'estabelecimentos.'], function () {
         Route::get('', [
             'as' => 'index',
@@ -155,7 +275,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
             ]);
         });
     });
-
     Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
         Route::get('', [
             'as' => 'index',
@@ -182,7 +301,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
             'uses' => 'OrdersController@destroy'
         ]);
     });
-
     Route::group(['prefix' => 'cupons', 'as' => 'cupons.'], function () {
         Route::get('', [
             'as' => 'index',

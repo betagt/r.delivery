@@ -6,6 +6,8 @@ use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\AvaliacaoRepositoryEloquent;
 use CodeDelivery\Repositories\CategoryExtrasRepository;
 use CodeDelivery\Repositories\CategoryExtrasRepositoryEloquent;
+use CodeDelivery\Repositories\CategoryRepository;
+use CodeDelivery\Repositories\CategoryRepositoryEloquent;
 use CodeDelivery\Repositories\ContatoRepository;
 use CodeDelivery\Repositories\ContatoRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
@@ -32,8 +34,12 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'CodeDelivery\Repositories\CategoryRepository',
-            'CodeDelivery\Repositories\CategoryRepositoryEloquent'
+            AvaliacaoRepository::class,
+            AvaliacaoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            CategoryRepository::class,
+            CategoryRepositoryEloquent::class
         );
         $this->app->bind(
             'CodeDelivery\Repositories\ClientRepository',
@@ -66,10 +72,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             OrderAvaliacaoRepository::class,
             OrderAvaliacaoRepositoryEloquent::class
-        );
-        $this->app->bind(
-            AvaliacaoRepository::class,
-            AvaliacaoRepositoryEloquent::class
         );
         $this->app->bind(
             CategoryExtraRepository::class,
