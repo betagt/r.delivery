@@ -26,8 +26,9 @@ class OrderItemTransformer extends TransformerAbstract
             'id'         => (int) $model->id,
             'product_id' => (int) $model->product_id,
             'qtd'        => (int) $model->qtd,
-            'price'      => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
-            'price_label'      => (string)$model->price,
+            'taxa_entrega'      => (float) $model->taxa_entrega,
+            'price'      => (float) $model->price,
+            'price_label'      => (string)str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
             /* place your other model properties here */
 
             'created_at' => $model->created_at,
