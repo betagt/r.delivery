@@ -30,7 +30,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
             'telefone'   => (string) $model->telefone,
             'status'     => (int) $model->status,
             'power'      => (int) $model->power,
-            'label_power'      => (string) $this->returnPower($model->power),
+            'label_power'=> (string) $this->returnPower($model->power),
 
             /* place your other model properties here */
 

@@ -25,7 +25,8 @@ class CheckoutContatoRequest extends Request
     {
         return [
             'assunto' => 'required|min:3|max:200',
-            'mensagem' => 'required|min:3|max:500'
+            'mensagem' => 'required|min:3|max:500',
+            'telefone' => 'required'
         ];
     }
 
@@ -33,7 +34,8 @@ class CheckoutContatoRequest extends Request
     {
         return [
             'assunto' => 'Assunto',
-            'mensagem' => 'Mensagem'
+            'mensagem' => 'Mensagem',
+            'telefone' => 'Telefone',
         ];
     }
 }

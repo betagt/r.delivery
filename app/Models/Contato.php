@@ -14,6 +14,7 @@ class Contato extends Model implements Transformable
 		'user_id',
 		'assunto',
 		'mensagem',
+        'telefone',
 		'status',
 	];
 
