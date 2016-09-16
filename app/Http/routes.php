@@ -435,6 +435,10 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'estabelecimentos.categories',
                 'uses' => 'ClientEstabelecimentoController@returnCategoriesAndProductsByEstabelecimento'
             ]);
+            Route::get('estabelecimentos/{id}/avaliacoes', [
+                'as' => 'estabelecimentos.avaliacoes',
+                'uses' => 'ClientEstabelecimentoController@returnAvaliacoesByEstabelecimento'
+            ]);
         });
 
         Route::group(['prefix' => 'deliveryman', 'middleware' => 'oauth.checkrole:deliveryman', 'as' => 'deliveryman.', 'namespace' => 'Api\Deliveryman'], function () {
