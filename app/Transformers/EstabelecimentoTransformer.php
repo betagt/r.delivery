@@ -188,7 +188,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
     {
         $avaliacoes = DB::table('order_avaliacao_item')
             ->join('orders_avaliacoes', 'order_avaliacao_item.order_avaliacao_id', '=', 'orders_avaliacoes.id')
-            ->join('orders', 'orders_avaliacoes.order_id', '=', 'order_id.id')
+            ->join('orders', 'orders_avaliacoes.order_id', '=', 'orders.id')
             ->select('order_avaliacao_item.nota')
             ->where('orders.estabelecimento_id', $id)
             ->get();
