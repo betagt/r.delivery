@@ -31,4 +31,8 @@ class TestController extends Controller
         $data = DB::select('select * from users where id = :id', ['id' => 1]);
         return $data[0]->id;
     }
+
+
+
+
 }
