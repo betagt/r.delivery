@@ -90,14 +90,15 @@ class ClientEstabelecimentoController extends Controller
         $result = [];
 
         foreach ($data as $item) {
+
             $user = $this->getUser($item->order_id);
 
-            $result[] = [
-                'mensagem' => $item->mensagem,
-                'cliente' => $user->name,
-                'created_at' => $item->created_at,
-                'nota' => $this->getNota($item->id)
-            ];
+                $result[] = [
+                    'mensagem' => $item->mensagem,
+                    'cliente' => $user->name,
+                    'created_at' => $item->created_at,
+                    'nota' => $this->getNota($item->id)
+                ];
         }
 
         return [ 'data' => $result ];
@@ -106,7 +107,7 @@ class ClientEstabelecimentoController extends Controller
     public function getUser($orderId)
     {
         $user = DB::table('users')
-            ->join('orders', 'users.id', '=', 'orders.id')
+            ->join('orders', 'users.id', '=', 'orders.client_id')
             ->select('users.*')
             ->where('orders.id', $orderId)
             ->first();
