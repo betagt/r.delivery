@@ -12,6 +12,7 @@ use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserRepository;
+use CodeDelivery\Services\AvaliacoesService;
 use CodeDelivery\Services\OrderService;
 use CodeDelivery\Http\Controllers\Controller;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
@@ -45,6 +46,10 @@ class ClientCheckoutController extends Controller
      * @var ContatoRepository
      */
     private $contatoRepository;
+    /**
+     * @var AvaliacoesService
+     */
+    private $avaliacoesService;
 
     public function __construct(
         OrderRepository $repository,
@@ -52,7 +57,8 @@ class ClientCheckoutController extends Controller
         UserRepository $userRepository,
         OrderAvaliacaoRepository $orderAvalicaoRepository,
         OrderService $service,
-        ContatoRepository $contatoRepository
+        ContatoRepository $contatoRepository,
+        AvaliacoesService $avaliacoesService
     )
     {
         $this->repository = $repository;
@@ -61,6 +67,7 @@ class ClientCheckoutController extends Controller
         $this->orderAvalicaoRepository = $orderAvalicaoRepository;
         $this->service = $service;
         $this->contatoRepository = $contatoRepository;
+        $this->avaliacoesService = $avaliacoesService;
     }
 
     /**
@@ -109,11 +116,9 @@ class ClientCheckoutController extends Controller
 
 
 
-    public function storeAvaliacao(AdminOrderAvaliacaoRequest $request)
+    public function storeAvaliacao(AdminOrderAvaliacaoRequest $request, $id)
     {
-        $entity = $this->orderAvalicaoRepository->create($request->all());
-
-        return $this->repository->skipPresenter(false)->find($entity->id);
+        return $this->avaliacoesService->store($request, $id);
     }
 
     public function storeContato(CheckoutContatoRequest $request)

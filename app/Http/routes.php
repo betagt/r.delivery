@@ -410,7 +410,7 @@ Route::group(['middleware' => 'cors'], function () {
                     'create', 'edit', 'update', 'destroy'
                 ]
             ]);
-            Route::post('store_avaliacao', [
+            Route::post('{id}/store_avaliacao', [
                 'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
             ]);

@@ -2,10 +2,52 @@
 
 namespace CodeDelivery\Services;
 
+use CodeDelivery\Repositories\OrderAvaliacaoRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AvaliacoesService
 {
+    /**
+     * @var OrderAvaliacaoRepository
+     */
+    private $repository;
+
+    public function __construct(OrderAvaliacaoRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function store(Request $request, $id)
+    {
+        $data = $request->all();
+
+        DB::beginTransaction();
+        try {
+            $data['status'] = 0;
+            $data['order_id'] = $id;
+            $items = $data['items'];
+
+            $entity = $this->repository->create($data);
+
+            foreach ($items as $item) {
+                DB::insert(
+                    'INSERT INTO order_delivery_addresses (avaliacao_id, order_avaliacao_id, nota) VALUES (?, ?)',
+                    [ $item['avaliacao_id'], $entity->id, $item['nota']]
+                );
+            }
+
+            DB::commit();
+
+            unset($data);
+
+            return $this->repository->skipPresenter(false)->find($entity->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+    
     public function returnAvaliacoesByEstabelecimento($id)
     {
         $data = DB::table('orders_avaliacoes')
