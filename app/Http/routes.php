@@ -439,7 +439,7 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'estabelecimentos.avaliacoes',
                 'uses' => 'ClientEstabelecimentoController@returnAvaliacoesByEstabelecimento'
             ]);
-            Route::get('estabelecimentos/{id}/Avaliacoes/Items', [
+            Route::get('estabelecimentos/{id}/avaliacoes/items', [
                 'as' => 'estabelecimentos.avaliacoes.items',
                'uses' => 'ClientEstabelecimentoController@returnAvaliacoesItemsByEstabelecimento'
             ]);
