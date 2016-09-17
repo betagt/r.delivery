@@ -68,14 +68,14 @@ class AvaliacoesService
         return $result/$i;
     }
 
-    public function getAvaliacoes($idEstabelecimento)
+    public function returnItemsAvaliadosByEstabelecimento($id)
     {
         $avaliacoes = $this->repository->findWhere(['status' => 1])->all();
 
         $result = [];
         foreach ($avaliacoes as $item) {
             $result[] = [
-                'nota' => $this->getMedia($idEstabelecimento, $item->id),
+                'nota' => $this->getMedia($id, $item->id),
                 'questao' => $item->questao,
             ];
         }
