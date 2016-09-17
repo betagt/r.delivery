@@ -81,7 +81,7 @@ class AvaliacoesService
     public function getUser($orderId)
     {
         $user = DB::table('users')
-            ->join('orders', 'users.id', '=', 'orders.id')
+            ->join('orders', 'users.id', '=', 'orders.client_id')
             ->select('users.*')
             ->where('orders.id', $orderId)
             ->first();
