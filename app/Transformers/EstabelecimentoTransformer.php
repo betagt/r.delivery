@@ -121,8 +121,6 @@ class EstabelecimentoTransformer extends TransformerAbstract
         return $this->collection($model->cozinhas, new CozinhaTransformer());
     }
 
-
-
     public function getNotaFinal($id)
     {
         $avaliacoes = DB::table('order_avaliacao_item')

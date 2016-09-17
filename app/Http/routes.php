@@ -178,7 +178,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
             'uses' => 'Admin\EstadosController@destroySelected'
         ]);
     });
-    
+
 
     Route::group(['prefix' => 'clients', 'as' => 'clients.'], function () {
         Route::get('', [
@@ -391,10 +391,10 @@ Route::group(['middleware' => 'cors'], function () {
         'uses' => 'Api\UserController@rememberMe'
     ]);
 
-    Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.' ], function () {
+    Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
 
-        Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function(){
+        Route::group(['prefix' => 'users', 'as' => 'users.', 'namespace' => 'Api'], function () {
             Route::resource('address', 'UserAddressController');
             Route::get('restore/{id}', 'UserAddressController@restore');
             Route::patch('updatefone', 'UserController@updateFone');
@@ -411,11 +411,11 @@ Route::group(['middleware' => 'cors'], function () {
                 ]
             ]);
             Route::post('store_avaliacao', [
-                'as'   => 'store_avaliacao',
+                'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
             ]);
             Route::post('store_contato', [
-                'as'   => 'store_contato',
+                'as' => 'store_contato',
                 'uses' => 'ClientCheckoutController@storeContato'
             ]);
             Route::get('products', [
@@ -442,20 +442,19 @@ Route::group(['middleware' => 'cors'], function () {
         });
 
         Route::group(['prefix' => 'deliveryman', 'middleware' => 'oauth.checkrole:deliveryman', 'as' => 'deliveryman.', 'namespace' => 'Api\Deliveryman'], function () {
-
-                Route::resource('order', 'DeliverymanCheckoutController', [
-                    'except' => [
-                        'edit', 'update', 'destroy'
-                    ]
-                ]);
-                Route::patch('order/{id}/update-status', [
-                    'uses' => 'DeliverymanCheckoutController@updateStatus',
-                    'as' => 'update_status'
-                ]);
-                Route::post('/order/{id}/geo', [
-                    'as' => 'geo',
-                    'uses' => 'DeliverymanCheckoutController@geo'
-                ]);
+            Route::resource('order', 'DeliverymanCheckoutController', [
+                'except' => [
+                    'edit', 'update', 'destroy'
+                ]
+            ]);
+            Route::patch('order/{id}/update-status', [
+                'uses' => 'DeliverymanCheckoutController@updateStatus',
+                'as' => 'update_status'
+            ]);
+            Route::post('/order/{id}/geo', [
+                'as' => 'geo',
+                'uses' => 'DeliverymanCheckoutController@geo'
+            ]);
         });
         Route::get('authenticated', 'Api\UserController@authenticated');
         Route::get('cep/{cep}/json', 'Api\UtilController@cep');
