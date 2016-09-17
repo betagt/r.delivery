@@ -31,6 +31,7 @@ class OrderTransformer extends TransformerAbstract
             'total_label'       => (string)$model->total,
             'taxa_entrega'      => (float) $model->taxa_entrega,
             'status'            => (int)$model->status,
+            'count_avaliacao'   => ($model->avaliacao)?(int) $model->avaliacao->where('order_id', $model->id)->count():0,
             'product_names'     => $this->getArrayProductNames($model->items),
             'endereco'          => $model->deliveryAddresses,
             'hash'              => $model->hash,

@@ -112,12 +112,19 @@ class AvaliacoesService
 
     public function returnItemsAvaliadosByEstabelecimento($id)
     {
-        $avaliacoes = $this->repository->findWhere(['status' => 1])->all();
-
+        $avaliacoes = DB::table('orders')
+            ->join('orders_avaliacoes', 'orders.id', '=', 'orders_avaliacoes.order_id')
+            ->join('order_avaliacao_item', 'orders_avaliacoes.id', '=', 'order_avaliacao_item.order_avaliacao_id')
+            ->join('avaliacoes', 'order_avaliacao_item.avaliacao_id', '=', 'avaliacoes.id')
+            ->select('avaliacoes.*',DB::raw('CEIL(SUM(order_avaliacao_item.nota)/COUNT(order_avaliacao_item.avaliacao_id)) as media'))
+            ->where('orders.estabelecimento_id', $id)
+            ->where('avaliacoes.status', 1)
+            ->groupBy('avaliacoes.id')
+            ->get();
         $result = [];
         foreach ($avaliacoes as $item) {
             $result[] = [
-                'nota' => $this->getMedia($id, $item->id),
+                'nota' => $item->media,
                 'questao' => $item->questao,
             ];
         }
