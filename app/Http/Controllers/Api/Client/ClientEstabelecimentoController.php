@@ -81,6 +81,11 @@ class ClientEstabelecimentoController extends Controller
         return response()->json($this->service->returnAvaliacoesByEstabelecimento($id));
     }
 
+    public function returnItemsAvaliadosByOrder($id)
+    {
+        return response()->json($this->service->returnItemsAvaliadosByOrder($id));
+    }
+
     public function returnAvaliacoesItemsByEstabelecimento($id)
     {
         return response()->json($this->service->returnItemsAvaliadosByEstabelecimento($id));
