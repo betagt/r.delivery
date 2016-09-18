@@ -24,15 +24,15 @@ class AvaliacoesService
 
         DB::beginTransaction();
         try {
-            $data['status'] = 0;
+            $data['status'] = 1;
             $data['order_id'] = $id;
             $items = $data['items'];
-
+            unset($data['items']);
             $entity = $this->repository->create($data);
 
             foreach ($items as $item) {
                 DB::insert(
-                    'INSERT INTO order_delivery_addresses (avaliacao_id, order_avaliacao_id, nota) VALUES (?, ?)',
+                    'INSERT INTO order_avaliacao_item (avaliacao_id, order_avaliacao_id, nota) VALUES (?, ?, ?)',
                     [ $item['avaliacao_id'], $entity->id, $item['nota']]
                 );
             }

@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Repositories;
 
+use CodeDelivery\Presenters\AvaliacaoPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeDelivery\Models\Avaliacao;
@@ -13,6 +14,7 @@ use CodeDelivery\Validators\AvaliacaoValidator;
  */
 class AvaliacaoRepositoryEloquent extends BaseRepository implements AvaliacaoRepository
 {
+    protected $skipPresenter = true;
 
     protected $fieldSearchable = [
         'questao' => 'like'
@@ -35,5 +37,10 @@ class AvaliacaoRepositoryEloquent extends BaseRepository implements AvaliacaoRep
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return AvaliacaoPresenter::class;
     }
 }

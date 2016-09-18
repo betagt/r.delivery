@@ -23,10 +23,7 @@ class AdminOrderAvaliacaoRequest extends Request
      */
     public function rules(NRequest $request)
     {
-        $rules = [
-            'order_id' => 'required',
-            'mensagem' => 'require',
-        ];
+        $rules = [];
 
         $this->buildRulesItems(0, $rules);
 

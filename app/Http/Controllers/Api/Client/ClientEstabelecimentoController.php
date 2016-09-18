@@ -3,6 +3,8 @@
 namespace CodeDelivery\Http\Controllers\Api\Client;
 
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Models\Avaliacao;
+use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Services\AvaliacoesService;
@@ -27,17 +29,23 @@ class ClientEstabelecimentoController extends Controller
      * @var EstabelecimentoService
      */
     private $estabelecimentoService;
+    /**
+     * @var Avaliacao
+     */
+    private $avaliacaoRepository;
 
     public function __construct(EstabelecimentoRepository $repository,
                                 ProductRepository $productRepository,
                                 AvaliacoesService $service,
-                                EstabelecimentoService $estabelecimentoService
+                                EstabelecimentoService $estabelecimentoService,
+                                AvaliacaoRepository $avaliacaoRepository
     )
     {
         $this->repository = $repository;
         $this->productRepository = $productRepository;
         $this->service = $service;
         $this->estabelecimentoService = $estabelecimentoService;
+        $this->avaliacaoRepository = $avaliacaoRepository;
     }
 
     /**
@@ -55,6 +63,12 @@ class ClientEstabelecimentoController extends Controller
     public function show($id)
     {
         return $this->repository->skipPresenter(false)->find($id);
+    }
+
+    public function questoes(){
+      return $this->avaliacaoRepository->skipPresenter(false)->scopeQuery(function ($query) {
+          return $query->where('status', '=', 1);
+      })->all();
     }
 
     public function returnCategoriesAndProductsByEstabelecimento($id)
