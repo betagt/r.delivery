@@ -45,4 +45,9 @@ class Product extends Model implements Transformable
     {
         return $this->hasMany(ProductExtra::class, 'product_id', 'id');
     }
+
+    public function porcoes()
+    {
+        return $this->hasMany(PorcaoCategoryProduct::class, 'product_id', 'id');
+    }
 }

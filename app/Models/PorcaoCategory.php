@@ -21,4 +21,9 @@ class PorcaoCategory extends Model implements Transformable
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function porcoes()
+    {
+        return $this->hasMany(PorcaoCategoryProduct::class, 'porcao_category_id', 'id');
+    }
+
 }
