@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Repositories;
 
+use CodeDelivery\Presenters\CidadePresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeDelivery\Repositories\CidadeRepository;
@@ -32,8 +33,11 @@ class CidadeRepositoryEloquent extends BaseRepository implements CidadeRepositor
         return Cidade::class;
     }
 
-    
 
+    public function presenter()
+    {
+        return CidadePresenter::class;
+    }
     /**
      * Boot up the repository, pushing criteria
      */

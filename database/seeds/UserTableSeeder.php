@@ -29,6 +29,13 @@ class UserTableSeeder extends Seeder
             'role' => 'admin',
             'remember_token' => str_random(10),
         ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+        factory(\CodeDelivery\Models\User::class)->create([
+            'name' => 'Admin',
+            'email' => 'guest@betagt.com.br',
+            'password' => bcrypt('guest'),
+            'role' => 'guest',
+            'remember_token' => str_random(10),
+        ])->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
 
         // Usuário Allan
         factory(\CodeDelivery\Models\User::class)->create([

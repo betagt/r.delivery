@@ -381,15 +381,9 @@ Route::group(['middleware' => 'cors'], function () {
         return Response::json(Authorizer::issueAccessToken());
     });
 
-    Route::post('store_user', [
-        'as' => 'store_user',
-        'uses' => 'Api\UserController@storeUser'
-    ]);
 
-    Route::patch('remember_me', [
-        'as' => 'remember_me',
-        'uses' => 'Api\UserController@rememberMe'
-    ]);
+
+    Route::get('cep/{cep}/json', 'Api\UtilController@cep');
 
     Route::group(['prefix' => 'api', 'middleware' => 'oauth', 'as' => 'api.'], function () {
         Route::patch('device_token', 'Api\UserController@updateDeviceToken');
@@ -414,10 +408,6 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
             ]);
-            Route::post('store_contato', [
-                'as' => 'store_contato',
-                'uses' => 'ClientCheckoutController@storeContato'
-            ]);
             Route::get('products', [
                 'as' => 'products.index',
                 'uses' => 'ClientProductController@index'
@@ -426,31 +416,11 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'products.index',
                 'uses' => 'ClientProductController@show'
             ]);
-            Route::resource('estabelecimentos', 'ClientEstabelecimentoController', [
-                'except' => [
-                    'edit', 'update', 'destroy'
-                ]
-            ]);
-            Route::get('estabelecimentos/{id}/categories', [
-                'as' => 'estabelecimentos.categories',
-                'uses' => 'ClientEstabelecimentoController@returnCategoriesAndProductsByEstabelecimento'
-            ]);
-            Route::get('questoes', [
-                'as' => 'avalicaoes.questoes',
-                'uses' => 'ClientEstabelecimentoController@questoes'
-            ]);
-            Route::get('estabelecimentos/{id}/avaliacoes', [
-                'as' => 'estabelecimentos.avaliacoes',
-                'uses' => 'ClientEstabelecimentoController@returnAvaliacoesByEstabelecimento'
-            ]);
-            Route::get('estabelecimentos/{id}/avaliacoes/items', [
-                'as' => 'estabelecimentos.avaliacoes.items',
-               'uses' => 'ClientEstabelecimentoController@returnAvaliacoesItemsByEstabelecimento'
-            ]);
             Route::get('estabelecimentos/{id}/avaliacoes/order', [
                 'as' => 'estabelecimentos.avaliacoes.items',
-               'uses' => 'ClientEstabelecimentoController@returnItemsAvaliadosByOrder'
+                'uses' => 'ClientEstabelecimentoController@returnItemsAvaliadosByOrder'
             ]);
+
         });
 
         Route::group(['prefix' => 'deliveryman', 'middleware' => 'oauth.checkrole:deliveryman', 'as' => 'deliveryman.', 'namespace' => 'Api\Deliveryman'], function () {
@@ -468,6 +438,43 @@ Route::group(['middleware' => 'cors'], function () {
                 'uses' => 'DeliverymanCheckoutController@geo'
             ]);
         });
+
+        Route::post('store_user', [
+            'as' => 'store_user',
+            'uses' => 'Api\UserController@storeUser'
+        ]);
+
+        Route::patch('remember_me', [
+            'as' => 'remember_me',
+            'uses' => 'Api\UserController@rememberMe'
+        ]);
+
+        Route::resource('estabelecimentos', 'Api\Client\ClientEstabelecimentoController', [
+            'except' => [
+                'edit', 'update', 'destroy'
+            ]
+        ]);
+        Route::get('estabelecimentos/{id}/categories', [
+            'as' => 'estabelecimentos.categories',
+            'uses' => 'Api\Client\ClientEstabelecimentoController@returnCategoriesAndProductsByEstabelecimento'
+        ]);
+        Route::get('questoes', [
+            'as' => 'avalicaoes.questoes',
+            'uses' => 'Api\Client\ClientEstabelecimentoController@questoes'
+        ]);
+        Route::get('estabelecimentos/{id}/avaliacoes', [
+            'as' => 'estabelecimentos.avaliacoes',
+            'uses' => 'Api\Client\ClientEstabelecimentoController@returnAvaliacoesByEstabelecimento'
+        ]);
+        Route::get('estabelecimentos/{id}/avaliacoes/items', [
+            'as' => 'estabelecimentos.avaliacoes.items',
+            'uses' => 'Api\Client\ClientEstabelecimentoController@returnAvaliacoesItemsByEstabelecimento'
+        ]);
+        Route::post('store_contato', [
+            'as' => 'store_contato',
+            'uses' => 'Api\Client\ClientCheckoutController@storeContato'
+        ]);
+
         Route::get('authenticated', 'Api\UserController@authenticated');
         Route::get('cep/{cep}/json', 'Api\UtilController@cep');
         Route::get('cupom/{code}', 'Api\CupomController@show');

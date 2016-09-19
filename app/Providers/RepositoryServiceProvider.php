@@ -8,10 +8,14 @@ use CodeDelivery\Repositories\CategoryExtrasRepository;
 use CodeDelivery\Repositories\CategoryExtrasRepositoryEloquent;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\CategoryRepositoryEloquent;
+use CodeDelivery\Repositories\CidadeRepository;
+use CodeDelivery\Repositories\CidadeRepositoryEloquent;
 use CodeDelivery\Repositories\ContatoRepository;
 use CodeDelivery\Repositories\ContatoRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
+use CodeDelivery\Repositories\EstadoRepository;
+use CodeDelivery\Repositories\EstadoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
 use CodeDelivery\Repositories\ProductExtraItemRepository;
@@ -92,6 +96,14 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductExtraItemRepository::class,
             ProductExtraItemRepositoryEloquent::class
+        );
+        $this->app->bind(
+            CidadeRepository::class,
+            CidadeRepositoryEloquent::class
+        );
+        $this->app->bind(
+            EstadoRepository::class,
+            EstadoRepositoryEloquent::class
         );
     }
 }
