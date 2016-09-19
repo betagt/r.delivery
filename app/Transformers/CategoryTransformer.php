@@ -38,4 +38,14 @@ class CategoryTransformer extends TransformerAbstract
         }
         return $this->collection($model->extras, new CategoryExtraTransformer());
     }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->hasOne(Category::class, 'id', 'parent_id');
+    }
 }

@@ -26,7 +26,7 @@ class ProductTableSeeder extends Seeder
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
                 'cidade_id' => 1,
-                'power'=>rand(1,2),
+                'power'=>random_int(1,2),
             ]);
 
             $e->endereco()->save(factory(\CodeDelivery\Models\EstabelecimentoEndereco::class)->make());
@@ -44,14 +44,6 @@ class ProductTableSeeder extends Seeder
             {
                 $e->funcionamentos()->save(factory(\CodeDelivery\Models\EstabelecimentoFuncionamento::class)->make());
             }
-        }
-
-        for ($l = 0; $l < 20; $l++)
-        {
-            $id = $l + 1;
-            DB::table('product_extras')->insert([
-                ['product_id' => $id, 'category_extra_id' => random_int(1, 30), 'tipo' => random_int(1, 2)]
-            ]);
         }
     }
 }

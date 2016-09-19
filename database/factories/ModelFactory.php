@@ -139,6 +139,7 @@ $factory->define(\CodeDelivery\Models\OrderItem::class, function (Faker\Generato
 
 $factory->define(\CodeDelivery\Models\Category::class, function (Faker\Generator $faker) {
     return [
+        'parent_id' => 0,
         'name' => $faker->word,
     ];
 });

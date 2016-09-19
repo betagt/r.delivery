@@ -12,11 +12,5 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         factory(\CodeDelivery\Models\Category::class, 5)->create();
-        for ($i = 0; $i < 30; $i++)
-        {
-            factory(\CodeDelivery\Models\CategoryExtra::class)->create([
-                'category_id' => random_int(1,5)
-            ]);
-        }
     }
 }
