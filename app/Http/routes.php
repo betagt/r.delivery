@@ -454,6 +454,7 @@ Route::group(['middleware' => 'cors'], function () {
                 'edit', 'update', 'destroy'
             ]
         ]);
+
         Route::get('estabelecimentos/{id}/categories', [
             'as' => 'estabelecimentos.categories',
             'uses' => 'Api\Client\ClientEstabelecimentoController@returnCategoriesAndProductsByEstabelecimento'

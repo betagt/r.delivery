@@ -36,10 +36,15 @@ class UtilController extends Controller
         if(!$estado){
             abort(301,'Estado não encontrado');
         }
-        $json_file = array_merge($json_file,$this->cidadeRepository->skipPresenter(false)->findWhere([
+
+        $result = $this->cidadeRepository->skipPresenter(false)->findWhere([
             ['estado_id','=',$estado->id],
             ['nome','like',$json_file['localidade']]
-        ]));
+        ]);
+        if($result){
+            $result['data'] = current($result['data']);
+        }
+        $json_file = array_merge($json_file,$result);
         return $json_file;
     }
 

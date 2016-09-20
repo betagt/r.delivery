@@ -3,12 +3,14 @@
 namespace CodeDelivery\Http\Controllers\Api\Client;
 
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Http\Requests\AdminEstabelecimentoRequest;
 use CodeDelivery\Models\Avaliacao;
 use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Services\AvaliacoesService;
 use CodeDelivery\Services\EstabelecimentoService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ClientEstabelecimentoController extends Controller
@@ -53,11 +55,12 @@ class ClientEstabelecimentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $idCidade = $request->get('cidade');
         return $this->repository
             ->skipPresenter(false)
-            ->all();
+            ->findByField('cidade_id',(int)$idCidade);
     }
 
     public function show($id)
