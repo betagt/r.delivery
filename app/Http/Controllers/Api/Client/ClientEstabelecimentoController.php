@@ -65,6 +65,7 @@ class ClientEstabelecimentoController extends Controller
 
     public function show($id)
     {
+
         return $this->repository->skipPresenter(false)->find($id);
     }
 

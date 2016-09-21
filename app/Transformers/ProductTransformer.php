@@ -15,8 +15,6 @@ class ProductTransformer extends TransformerAbstract
 
     protected $availableIncludes = [ 'estabelecimento', 'category' ];
 
-    protected $defaultIncludes = ['extras'];
-
     //protected $defaultIncludes = ['category'];
     /**
      * Transform the \Product entity
@@ -57,14 +55,5 @@ class ProductTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->category, new CategoryTransformer());
-    }
-
-    public function includeExtras(Product $model)
-    {
-        if (!$model->extras)
-        {
-            return null;
-        }
-        return $this->collection($model->extras, new ProductExtraTransformer());
     }
 }
