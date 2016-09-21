@@ -1,20 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: allan
- * Date: 15/09/2016
- * Time: 18:15
- */
 
 namespace CodeDelivery\Http\Controllers\Admin;
-
 
 use CodeDelivery\Http\Controllers\Admin\Contracts\IEstadosController;
 use CodeDelivery\Http\Controllers\BetaGT\SimpleController;
 use CodeDelivery\Http\Requests\Admin\EstadoRequest;
 use CodeDelivery\Repositories\EstadoRepository;
 
-class EstadoController extends SimpleController implements IEstadosController
+class EstadosController extends SimpleController implements IEstadosController
 {
     public function __construct(EstadoRepository $repository)
     {

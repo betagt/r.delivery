@@ -1,16 +1,16 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_estabelecimentos_products_create', $relation) !!}
+    {!! Breadcrumbs::render('admin_avaliacoes_create') !!}
 @endsection
 @section('content')
-    {!! Form::Open([ 'route' => ['admin.estabelecimentos.products.store', $relation->id ]]) !!}
+    {!! Form::Open(['route'=>'admin.avaliacoes.store']) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Preencher formulário abaixo</h3>
         </div>
         <div class="box-body">
             @include('admin.base.errors')
-            @include('admin.products._form')
+            @include('admin.avaliacoes._form')
         </div>
         <div class="box-footer">
             <button class="btn btn-warning btn-flat pull-right">

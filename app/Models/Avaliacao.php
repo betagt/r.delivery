@@ -11,7 +11,7 @@ class Avaliacao extends Model implements Transformable
 {
     use TransformableTrait, SoftDeletes;
 
-    protected $table = 'avaliacoes';
+    protected $table = 'items';
 
     protected $fillable = [
 		'questao',

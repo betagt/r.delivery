@@ -29,7 +29,7 @@ class DropEstabelecimentoAvaliacaoItems extends Migration
 
             $table->foreign('estabelecimento_id')->references('id')->on('estabelecimento_avaliacaos')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('avaliacao_id')->references('id')->on('avaliacoes')
+            $table->foreign('avaliacao_id')->references('id')->on('items')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('nota')->unsigned();

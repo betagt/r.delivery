@@ -46,6 +46,14 @@ class RepositoryServiceProvider extends ServiceProvider
             CategoryRepositoryEloquent::class
         );
         $this->app->bind(
+            CidadeRepository::class,
+            CidadeRepositoryEloquent::class
+        );
+        $this->app->bind(
+            EstadoRepository::class,
+            EstadoRepositoryEloquent::class
+        );
+        $this->app->bind(
             'CodeDelivery\Repositories\ClientRepository',
             'CodeDelivery\Repositories\ClientRepositoryEloquent'
         );
@@ -78,10 +86,6 @@ class RepositoryServiceProvider extends ServiceProvider
             OrderAvaliacaoRepositoryEloquent::class
         );
         $this->app->bind(
-            CategoryExtraRepository::class,
-            CategoryExtraRepositoryEloquent::class
-        );
-        $this->app->bind(
             UserAddressRepository::class,
             UserAddressRepositoryEloquent::class
         );
@@ -89,21 +93,6 @@ class RepositoryServiceProvider extends ServiceProvider
             ContatoRepository::class,
             ContatoRepositoryEloquent::class
         );
-        $this->app->bind(
-            ProductExtraRepository::class,
-            ProductExtraRepositoryEloquent::class
-        );
-        $this->app->bind(
-            ProductExtraItemRepository::class,
-            ProductExtraItemRepositoryEloquent::class
-        );
-        $this->app->bind(
-            CidadeRepository::class,
-            CidadeRepositoryEloquent::class
-        );
-        $this->app->bind(
-            EstadoRepository::class,
-            EstadoRepositoryEloquent::class
-        );
+
     }
 }

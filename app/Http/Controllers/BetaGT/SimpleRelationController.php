@@ -13,6 +13,7 @@ class SimpleRelationController extends Controller  implements ISimpleRelationCon
     public function index()
     {
         $titulo = $this->titulo;
+
         $subtitulo = "Listagem/Pesquisa de Registros";
 
         $list = $this->repository->paginate();

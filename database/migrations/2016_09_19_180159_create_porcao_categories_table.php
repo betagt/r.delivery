@@ -16,6 +16,8 @@ class CreatePorcaoCategoriesTable extends Migration
 		Schema::create('porcao_categories', function(Blueprint $table) {
             $table->increments('id');
 			$table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('name');
 			$table->integer('qtde_items_comportados')->unsigned();
 			$table->integer('status')->default(1);
             $table->timestamps();

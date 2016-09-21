@@ -1,9 +1,9 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_estabelecimentos_products_show', $entity, $relation) !!}
+    {!! Breadcrumbs::render('admin_avaliacoes_show', $entity) !!}
 @endsection
 @section('header')
-    <a href="{{ route('admin.estabelecimentos.products.create', [ 'estabelecimentoId' => $relation->id ]) }}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Novo Registro</a>
+    <a href="{{ route('admin.avaliacoes.create') }}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Novo Registro</a>
 @endsection
 @section('list')
     <table class="table table-hover">
@@ -15,40 +15,31 @@
         </thead>
         <tbody>
             <tr>
-                <td>Estabelecimento Comercial</td>
-                <td>{{ $entity->estabelecimento->nome }}</td>
+                <td>Questão</td>
+                <td>{{ $entity->questao }}</td>
             </tr>
             <tr>
-                <td>Categoria</td>
-                <td>{{ $entity->category->name }}</td>
-            </tr>
-            <tr>
-                <td>Nome</td>
-                <td>{{ $entity->name }}</td>
-            </tr>
-            <tr>
-                <td>Descrição</td>
-                <td>{{ $entity->description }}</td>
-            </tr>
-            <tr>
-                <td>Preço</td>
-                <td>{{ $entity->price }}</td>
+                <td>Status</td>
+                <td>
+                    @if ($entity->status == 1)
+                        <span class="label label-success"><i class="fa fa-check"></i> Ativo</span>
+                    @else
+                        <span class="label label-warning"><i class="fa fa-exclamation"></i> Inativo</span>
+                    @endif
+                </td>
             </tr>
         </tbody>
     </table>
 @endsection
 @section('footer')
-    <a href="{{ route('admin.estabelecimentos.show', [ 'id' => $relation->id ]) }}" class="btn btn-default">
-        <i class="fa fa-search"></i>
-        Estabelecimento Comercial
+    <a href="{{ route('admin.avaliacoes.index') }}" class="btn btn-default">
+        <i class="fa fa-list-ul"></i>
+        Listar Registros
     </a>
-    <a href="{{ route('admin.estabelecimentos.products.edit', [ 'estabelecimentoId' => $relation->id, 'id' => $entity->id]) }}" class="btn btn-default">
+    <a href="{{ route('admin.avaliacoes.edit', ['id' => $entity->id]) }}" class="btn btn-default">
         <i class="fa fa-pencil"></i> Alterar Registro
     </a>
-    <a href="{{ route('admin.estabelecimentos.products.print', [ 'estabelecimentoId' => $relation->id, 'id' => $entity->id]) }}" class="btn btn-default">
-        <i class="fa fa-print"></i> Imprimir
-    </a>
-    <a href="{{ route('admin.estabelecimentos.products.destroy', [ 'estabelecimentoId' => $relation->id, 'id' => $entity->id]) }}" class="btn btn-danger">
+    <a href="{{ route('admin.avaliacoes.destroy', [ 'id' => $entity->id]) }}" class="btn btn-danger delete">
         <i class="fa fa-close"></i> Excluir
     </a>
 @endsection

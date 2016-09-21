@@ -41,11 +41,6 @@ class Product extends Model implements Transformable
         return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
     }
 
-    public function extras()
-    {
-        return $this->hasMany(ProductExtra::class, 'product_id', 'id');
-    }
-
     public function porcoes()
     {
         return $this->hasMany(PorcaoCategoryProduct::class, 'product_id', 'id');

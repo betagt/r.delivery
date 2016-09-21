@@ -13,7 +13,7 @@ use League\Fractal\TransformerAbstract;
 class EstabelecimentoTransformer extends TransformerAbstract
 {
 
-    protected  $availableIncludes = ['cidade', 'entrega','endereco', 'avaliacoes', 'funcionamentos', 'produtos', 'orders', 'cozinhas'];
+    protected  $availableIncludes = ['cidade', 'entrega','endereco', 'items', 'funcionamentos', 'produtos', 'orders', 'cozinhas'];
     /**
      * Transform the \Estabelecimentos entity
      * @param \Estabelecimentos $model

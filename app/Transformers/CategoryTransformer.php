@@ -11,7 +11,7 @@ use CodeDelivery\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['extras'];
+    //protected $defaultIncludes = ['extras'];
     /**
      * Transform the \Category entity
      * @param \Category $model
@@ -22,7 +22,9 @@ class CategoryTransformer extends TransformerAbstract
     {
         return [
             'id'           => (int) $model->id,
+            'parent_id'    => (int) $model->parent_id,
             'name'         => (string) $model->name,
+            'tipo'         => (int) $model->tipo,
 
             /* place your other model properties here */
 
@@ -31,21 +33,21 @@ class CategoryTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeExtras(Category $model)
+    public function includeFilhos(Category $model)
     {
-        if (!$model->extras) {
+        if (!$model->children)
+        {
             return null;
         }
-        return $this->collection($model->extras, new CategoryExtraTransformer());
+        return $this->collection($model->children, new CategoryTransformer());
     }
 
-    public function children()
+    public function includePai(Category $model)
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id');
-    }
-
-    public function parent()
-    {
-        return $this->hasOne(Category::class, 'id', 'parent_id');
+        if (!$model->parent)
+        {
+            return null;
+        }
+        return $this->item($model->parent, new CategoryTransformer());
     }
 }

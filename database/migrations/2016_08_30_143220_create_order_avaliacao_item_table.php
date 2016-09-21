@@ -20,7 +20,7 @@ class CreateOrderAvaliacaoItemTable extends Migration
 
             $table->foreign('order_avaliacao_id')->references('id')->on('orders_avaliacoes')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('avaliacao_id')->references('id')->on('avaliacoes')
+            $table->foreign('avaliacao_id')->references('id')->on('items')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('nota')->unsigned();
