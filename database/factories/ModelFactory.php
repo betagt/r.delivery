@@ -126,7 +126,7 @@ $factory->define(\CodeDelivery\Models\OrderAvaliacao::class, function (Faker\Gen
 
 $factory->define(\CodeDelivery\Models\Avaliacao::class, function (Faker\Generator $faker) {
     return [
-        'questao' => $faker->paragraph,
+        'questao' => $faker->word,
         'status' => random_int(1, 2)
     ];
 });

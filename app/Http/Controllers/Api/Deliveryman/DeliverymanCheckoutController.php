@@ -47,8 +47,7 @@ class DeliverymanCheckoutController extends Controller
     {
         $idDeliveryman = Authorizer::getResourceOwnerId();
         $orders = $this->repository
-            ->skipPresenter(false)
-            ->with($this->with)->scopeQuery(function ($query) use ($idDeliveryman) {
+            ->skipPresenter(false)->scopeQuery(function ($query) use ($idDeliveryman) {
                 return $query->where('user_deliveryman_id', '=', $idDeliveryman);
             })->paginate();
         return $orders;
@@ -81,8 +80,10 @@ class DeliverymanCheckoutController extends Controller
 
     public function show($id)
     {
+
         $idDeliveryman = Authorizer::getResourceOwnerId();
-        return $this->repository->skipPresenter(false)->getByIdAndDeliveryman($id, $idDeliveryman);
+
+        return  $this->service->show($id);
     }
 
     public function geo(Request $request, Geo $geo, $id)

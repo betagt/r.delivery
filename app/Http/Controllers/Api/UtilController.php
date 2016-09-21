@@ -7,6 +7,8 @@ use CodeDelivery\Models\Cidade;
 use CodeDelivery\Repositories\CidadeRepository;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\EstadoRepository;
+use CodeDelivery\Services\CepService;
+use Illuminate\Http\Request;
 
 class UtilController extends Controller
 {
@@ -18,34 +20,28 @@ class UtilController extends Controller
      * @var EstadoRepository
      */
     private $estadoRepository;
+    /**
+     * @var CepService
+     */
+    private $cepService;
 
-    public function __construct(CidadeRepository $cidadeRepository,EstadoRepository $estadoRepository)
+    public function __construct(CidadeRepository $cidadeRepository,EstadoRepository $estadoRepository, CepService $cepService)
     {
         $this->cidadeRepository = $cidadeRepository;
         $this->estadoRepository = $estadoRepository;
+        $this->cepService = $cepService;
     }
 
 
     public function cep($cep){
-        $string = file_get_contents('http://viacep.com.br/ws/'.$cep.'/json/');
+        $urlUri = 'http://viacep.com.br/ws/'.$cep.'/json/';
+       return $this->cepService->requestCep($urlUri);
+    }
 
-        $json_file = json_decode($string, true);
-        $estado = $this->estadoRepository->findWhere([
-            ['uf','=',$json_file['uf']]
-        ])->first();
-        if(!$estado){
-            abort(301,'Estado não encontrado');
-        }
-
-        $result = $this->cidadeRepository->skipPresenter(false)->findWhere([
-            ['estado_id','=',$estado->id],
-            ['nome','like',$json_file['localidade']]
-        ]);
-        if($result){
-            $result['data'] = current($result['data']);
-        }
-        $json_file = array_merge($json_file,$result);
-        return $json_file;
+    public function cepLocation(Request $request){
+        $urlUri = 'http://viacep.com.br/ws/'.$request->get('estado').'/'.$request->get('cidade').'/'.$request->get('logradouro').'/json/';
+        $string = file_get_contents($urlUri);
+        return json_decode($string);
     }
 
 }
