@@ -12,7 +12,10 @@ class DropEstabelecimentoAvaliacoes extends Migration
      */
     public function up()
     {
-        Schema::drop('estabelecimento_avaliacaos');
+        if (Schema::hasTable('estabelecimento_avaliacaos')){
+            Schema::drop('estabelecimento_avaliacaos');
+        }
+
     }
 
     /**
@@ -33,5 +36,6 @@ class DropEstabelecimentoAvaliacoes extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
     }
 }

@@ -12,7 +12,7 @@ class UpdateOrderItemsIncludeFieldPorcao extends Migration
      */
     public function up()
     {
-        Schema::table('orders_items', function (Blueprint $table) {
+        Schema::table('order_items', function (Blueprint $table) {
             $table->integer('porcao_category_id')->default(0)->after('order_id');
         });
     }
@@ -24,7 +24,7 @@ class UpdateOrderItemsIncludeFieldPorcao extends Migration
      */
     public function down()
     {
-        Schema::table('orders_items', function (Blueprint $table) {
+        Schema::table('order_items', function (Blueprint $table) {
             $table->dropColumn('porcao_category_id');
         });
     }

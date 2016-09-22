@@ -68,5 +68,6 @@ class DropTableReferenceAboutExtras extends Migration
             $table->timestamps();
         });
 
+
     }
 }

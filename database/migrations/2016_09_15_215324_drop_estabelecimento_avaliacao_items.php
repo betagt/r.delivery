@@ -12,7 +12,10 @@ class DropEstabelecimentoAvaliacaoItems extends Migration
      */
     public function up()
     {
-        Schema::drop('estabelecimento_avaliacao_item');
+        if (Schema::hasTable('estabelecimento_avaliacao_item')){
+            Schema::drop('estabelecimento_avaliacao_item');
+        }
+
     }
 
     /**
@@ -29,7 +32,7 @@ class DropEstabelecimentoAvaliacaoItems extends Migration
 
             $table->foreign('estabelecimento_id')->references('id')->on('estabelecimento_avaliacaos')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('avaliacao_id')->references('id')->on('items')
+            $table->foreign('avaliacao_id')->references('id')->on('avaliacoes')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('nota')->unsigned();

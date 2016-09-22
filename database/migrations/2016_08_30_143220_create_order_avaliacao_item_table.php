@@ -14,16 +14,14 @@ class CreateOrderAvaliacaoItemTable extends Migration
     {
         Schema::create('order_avaliacao_item', function (Blueprint $table) {
             $table->integer('avaliacao_id')->unsigned();
+            $table->foreign('avaliacao_id')->references('id')->on('avaliacoes');
+
             $table->integer('order_avaliacao_id')->unsigned();
+            $table->foreign('order_avaliacao_id')->references('id')->on('orders_avaliacoes');
 
             $table->primary(['order_avaliacao_id', 'avaliacao_id']);
-
-            $table->foreign('order_avaliacao_id')->references('id')->on('orders_avaliacoes')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('avaliacao_id')->references('id')->on('items')
-                ->onDelete('cascade')->onUpdate('cascade');
-
             $table->integer('nota')->unsigned();
+
             $table->softDeletes();
         });
     }
