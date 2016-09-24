@@ -25,7 +25,8 @@
         "mpociot/laravel-apidoc-generator": "^1.6",
         "dmitrovskiy/ionic-push-php": "0.0.3",
         "cagartner/correios-consulta": "^0.1.4",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "jailtonsc/validador-cpf-laravel": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

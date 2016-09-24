@@ -23,25 +23,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Estabelecimento Comercial</td>
-                            <td>{{ $entity->estabelecimento->nome }}</td>
-                        </tr>
-                        <tr>
-                            <td>Categoria</td>
-                            <td>{{ $entity->category->name }}</td>
-                        </tr>
+                        @if ($entity->parent_id > 0)
+                            <tr>
+                                <td>Categoria Pai:</td>
+                                <td>{{ $entity->parent->name }}</td>
+                            </tr>
+                        @endif
                         <tr>
                             <td>Nome</td>
                             <td>{{ $entity->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Descrição</td>
-                            <td>{{ $entity->description }}</td>
-                        </tr>
-                        <tr>
-                            <td>Preço</td>
-                            <td>{{ $entity->price }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -55,6 +55,18 @@ class User extends Model implements Transformable, AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function setDataNascimentoAttributes($value)
+    {
+        $date = new \DateTime($value);
+        $this->attributes['data_nascimento'] = $date->format('Y-m-d');
+    }
+
+    public function getDataNascimentoAttributes()
+    {
+        $date = new \DateTime($this->attributes['data_nascimento']);
+        return $date->format('d/m/Y');
+    }
+
     public function addresses()
     {
         return $this->hasMany(UserAddress::class, 'user_id', 'id');

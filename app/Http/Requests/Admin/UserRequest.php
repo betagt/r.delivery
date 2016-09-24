@@ -23,11 +23,19 @@ class UserRequest extends Request
      */
     public function rules()
     {
+        $validationCpf = 'required|max:255|unique:users';
+        $validationEmail = 'required|cpf|email|max:255|unique:users';
+        if ($this->method() == 'PUT')
+        {
+            $validationCpf = 'required|max:255|unique:users,cpf,' . $this->get('id');
+            $validationEmail = 'required|email|max:255|unique:users,id,' . $this->get('id');
+        }
+
         return [
-            'name' => 'required|min:3|max:125',
-            'cpf' => 'required',
+            "name" => 'required|min:3|max:255',
+            'cpf' => $validationCpf,
+            "email" => $validationEmail,
             'data_nascimento' => 'required',
-            'email' => 'required|email',
             'telefone_celular' => 'required'
         ];
     }

@@ -1,11 +1,11 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_avaliacoes') !!}
+    {!! Breadcrumbs::render('admin_users') !!}
 @endsection
 @section('header')
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('admin.avaliacoes.create') }}" class="btn btn-primary btn-flat" target="_blank">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt mb">
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-flat" target="_blank">
                 <i class="fa fa-plus"></i> Novo Registro
             </a>
         </div>
@@ -32,57 +32,32 @@
     </div>
 @endsection
 @section('list')
-    {!! Form::open(['method' => 'post', 'url' => 'items', 'id' => 'formfield']) !!}
     <table class="table table-hover">
         <thead>
         <tr>
-            <th><input type="checkbox" name="all" id="all" data-toggle="tooltip" data-placement="top" title="Marcar/Desmarcar Todos"></th>
             <th>ID</th>
-            <th>Questão</th>
-            <th>Status</th>
+            <th>Nome</th>
+            <th>E-mail</th>
             <th>Ação</th>
         </tr>
         </thead>
         <tbody>
         @foreach($list as $item)
             <tr>
-                <td><input type="checkbox" name="id[]" value="{{ $item->id }}" class="item"></td>
                 <td>{{$item->id}}</td>
-                <td>{{$item->questao}}</td>
+                <td>{{$item->name}}</td>
+                <td>{{$item->email}}</td>
                 <td>
-                    @if ($item->status == 1)
-                        <span class="label label-success"><i class="fa fa-check"></i> Ativo</span>
-                    @else
-                        <span class="label label-warning"><i class="fa fa-exclamation"></i> Inativo</span>
-                    @endif
-                </td>
-                <td>
-                    <a href="{{route('admin.avaliacoes.edit',['id'=>$item->id])}}" class="btn btn-default"
-                       data-toggle="tooltip" data-placement="top" target="_blank" title="Editar #{{ $item->id }}"
-                    >
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a href="{{route('admin.avaliacoes.show',['id'=>$item->id])}}" class="btn btn-default"
+                    <a href="{{route('admin.users.show',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Visualizar #{{ $item->id }}"
                     >
                         <i class="fa fa-search"></i>
-                    </a>
-                    <a href="{{ route('admin.avaliacoes.destroy', [ 'id' => $item->id]) }}" class="btn btn-danger delete"
-                       data-toggle="tooltip" data-placement="top" title="Excluir #{{ $item->id }}"
-                    >
-                        <i class="fa fa-close"></i>
                     </a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-    <div class="form-group">
-        <button id="delete-selecionados" class="btn btn-flat btn-danger">
-            <i class="fa fa-times"></i> Excluir Registros Selecionados
-        </button>
-    </div>
-    {!! Form::close() !!}
 @endsection
 @section('footer')
     {!! $list->render() !!}

@@ -159,6 +159,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Cagartner\CorreiosConsulta\ServiceProvider::class,
+        ValidadorCpf\CpfServiceProvider::class,
     ],
 
     /*

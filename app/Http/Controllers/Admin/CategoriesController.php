@@ -11,8 +11,6 @@ use CodeDelivery\Repositories\CategoryRepository;
 class CategoriesController extends SimpleController implements ICategoryController
 {
 
-    private $repository;
-
     public function __construct(CategoryRepository $repository)
     {
         $this->repository = $repository;

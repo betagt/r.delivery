@@ -13,7 +13,7 @@ class UsersController extends SimpleController implements IUsersController
     {
         $this->repository = $repository;
 
-        $this->titulo = 'Users';
+        $this->titulo = 'Usuários do Sistema/Clientes';
 
         $this->route = 'admin.users';
     }

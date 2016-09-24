@@ -3,7 +3,7 @@
     {!! Breadcrumbs::render('admin_categories_show', $entity) !!}
 @endsection
 @section('header')
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat"><i class="fa fa-plus"></i> Novo Registro</a>
+    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i> Novo Registro</a>
 @endsection
 @section('list')
     <table class="table table-hover">

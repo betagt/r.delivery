@@ -4,7 +4,7 @@
 @endsection
 @section('header')
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt mb">
             <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat" target="_blank">
                 <i class="fa fa-plus"></i> Novo Registro
             </a>

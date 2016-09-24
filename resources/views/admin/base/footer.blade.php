@@ -1,7 +1,6 @@
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 2.3.6
+        <b>Versão</b> 1.0@beta
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Rango Delivery</a>.</strong> Todos os Direitos Reservados.
 </footer>

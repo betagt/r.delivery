@@ -6,14 +6,8 @@
     <title>{{ $titulo }} - {{ $subtitulo }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="{{ asset('src/node_modules/admin-lte/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{{ asset('src/node_modules/admin-lte/dist/css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('src/node_modules/admin-lte/dist/css/skins/skin-blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('src/css/main.css') }}">
-
-    @yield('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,12 +37,7 @@
     @include('admin.base.aside')
 </div>
 
-<script src="{{ asset('src/node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-<script src="{{ asset('src/node_modules/admin-lte/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('src/node_modules/admin-lte/plugins/fastclick/fastclick.js') }}"></script>
-<script src="{{ asset('src/node_modules/admin-lte/dist/js/app.min.js') }}"></script>
-<script src="{{ asset('src/node_modules/admin-lte/dist/js/demo.js') }}"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
 
-@yield('js')
 </body>
 </html>
