@@ -25,10 +25,12 @@
                     <tbody>
                     <tr>
                         <td>Cliente</td>
-                        <td>{{ $entity->client->name }}</td>
+                        <td>
+                            {{ $entity->client->name }}
+                        </td>
                     </tr>
                     <tr>
-                        <td>Entregado</td>
+                        <td>Entregador</td>
                         <td>
                             @if ($entity->user_deliveryman_id)
                                 {{ $entity->deliveryman->name }}
@@ -37,6 +39,22 @@
                             @endif
                         </td>
                     </tr>
+                    @if ($entity->deliveryAddresses)
+                        <tr>
+                            <td>Dados para entrega:</td>
+                            <td>
+                                @foreach($entity->deliveryAddresses as $item)
+                                    <strong>Endereço: </strong>{{ $item->address }}  <br>
+                                    <strong>Complemento: </strong>{{ $item->complement }} <br>
+                                    <strong>Ponto de Referência: </strong>{{ $item->reference_point }} <br>
+                                    <strong>Número: </strong>{{ $item->number }} <br>
+                                    <strong>Bairro: </strong>{{ $item->neighborhood }} <br>
+                                    <strong>Cidade: </strong>{{ $item->city }}/{{ $item->state }} <br>
+                                    <strong>CEP: </strong> {{ $item->zipcode }} <br><br>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endif
                     <tr>
                         <td>Items</td>
                         <td>
@@ -70,13 +88,92 @@
                         <td>Total</td>
                         <td>{{ $entity->total }}</td>
                     </tr>
-                    <td>
-                        @if ($entity->status == 1)
-                            <strong>Entregue</strong>
-                        @else
-                            <strong>Aguardando Entrega</strong>
-                        @endif
-                    </td>
+                    <tr>
+                        <td>Status do Pedido: </td>
+                        <td>
+                            @if($entity->status == 0)
+                                Pendente
+                            @elseif ($entity->status == 1)
+                                A Caminho
+                            @elseif ($entity->status == 2)
+                                Entregue
+                            @elseif ($entity->status == 3)
+                                Cancelado
+                            @endif
+                        </td>
+                    </tr>
+
+                    @if($entity->avaliacao)
+                        <tr>
+                            <td>Avaliação</td>
+                            <td>
+                                @foreach($entity->avaliacao->items as $item)
+                                    <p>
+                                        <strong>Questão: </strong>{{ $item->questao }} <br />
+                                        <strong>Nota: </strong>
+                                        @if ($item->pivot->nota == 1)
+                                            <i class="fa fa-star"></i>
+                                        @elseif ($item->pivot->nota == 2)
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        @elseif ($item->pivot->nota == 3)
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        @elseif ($item->pivot->nota == 4)
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        @elseif ($item->pivot->nota == 5)
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        @else
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        @endif
+                                    </p>
+                                @endforeach
+                                <p>
+                                    <strong>Mensagem: </strong>{{ $entity->avaliacao->mensagem }} <br />
+                                    <strong>Média Final: </strong>
+                                    @if ($entity->avaliacao->total == 1)
+                                        <i class="fa fa-star"></i>
+                                    @elseif ($entity->avaliacao->total == 2)
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif ($entity->avaliacao->total == 3)
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif ($entity->avaliacao->total == 4)
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif ($entity->avaliacao->total == 5)
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @else
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    @endif
+                                </p>
+                            </td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>

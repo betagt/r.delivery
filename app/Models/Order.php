@@ -41,6 +41,16 @@ class Order extends Model implements Transformable
         return number_format($this->attributes['total'], 2, ",", ".");
     }
 
+    public function setTaxaEntregaAttribute($value)
+    {
+        $this->attributes['taxa_entrega'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
+    }
+
+    public function getTaxaEntregaAttribute()
+    {
+        return number_format($this->attributes['taxa_entrega'], 2, ",", ".");
+    }
+
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id', 'id');

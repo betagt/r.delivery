@@ -42,7 +42,40 @@
         @foreach($list as $item)
             <tr>
                 <td>{{$item->id}}</td>
-                <td>{{$item->client->name}}</td>
+                <td>
+                    {{$item->client->name}}
+                    @if ($item->avaliacao)
+                    <br>
+                        <strong>Avaliação: </strong>
+                        @if ($item->avaliacao->total == 1)
+                            <i class="fa fa-star"></i>
+                        @elseif ($item->avaliacao->total == 2)
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        @elseif ($item->avaliacao->total == 3)
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        @elseif ($item->avaliacao->total == 4)
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        @elseif ($item->avaliacao->total == 5)
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        @else
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        @endif
+                    @endif
+                </td>
                 <td>
                     @foreach($item->items as $product)
                         {{ $product->product->name }} <br>
@@ -58,10 +91,14 @@
                     @endif
                 </td>
                 <td>
-                    @if ($item->status == 1)
-                        <span class="label label-success"><i class="fa fa-check"></i> Entregue</span>
-                    @else
-                        <span class="label label-warning"><i class="fa fa-exclamation"></i> Aguardando Entrega</span>
+                    @if($item->status == 0)
+                        <span class="label label-warning"><i class="fa fa-exclamation-circle"></i> Pendente</span>
+                    @elseif ($item->status == 1)
+                        <span class="label label-info"><i class="fa fa-motorcycle"></i> A Caminho</span>
+                    @elseif ($item->status == 2)
+                        <span class="label label-success"><i class="fa fa-check-circle"></i> Entregue</span>
+                    @elseif ($item->status == 3)
+                        <span class="label label-danger"><i class="fa fa-times"></i> Cancelado</span>
                     @endif
                 </td>
                 <td>
@@ -70,31 +107,21 @@
                     >
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="{{route('admin.orders.print',['id'=>$item->id])}}" class="btn btn-default"
-                       data-toggle="tooltip" data-placement="top" target="_blank" title="Imprimir #{{ $item->id }}"
-                    >
-                        <i class="fa fa-search"></i>
-                    </a>
                     <a href="{{route('admin.orders.show',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Visualizar #{{ $item->id }}"
                     >
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="{{ route('admin.orders.destroy', [ 'id' => $item->id]) }}" class="btn btn-danger delete"
-                       data-toggle="tooltip" data-placement="top" title="Excluir #{{ $item->id }}"
+                    <a href="{{route('admin.orders.print',['id'=>$item->id])}}" class="btn btn-default"
+                       data-toggle="tooltip" data-placement="top" target="_blank" title="Imprimir #{{ $item->id }}"
                     >
-                        <i class="fa fa-close"></i>
+                        <i class="fa fa-print"></i>
                     </a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-    <div class="form-group">
-        <button id="delete-selecionados" class="btn btn-flat btn-danger">
-            <i class="fa fa-times"></i> Excluir Registros Selecionados
-        </button>
-    </div>
 @endsection
 @section('footer')
     {!! $list->render() !!}
