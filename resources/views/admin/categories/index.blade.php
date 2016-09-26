@@ -36,8 +36,10 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th><input type="checkbox" name="all" id="all" data-toggle="tooltip" data-placement="top" title="Marcar/Desmarcar Todos"></th>
+            <th><input type="checkbox" name="all" id="all" data-toggle="tooltip" data-placement="top"
+                       title="Marcar/Desmarcar Todos"></th>
             <th>ID</th>
+            <th>Categoria</th>
             <th>Nome</th>
             <th>Ação</th>
         </tr>
@@ -47,6 +49,13 @@
             <tr>
                 <td><input type="checkbox" name="id[]" value="{{ $item->id }}" class="item"></td>
                 <td>{{$item->id}}</td>
+                <td>
+                    @if($item->parent_id == 0)
+                        Categoria Principal
+                    @else
+                        {{ $item->parent->name }}
+                    @endif
+                </td>
                 <td>{{$item->name}}</td>
                 <td>
                     <a href="{{route('admin.categories.edit',['id'=>$item->id])}}" class="btn btn-default"
@@ -59,7 +68,8 @@
                     >
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="{{ route('admin.categories.destroy', [ 'id' => $item->id]) }}" class="btn btn-danger delete"
+                    <a href="{{ route('admin.categories.destroy', [ 'id' => $item->id]) }}"
+                       class="btn btn-danger delete"
                        data-toggle="tooltip" data-placement="top" title="Excluir #{{ $item->id }}"
                     >
                         <i class="fa fa-close"></i>

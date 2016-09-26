@@ -37,7 +37,9 @@
     @include('admin.base.aside')
 </div>
 
-<script src="{{ asset('js/admin.js') }}"></script>
+@section('js')
+    <script src="{{ asset('js/admin.js') }}"></script>
+@show
 
 </body>
 </html>

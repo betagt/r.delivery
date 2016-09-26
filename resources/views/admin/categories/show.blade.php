@@ -3,17 +3,40 @@
     {!! Breadcrumbs::render('admin_categories_show', $entity) !!}
 @endsection
 @section('header')
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i> Novo Registro</a>
+    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i>
+        Novo Registro</a>
 @endsection
 @section('list')
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th>Campo</th>
-                <th>Valor</th>
-            </tr>
+        <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+        </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>Categoria</td>
+            <td>
+                @if($entity->parent_id == 0)
+                    Categoria Principal
+                @else
+                    <a href="{{ route('admin.categories.show', ['id' => $entity->parent_id]) }}">
+                        {{ $entity->parent->name }}
+                    </a>
+                @endif
+            </td>
+            @if($entity->children)
+            <tr>
+                <td>Sub Categorias</td>
+                <td>
+                    @foreach($entity->children as $item)
+                        {{ $item->name }}
+                    @endforeach
+                </td>
+            </tr>
+            @endif
+            </tr>
             <tr>
                 <td>Nome</td>
                 <td>{{ $entity->name }}</td>

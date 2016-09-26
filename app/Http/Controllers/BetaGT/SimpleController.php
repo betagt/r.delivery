@@ -13,9 +13,12 @@ class SimpleController extends Controller  implements ISimpleController
     public function index()
     {
         $titulo = $this->titulo;
+
         $subtitulo = "Listagem/Pesquisa de Registros";
 
-        $list = $this->repository->paginate();
+        $list = $this->repository->scopeQuery(function($query){
+            return $query->orderBy('id','desc');
+        })->paginate();
 
         return view($this->route . '.index', compact('list', 'titulo', 'subtitulo'));
     }

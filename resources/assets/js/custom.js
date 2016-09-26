@@ -17,18 +17,7 @@ $(document).ready(function(){
     });
     $('.cpf').inputmask("999.999.999-99");
     $('.cnpj').inputmask("99.999.999/9999-99");
-    $('.telefone').mask("(99) 9999-99999").ready(function(event) {
-        var target, phone, element;
-        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-        phone = target.value.replace(/\D/g, '');
-        element = $(target);
-        element.unsetMask();
-        if(phone.length > 10) {
-            element.setMask("(99) 99999-9999");
-        } else {
-            element.setMask("(99) 9999-99999");
-        }
-    });
+
     $('.date').datepicker({
         format: "dd/mm/yyyy",
         todayBtn: true,

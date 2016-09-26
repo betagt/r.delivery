@@ -31,7 +31,7 @@
 		<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 		<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
 			{!! Form::text('email', old('email'), array_merge(['class' => 'form-control', 'placeholder' => 'Inserir E-mail'] )) !!}
-			<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			<span class="fa fa-envelope form-control-feedback"></span>
 			@if ($errors->has('email'))
 				<span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -41,7 +41,7 @@
 
 		<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
 			{!! Form::password('password', array_merge(['class' => 'form-control', 'placeholder' => 'Inserir Senha'] )) !!}
-			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			<span class="fa fa-lock form-control-feedback"></span>
 			@if ($errors->has('password'))
 				<span class="help-block">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -66,7 +66,7 @@
 			<div class="col-xs-6">
 				<a class="btn btn-default btn-block btn-flat" href="{{ url('/password/reset') }}">
 					<i class="fa fa-btn fa-envelope"></i>
-					Esqueceu a senha?
+					Perdeu a senha?
 				</a>
 			</div>
 			<!-- /.col -->

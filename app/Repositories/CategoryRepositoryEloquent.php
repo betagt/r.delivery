@@ -21,6 +21,16 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
         'name' => 'like'
     ];
 
+    public function getCategories()
+    {
+        $collection = $this->model->orderBy('name', 'asc')->lists('name', 'id');
+
+        $collection->prepend('Categoria Principal');
+
+        return $collection;
+    }
+
+
     /* public function lists(){
          return $this->model->lists('name','id');
      }*/
