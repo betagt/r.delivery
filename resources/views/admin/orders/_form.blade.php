@@ -1,12 +1,25 @@
-<div class="form-group {{ $errors->has('questao') ? 'has-error': '' }}">
-    {!! Form::label('questao','Questão:') !!}
-    {!! Form::text('questao',null,['class'=>'form-control', 'placeholder' => 'Inserir o nome da categoria']) !!}
-    @if($errors->has('questao'))
-        <span class='help-block'><i class="fa fa-times"></i> {{ $errors->first('questao') }}</span>
+<h2>Pedido: #{{$entity->id}} - R$ {{$entity->total}}</h2>
+<h3>Cliente: {{$entity->client->name}}</h3>
+<h4>Data: {{$entity->created_at->format('d/m/Y H:i:s')}}</h4>
+<p>
+    <b>Entregar em:</b><br>
+    {{$entity->client->address}} - {{$entity->client->city}} - {{$entity->client->state}}
+</p>
+
+<!-- Entregador Form Imput -->
+<div class="form-group {{ $errors->has('user_deliveryman_id') ? 'has-error': '' }}">
+    {!! Form::label("user_deliveryman_id", "Entregador:") !!}
+    {!! Form::select('user_deliveryman_id',$deliveryman, null,['class'=>'form-control']) !!}
+    @if($errors->has('user_deliveryman_id'))
+        <span class='help-block'><i class="fa fa-times"></i> {{ $errors->first('user_deliveryman_id') }}</span>
     @endif
 </div>
-<!-- Status Form Imput -->
-<div class="form-group">
-    {!! Form::label("status", "Status:") !!}
-    {!! Form::select("status", [1 => 'Ativo', 2 => 'Inativo'], null, [ 'class' => 'form-control' ]) !!}
+
+<!-- Status do Pedido Form Imput -->
+<div class="form-group {{ $errors->has('status') ? 'has-error': '' }}">
+    {!! Form::label("status", "Status do Pedido:") !!}
+    {!! Form::select('status',$list_status, null,['class'=>'form-control']) !!}
+    @if($errors->has('status'))
+        <span class='help-block'><i class="fa fa-times"></i> {{ $errors->first('status') }}</span>
+    @endif
 </div>
