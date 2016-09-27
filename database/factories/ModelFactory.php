@@ -171,3 +171,11 @@ $factory->define(\CodeDelivery\Models\Contato::class, function (Faker\Generator 
         'mensagem' => $faker->text,
     ];
 });
+
+$factory->define(\CodeDelivery\Models\ProductPorcao::class, function(Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name,
+        'porcao' => random_int(1, 4),
+        'preco' => 10,
+    ];
+});

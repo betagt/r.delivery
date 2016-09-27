@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderUserCupomTable extends Migration
+class CreateUserCupomTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,6 +28,6 @@ class CreateOrderUserCupomTable extends Migration
      */
     public function down()
     {
-        Schema::drop('order_user_cupoms');
+        Schema::drop('user_cupoms');
     }
 }

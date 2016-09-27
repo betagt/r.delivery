@@ -33,5 +33,8 @@ class Cupom extends Model implements Transformable
         return number_format($this->attributes['value'], 2, ",", ".");
     }
 
-
+    public function cupoms()
+    {
+        return $this->belongsToMany(User::class, 'user_cupoms', 'user_id', 'cupom_id');
+    }
 }

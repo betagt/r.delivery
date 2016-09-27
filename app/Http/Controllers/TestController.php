@@ -5,6 +5,7 @@ namespace CodeDelivery\Http\Controllers;
 use CodeDelivery\Models\User;
 use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\CategoryRepository;
+use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -18,55 +19,65 @@ class TestController extends Controller
     /**
      * TestController constructor.
      */
-    public function __construct(AvaliacaoRepository $repository)
+    public function __construct(CupomRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function index()
     {
-        return $this->getAvaliacoes(11);
-    }
+        //return $this->getAvaliacoes(11);
 
-    private function getAvaliacoes($idEstabelecimento)
-    {
-        $avaliacoes = $this->repository->findWhere(['status' => 1])->all();
+        $cupom = $this->repository->findByField('code', 599)->first();
 
-        $result = [];
-        foreach ($avaliacoes as $item) {
-            $result[] = [
-                'nota' => $this->getMedia($idEstabelecimento, $item->id),
-                'questao' => $item->questao,
-            ];
-        }
-        return [ 'data' =>  $result ];
-    }
+        $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [1, $cupom->id]);
 
-    private function getMedia($idEstabelecimento, $id)
-    {
-        $data = DB::table('order_avaliacao_item')
-            ->join('orders_avaliacoes', 'order_avaliacao_item.order_avaliacao_id', '=', 'orders_avaliacoes.id' )
-            ->join('orders', 'orders_avaliacoes.order_id', '=', 'orders.id' )
-            ->select('order_avaliacao_item.*')
-            ->where('order_avaliacao_item.avaliacao_id', $id)
-            ->where('orders.estabelecimento_id', $idEstabelecimento)
-            ->get()
-        ;
-
-        if (empty($data))
+        if ($check)
         {
-            return 0;
+            return ['data' => 'Esse cupom não pode ser utilizado uma seugnda vez'];
         }
-
-        $nota = 0;
-        $i = 0;
-        foreach ($data as $item) {
-            $nota += $item->nota;
-            $i++;
-        }
-
-        return $nota / $i;
+        return $cupom;
     }
+
+//    private function getAvaliacoes($idEstabelecimento)
+//    {
+//        $avaliacoes = $this->repository->findWhere(['status' => 1])->all();
+//
+//        $result = [];
+//        foreach ($avaliacoes as $item) {
+//            $result[] = [
+//                'nota' => $this->getMedia($idEstabelecimento, $item->id),
+//                'questao' => $item->questao,
+//            ];
+//        }
+//        return [ 'data' =>  $result ];
+//    }
+//
+//    private function getMedia($idEstabelecimento, $id)
+//    {
+//        $data = DB::table('order_avaliacao_item')
+//            ->join('orders_avaliacoes', 'order_avaliacao_item.order_avaliacao_id', '=', 'orders_avaliacoes.id' )
+//            ->join('orders', 'orders_avaliacoes.order_id', '=', 'orders.id' )
+//            ->select('order_avaliacao_item.*')
+//            ->where('order_avaliacao_item.avaliacao_id', $id)
+//            ->where('orders.estabelecimento_id', $idEstabelecimento)
+//            ->get()
+//        ;
+//
+//        if (empty($data))
+//        {
+//            return 0;
+//        }
+//
+//        $nota = 0;
+//        $i = 0;
+//        foreach ($data as $item) {
+//            $nota += $item->nota;
+//            $i++;
+//        }
+//
+//        return $nota / $i;
+//    }
 
 //    public function index()
 //    {

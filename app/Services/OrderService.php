@@ -9,6 +9,7 @@
 namespace CodeDelivery\Services;
 
 
+use CodeDelivery\Models\Cupom;
 use CodeDelivery\Models\Order;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\OrderRepository;
@@ -58,9 +59,12 @@ class OrderService
             }
             if (isset($data['cupom_code'])) {
                 $cupom = $this->cupomRepository->findByField('code', $data['cupom_code'])->first();
-                $data['cupom_id'] = $cupom->id;
-                $cupom->used = 1;
-                $cupom->save();
+
+                $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [ $data['client_id'], $cupom->id ]);
+                if ($check)
+                {
+                    abort(300, 'Esse cupom não pode ser utilizado uma seugnda vez');
+                }
                 unset($data['cupom_code']);
             }
             $items = $data['items'];
@@ -83,6 +87,14 @@ class OrderService
                 'INSERT INTO order_delivery_addresses (order_id, user_address_id) VALUES (?, ?)',
                 [ $order->id, $data['user_delivery_id']]
             );
+
+            if ($cupom)
+            {
+                DB::insert(
+                    'INSERT INTO user_cupoms (user_id, cupom_id) VALUES (?, ?)',
+                    [$order->client_id , $cupom->id]
+                );
+            }
 
             DB::commit();
             return $order;

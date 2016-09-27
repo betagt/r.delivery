@@ -50,6 +50,27 @@ class ProductTableSeeder extends Seeder
             'name' => '4 Queijos',
         ]));
 
+        $var = [
+            0 => [ 'nome' => 'P', 'porcao' => 1, 'preco' => 10, ],
+            1 => [ 'nome' => 'M', 'porcao' => 2, 'preco' => 20, ],
+            2 => [ 'nome' => 'G', 'porcao' => 3, 'preco' => 30, ],
+            3 => [ 'nome' => 'B', 'porcao' => 4, 'preco' => 40, ],
+        ];
+        $index = count($var);
+        for ($i = 0; $i < 4; $i++)
+        {
+            $id = $i + 1;
+            for($j = 0; $j < $index; $j++)
+            {
+                factory(\CodeDelivery\Models\ProductPorcao::class)->create([
+                    'product_id' => $id,
+                    'nome' => $var[$j]['nome'],
+                    'porcao' => $var[$j]['porcao'],
+                    'preco' => $var[$j]['preco'],
+                ]);
+            }
+        }
+
         for ($i = 0; $i < 20 ;$i++)
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
