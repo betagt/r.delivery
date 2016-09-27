@@ -34,7 +34,7 @@ class CreateCategoryExtrasTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('category_extras');
+
 	}
 
 }

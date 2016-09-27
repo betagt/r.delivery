@@ -31,7 +31,7 @@ class CreatePorcaoCategoriesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('porcao_categories');
+
 	}
 
 }

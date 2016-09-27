@@ -14,6 +14,7 @@ class Product extends Model implements Transformable
     protected $fillable = [
         'estabelecimento_id',
         'category_id',
+        'parent_id',
         'name',
         'description',
         'price',
@@ -26,7 +27,7 @@ class Product extends Model implements Transformable
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    /*public function setPriceAttribute($value)
+    public function setPriceAttribute($value)
     {
         $this->attributes['price'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
     }
@@ -34,15 +35,25 @@ class Product extends Model implements Transformable
     public function getPriceAttribute()
     {
         return number_format($this->attributes['price'], 2, ",", ".");
-    }*/
+    }
 
     public function estabelecimento()
     {
         return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(Product::class, 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->hasOne(Product::class, 'id', 'parent_id');
+    }
+
     public function porcoes()
     {
-        return $this->hasMany(PorcaoCategoryProduct::class, 'product_id', 'id');
+        return $this->hasMany(ProductPorcao::class, 'product_id', 'id');
     }
 }

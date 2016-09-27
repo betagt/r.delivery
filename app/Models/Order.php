@@ -85,4 +85,6 @@ class Order extends Model implements Transformable
     {
         return $this->belongsToMany(UserAddress::class, 'order_delivery_addresses', 'order_id', 'user_address_id');
     }
+
+
 }

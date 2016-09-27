@@ -31,9 +31,4 @@ class Category extends Model implements Transformable
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
-
-    public function porcoes()
-    {
-        return $this->hasMany(PorcaoCategory::class, 'category_id', 'id');
-    }
 }

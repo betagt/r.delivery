@@ -22,6 +22,34 @@ class ProductTableSeeder extends Seeder
 
         $estado->cidades()->save($cidade);
 
+        $estabelecimento = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
+            'cidade_id' => 1,
+            'power'=>random_int(1,2),
+        ]);
+
+        $estabelecimento->produtos()->save(factory(\CodeDelivery\Models\Product::class)->make([
+            'category_id' => 1,
+            'name' => 'Pizza'
+        ]));
+
+        $estabelecimento->produtos()->save(factory(\CodeDelivery\Models\Product::class)->make([
+            'category_id' => 1,
+            'parent_id' => 1,
+            'name' => 'Calabresa',
+        ]));
+
+        $estabelecimento->produtos()->save(factory(\CodeDelivery\Models\Product::class)->make([
+            'category_id' => 1,
+            'parent_id' => 1,
+            'name' => 'Portuguesa',
+        ]));
+
+        $estabelecimento->produtos()->save(factory(\CodeDelivery\Models\Product::class)->make([
+            'category_id' => 1,
+            'parent_id' => 1,
+            'name' => '4 Queijos',
+        ]));
+
         for ($i = 0; $i < 20 ;$i++)
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([

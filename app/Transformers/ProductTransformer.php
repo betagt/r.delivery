@@ -13,7 +13,7 @@ use CodeDelivery\Models\Product;
 class ProductTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = [ 'estabelecimento', 'category' ];
+    protected $availableIncludes = [ 'estabelecimento', 'category', 'porcoes' ];
 
     //protected $defaultIncludes = ['category'];
     /**
@@ -55,5 +55,14 @@ class ProductTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->category, new CategoryTransformer());
+    }
+
+    public function includePorcoes(Product $model)
+    {
+        if (!$model->porcoes)
+        {
+            return null;
+        }
+        return $this->collection($model->porcoes, new ProductPorcaoTransformer());
     }
 }

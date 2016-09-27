@@ -2,15 +2,15 @@
 
 namespace CodeDelivery\Presenters;
 
-use CodeDelivery\Transformers\CategoryExtraTransformer;
+use CodeDelivery\Transformers\ProductPorcaoTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class CategoryExtraPresenter
+ * Class ProductPorcaoPresenter
  *
  * @package namespace CodeDelivery\Presenters;
  */
-class CategoryExtraPresenter extends FractalPresenter
+class ProductPorcaoPresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +19,6 @@ class CategoryExtraPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new CategoryExtraTransformer();
+        return new ProductPorcaoTransformer();
     }
 }

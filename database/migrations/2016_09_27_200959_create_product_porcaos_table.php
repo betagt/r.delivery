@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePorcaoCategoryProductsTable extends Migration
+class CreateProductPorcaosTable extends Migration
 {
 
 	/**
@@ -13,15 +13,13 @@ class CreatePorcaoCategoryProductsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('porcao_category_products', function(Blueprint $table) {
+		Schema::create('product_porcaos', function(Blueprint $table) {
             $table->increments('id');
-			$table->integer('porcao_category_id')->unsigned();
-            $table->foreign('porcao_category_id')->references('id')->on('porcao_categories');
 			$table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
-			$table->decimal('preco');
-			$table->integer('status')->default(1);
-
+			$table->integer('porcao')->unsigned();
+			$table->string('nome');
+			$table->decimal('preco')->default(0);
             $table->timestamps();
 		});
 	}
@@ -33,7 +31,7 @@ class CreatePorcaoCategoryProductsTable extends Migration
 	 */
 	public function down()
 	{
-
+		Schema::drop('product_porcaos');
 	}
 
 }

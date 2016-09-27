@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateProductExtrasIncldeTipo extends Migration
+class UpdateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,8 @@ class UpdateProductExtrasIncldeTipo extends Migration
      */
     public function up()
     {
-        Schema::table('product_extras', function (Blueprint $table) {
-            $table->integer('tipo')->default(1)->after('category_extra_id');
-            $table->dropColumn('price');
+        Schema::table('products', function (Blueprint $table) {
+            $table->integer('parent_id')->default(0)->unsigned()->after('category_id');
         });
     }
 
@@ -25,6 +24,8 @@ class UpdateProductExtrasIncldeTipo extends Migration
      */
     public function down()
     {
-
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('parent_id');
+        });
     }
 }

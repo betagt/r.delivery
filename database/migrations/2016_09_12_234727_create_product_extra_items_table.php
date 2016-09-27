@@ -34,7 +34,7 @@ class CreateProductExtraItemsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('product_extra_items');
+
 	}
 
 }
