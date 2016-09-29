@@ -25,7 +25,7 @@ class UtilController extends Controller
      */
     private $cepService;
 
-    public function __construct(CidadeRepository $cidadeRepository,EstadoRepository $estadoRepository, CepService $cepService)
+    public function __construct(CidadeRepository $cidadeRepository, EstadoRepository $estadoRepository, CepService $cepService)
     {
         $this->cidadeRepository = $cidadeRepository;
         $this->estadoRepository = $estadoRepository;
@@ -33,13 +33,15 @@ class UtilController extends Controller
     }
 
 
-    public function cep($cep){
-        $urlUri = 'http://viacep.com.br/ws/'.$cep.'/json/';
-       return $this->cepService->requestCep($urlUri);
+    public function cep($cep)
+    {
+        $urlUri = 'http://viacep.com.br/ws/' . $cep . '/json/';
+        return $this->cepService->requestCep($urlUri);
     }
 
-    public function cepLocation(Request $request){
-        $urlUri = 'http://viacep.com.br/ws/'.$request->get('estado').'/'.$request->get('cidade').'/'.$request->get('logradouro').'/json/';
+    public function cepLocation(Request $request)
+    {
+        $urlUri = 'http://viacep.com.br/ws/' . $request->get('estado') . '/' . $request->get('cidade') . '/' . $request->get('logradouro') . '/json/';
         $string = file_get_contents($urlUri);
         return json_decode($string);
     }

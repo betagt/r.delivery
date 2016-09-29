@@ -249,6 +249,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::get('cep/{cep}/json', 'Api\UtilController@cep');
         Route::get('cep/logradouro', 'Api\UtilController@cepLocation');
         Route::get('cupom/{code}', 'Api\CupomController@show');
+        Route::get('cupom/utilizados', 'Api\CupomController@utilizados');
         Route::get('order', ['as' => 'order.index', 'uses' => 'CheckoutController@index']);
     });
 });

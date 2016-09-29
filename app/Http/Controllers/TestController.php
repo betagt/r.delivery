@@ -28,15 +28,23 @@ class TestController extends Controller
     {
         //return $this->getAvaliacoes(11);
 
-        $cupom = $this->repository->findByField('code', 599)->first();
+//        $cupom = $this->repository->findByField('code', 599)->first();
+//
+//        $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [1, $cupom->id]);
+//
+//        if ($check)
+//        {
+//            return ['data' => 'Esse cupom não pode ser utilizado uma seugnda vez'];
+//        }
+//        return $cupom;
 
-        $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [1, $cupom->id]);
+        $list = DB::table('cupoms')
+            ->join('user_cupoms', 'cupoms.id', '=', 'user_cupoms.cupom_id')
+            ->select('cupoms.*')
+            ->where('user_cupoms.user_id', 1)
+            ->get();
 
-        if ($check)
-        {
-            return ['data' => 'Esse cupom não pode ser utilizado uma seugnda vez'];
-        }
-        return $cupom;
+        return [ 'data' => $list ];
     }
 
 //    private function getAvaliacoes($idEstabelecimento)

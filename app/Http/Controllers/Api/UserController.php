@@ -20,22 +20,25 @@ class UserController extends Controller
 
     }
 
-    public function authenticated(){
+    public function authenticated()
+    {
         $id = Authorizer::getResourceOwnerId();
         $products = $this->repository->skipPresenter(false)->find($id);
         return $products;
     }
 
-    public function updateDeviceToken(Request $request){
+    public function updateDeviceToken(Request $request)
+    {
         $id = Authorizer::getResourceOwnerId();
         $deviceToken = $request->get('device_token');
-        return $this->repository->updateDeviceToken($id,$deviceToken);
+        return $this->repository->updateDeviceToken($id, $deviceToken);
     }
 
-    public function updateFone(Request $request){
+    public function updateFone(Request $request)
+    {
         $id = Authorizer::getResourceOwnerId();
         $telefoneCelular = $request->get('telefone_celular');
-        return $this->repository->updateFone($id,$telefoneCelular);
+        return $this->repository->updateFone($id, $telefoneCelular);
     }
 
     public function updateUser(AdminUserRequest $request)
@@ -47,8 +50,7 @@ class UserController extends Controller
 
             $data = $request->all();
 
-            if (!empty($data['password']))
-            {
+            if (!empty($data['password'])) {
                 $data['password'] = bcrypt($data['password']);
             }
 
@@ -56,8 +58,7 @@ class UserController extends Controller
 
             return $this->repository->skipPresenter(false)->find($id);
 
-        } catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return abort($ex->getCode(), $ex->getMessage());
         }
     }
@@ -73,8 +74,7 @@ class UserController extends Controller
 
             return $this->repository->skipPresenter(false)->find($user->id);
 
-        } catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return abort($ex->getCode(), $ex->getMessage());
         }
     }
@@ -86,14 +86,11 @@ class UserController extends Controller
         if (empty($email))
             return abort(403, 'O E-mail é obrigatório');
 
-        try
-        {
+        try {
             return $this->repository->skipPresenter(false)->scopeQuery(function ($query) use ($email) {
                 return $query->where('email', '=', $email);
             })->first();
-        }
-        catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             return abort($ex->getCode(), $ex->getMessage());
         }
     }
