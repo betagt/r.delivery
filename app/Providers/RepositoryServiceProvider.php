@@ -12,6 +12,8 @@ use CodeDelivery\Repositories\CidadeRepository;
 use CodeDelivery\Repositories\CidadeRepositoryEloquent;
 use CodeDelivery\Repositories\ContatoRepository;
 use CodeDelivery\Repositories\ContatoRepositoryEloquent;
+use CodeDelivery\Repositories\CupomRepository;
+use CodeDelivery\Repositories\CupomRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\EstadoRepository;
@@ -54,6 +56,10 @@ class RepositoryServiceProvider extends ServiceProvider
             EstadoRepositoryEloquent::class
         );
         $this->app->bind(
+            CupomRepository::class,
+            CupomRepositoryEloquent::class
+        );
+        $this->app->bind(
             'CodeDelivery\Repositories\ClientRepository',
             'CodeDelivery\Repositories\ClientRepositoryEloquent'
         );
@@ -72,10 +78,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             'CodeDelivery\Repositories\UserRepository',
             'CodeDelivery\Repositories\UserRepositoryEloquent'
-        );
-        $this->app->bind(
-            'CodeDelivery\Repositories\CupomRepository',
-            'CodeDelivery\Repositories\CupomRepositoryEloquent'
         );
         $this->app->bind(
             EstabelecimentoRepository::class,

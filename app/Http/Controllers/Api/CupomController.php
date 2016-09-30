@@ -18,7 +18,8 @@ class CupomController extends Controller
         $this->repository = $repository;
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $products = $this->repository->skipPresenter(false)->findByCode($id);
         return $products;
     }
@@ -33,7 +34,7 @@ class CupomController extends Controller
             ->where('user_cupoms.user_id', $id)
             ->get();
 
-        return [ 'data' => $list ];
+        return ['data' => $list];
     }
 
 }
