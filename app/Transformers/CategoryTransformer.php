@@ -11,7 +11,7 @@ use CodeDelivery\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
-    //protected $defaultIncludes = ['extras'];
+    protected $defaultIncludes = ['filhos'];
     /**
      * Transform the \Category entity
      * @param \Category $model

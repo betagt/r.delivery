@@ -25,7 +25,7 @@ class ProductPorcaoTransformer extends TransformerAbstract
             'porcao'              => (int) $model->porcao,
             'nome'              => (string) $model->nome,
             'preco'             => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->preco)),
-            'preco_label'       => (string)$model->total,
+            'preco_label'       => (string)$model->preco,
             /* place your other model properties here */
 
             'created_at' => $model->created_at,

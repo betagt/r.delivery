@@ -37,7 +37,7 @@ class CupomController extends Controller
             ->where('orders.cupom_id', '<>', '')
             ->get();
 
-        return ['data' => $list];
+        return ['data' =>$list];
     }
 
 }
