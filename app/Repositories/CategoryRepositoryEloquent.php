@@ -25,9 +25,19 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         $collection = $this->model->orderBy('name', 'asc')->lists('name', 'id');
 
-        $collection->prepend('Categoria Principal');
+        $result = [];
+        $i = 0;
+        foreach ($collection as $key => $value)
+        {
+            if ($i == 0)
+            {
+                $result[0] = 'Categoria Pai';
+                $i++;
+            }
+            $result[$key] = $value;
+        }
 
-        return $collection;
+         return $result;
     }
 
 

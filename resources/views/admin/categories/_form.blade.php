@@ -3,7 +3,7 @@
     <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label("parent_id", "Categoria Principal:") !!}
-            {!! Form::select("parent_id", $select, null, [ 'class' => 'form-control select' ]) !!}
+            {!! Form::select("parent_id", $select, null,[ 'class' => 'form-control select' ]) !!}
         </div>
     </div>
     <div class="col-sm-9">
