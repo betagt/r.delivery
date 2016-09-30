@@ -29,9 +29,12 @@ class CupomController extends Controller
         $id = Authorizer::getResourceOwnerId();
 
         $list = DB::table('cupoms')
+            ->distinct()
             ->join('user_cupoms', 'cupoms.id', '=', 'user_cupoms.cupom_id')
-            ->select('cupoms.*')
+            ->join('orders', 'user_cupoms.user_id', '=', 'orders.client_id')
+            ->select('orders.id', 'cupoms.code', 'orders.created_at')
             ->where('user_cupoms.user_id', $id)
+            ->where('orders.cupom_id', '<>', '')
             ->get();
 
         return ['data' => $list];
