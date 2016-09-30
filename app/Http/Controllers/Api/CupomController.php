@@ -3,9 +3,9 @@
 namespace CodeDelivery\Http\Controllers\Api;
 
 use CodeDelivery\Http\Controllers\Controller;
-use CodeDelivery\Models\Cupom;
 use CodeDelivery\Repositories\CupomRepository;
 use Illuminate\Support\Facades\DB;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class CupomController extends Controller
 {
