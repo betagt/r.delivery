@@ -12,10 +12,15 @@ class Category extends Model implements Transformable
     use TransformableTrait, SoftDeletes;
     
     protected $fillable = [
-        'parent_id', 'name', 'tipo'
+        'estabelecimento_id', 'parent_id', 'name', 'tipo'
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function estabelecimento()
+    {
+        return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
+    }
 
     public function children()
     {

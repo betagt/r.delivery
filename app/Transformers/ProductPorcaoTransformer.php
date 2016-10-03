@@ -22,7 +22,7 @@ class ProductPorcaoTransformer extends TransformerAbstract
     {
         return [
             'id'                => (int) $model->id,
-            'porcao'              => (int) $model->porcao,
+            'porcao'            => (int) $model->porcao,
             'nome'              => (string) $model->nome,
             'preco'             => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->preco)),
             'preco_label'       => (string)$model->preco,

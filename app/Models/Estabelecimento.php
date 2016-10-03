@@ -53,9 +53,9 @@ class Estabelecimento extends Model implements Transformable
         return $this->hasMany(EstabelecimentoFuncionamento::class, 'estabelecimento_id', 'id');
     }
 
-    public function produtos()
+    public function categories()
     {
-        return $this->hasMany(Product::class, 'estabelecimento_id', 'id');
+        return $this->hasMany(Category::class, 'estabelecimento_id', 'id');
     }
 
     public function orders()

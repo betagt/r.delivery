@@ -12,7 +12,6 @@ class Product extends Model implements Transformable
     use TransformableTrait, SoftDeletes;
 
     protected $fillable = [
-        'estabelecimento_id',
         'category_id',
         'parent_id',
         'name',
@@ -35,11 +34,6 @@ class Product extends Model implements Transformable
     public function getPriceAttribute()
     {
         return number_format($this->attributes['price'], 2, ",", ".");
-    }
-
-    public function estabelecimento()
-    {
-        return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
     }
 
     public function children()

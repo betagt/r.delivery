@@ -3,6 +3,7 @@
 namespace CodeDelivery\Transformers;
 
 use CodeDelivery\Models\CategoryExtra;
+use CodeDelivery\Presenters\ProductPresenter;
 use League\Fractal\TransformerAbstract;
 use CodeDelivery\Models\Product;
 
@@ -15,7 +16,7 @@ class ProductTransformer extends TransformerAbstract
 
     protected $availableIncludes = [ 'estabelecimento', 'category', 'porcoes' ];
 
-    //protected $defaultIncludes = ['category'];
+    protected $defaultIncludes = [ 'filhos' ];
     /**
      * Transform the \Product entity
      * @param \Product $model
@@ -26,7 +27,6 @@ class ProductTransformer extends TransformerAbstract
     {
         return [
             'id'                    => (int) $model->id,
-            'estabelecimento_id'    => (int) $model->estabelecimento_id,
             'category_id'           => (int) $model->category_id,
             'name'                  => (string) $model->name,
             'description'           => (string) $model->description,
@@ -39,24 +39,6 @@ class ProductTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeEstabelecimento(Product $model)
-    {
-        if (!$model->estabelecimento)
-        {
-            return null;
-        }
-        return $this->item($model->estabelecimento, new EstabelecimentoEnderecoTransformer());
-    }
-
-    public function includeCategory(Product $model)
-    {
-        if (!$model->category)
-        {
-            return null;
-        }
-        return $this->item($model->category, new CategoryTransformer());
-    }
-
     public function includePorcoes(Product $model)
     {
         if (!$model->porcoes)
@@ -64,5 +46,14 @@ class ProductTransformer extends TransformerAbstract
             return null;
         }
         return $this->collection($model->porcoes, new ProductPorcaoTransformer());
+    }
+
+    public function includeFilhos(Product $model)
+    {
+        if (!$model->children)
+        {
+            return null;
+        }
+        return $this->collection($model->children, new ProductTransformer());
     }
 }

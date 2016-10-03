@@ -15,7 +15,7 @@ class OrderTableSeeder extends Seeder
 
         for ($j = 0; $j < 20; $j++)
         {
-            $o = factory(\CodeDelivery\Models\Order::class)->create(['estabelecimento_id' => random_int(1, 20)]);
+            $o = factory(\CodeDelivery\Models\Order::class)->create(['estabelecimento_id' => random_int(1, 5)]);
 
             $address = \Illuminate\Support\Facades\DB::select('SELECT * FROM user_addresses WHERE user_id = :user_id', [
                 'user_id' => $o->client_id
