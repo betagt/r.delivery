@@ -69,34 +69,42 @@ Breadcrumbs::register("admin_orders_edit", function($breadcrumbs, $entity)
     $breadcrumbs->push("Editar #{$entity->id}", route("admin.orders.edit", [ 'id' => $entity->id ]));
 });
 
-// Dashboard > Categorias dos Produtos
+// Dashboard > Gerenciar Estabelecimentos
 Breadcrumbs::register("admin_categories", function($breadcrumbs)
 {
     $breadcrumbs->parent("admin_home");
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
+    $breadcrumbs->push("Gerenciar Estabelecimentos", route("admin.estabelecimentos.index"));
 });
 
-// Dashboard > Categorias dos Produtos > Create
-Breadcrumbs::register("admin_categories_create", function($breadcrumbs)
-{
-    $breadcrumbs->parent("admin_home");
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
-    $breadcrumbs->push("Novo Registro", route("admin.categories.create"));
-});
 
-// Dashboard > Categorias dos Produtos > Show
-Breadcrumbs::register("admin_categories_show", function($breadcrumbs, $entity)
-{
-    $breadcrumbs->parent("admin_home");
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
-    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.categories.show", [ 'id' => $entity->id ]));
-});
+//// Dashboard > Categorias dos Produtos
+//Breadcrumbs::register("admin_categories", function($breadcrumbs)
+//{
+//    $breadcrumbs->parent("admin_home");
+//    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
+//});
 
-// Dashboard > Categorias dos Produtos > Edit
-Breadcrumbs::register("admin_categories_edit", function($breadcrumbs, $entity)
-{
-    $breadcrumbs->parent("admin_home");
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
-    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.categories.show", [ 'id' => $entity->id ]));
-    $breadcrumbs->push("Editar #{$entity->id}", route("admin.categories.edit", [ 'id' => $entity->id ]));
-});
+//// Dashboard > Categorias dos Produtos > Create
+//Breadcrumbs::register("admin_categories_create", function($breadcrumbs)
+//{
+//    $breadcrumbs->parent("admin_home");
+//    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
+//    $breadcrumbs->push("Novo Registro", route("admin.categories.create"));
+//});
+//
+//// Dashboard > Categorias dos Produtos > Show
+//Breadcrumbs::register("admin_categories_show", function($breadcrumbs, $entity)
+//{
+//    $breadcrumbs->parent("admin_home");
+//    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
+//    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.categories.show", [ 'id' => $entity->id ]));
+//});
+//
+//// Dashboard > Categorias dos Produtos > Edit
+//Breadcrumbs::register("admin_categories_edit", function($breadcrumbs, $entity)
+//{
+//    $breadcrumbs->parent("admin_home");
+//    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.categories.index"));
+//    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.categories.show", [ 'id' => $entity->id ]));
+//    $breadcrumbs->push("Editar #{$entity->id}", route("admin.categories.edit", [ 'id' => $entity->id ]));
+//});

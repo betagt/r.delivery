@@ -101,44 +101,56 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
             'uses' => 'OrdersController@destroySelected'
         ]);
     });
-    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {
+    Route::group(['prefix' => 'estabelecimentos', 'as' => 'estabelecimentos.'], function(){
         Route::get('', [
-            'as' => 'index',
-            'uses' => 'CategoriesController@index'
+           'as' => 'index',
+           'uses' => 'EstabelecimentosController@index'
         ]);
-        Route::get('create', [
-            'as' => 'create',
-            'uses' => 'CategoriesController@create'
-        ]);
-        Route::get('print/{id}', [
-            'as' => 'print',
-            'uses' => 'CategoriesController@printReport'
-        ]);
-        Route::get('show/{id}', [
-            'as' => 'show',
-            'uses' => 'CategoriesController@show'
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'edit',
-            'uses' => 'CategoriesController@edit'
-        ]);
-        Route::post('store', [
-            'as' => 'store',
-            'uses' => 'CategoriesController@store'
-        ]);
-        Route::post('update/{id}', [
-            'as' => 'update',
-            'uses' => 'CategoriesController@update'
-        ]);
-        Route::get('destroy/{id}', [
-            'as' => 'destroy',
-            'uses' => 'CategoriesController@destroy'
-        ]);
-        Route::post('destroy', [
-            'as' => 'destroySelected',
-            'uses' => 'CategoriesController@destroySelected'
-        ]);
+        Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function(){
+            Route::get('listar', [
+                'as' => 'index',
+                'uses' => 'EstabelecimentosController@listar'
+            ]);
+        });
     });
+//    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {
+//        Route::get('', [
+//            'as' => 'index',
+//            'uses' => 'CategoriesController@index'
+//        ]);
+//        Route::get('create', [
+//            'as' => 'create',
+//            'uses' => 'CategoriesController@create'
+//        ]);
+//        Route::get('print/{id}', [
+//            'as' => 'print',
+//            'uses' => 'CategoriesController@printReport'
+//        ]);
+//        Route::get('show/{id}', [
+//            'as' => 'show',
+//            'uses' => 'CategoriesController@show'
+//        ]);
+//        Route::get('edit/{id}', [
+//            'as' => 'edit',
+//            'uses' => 'CategoriesController@edit'
+//        ]);
+//        Route::post('store', [
+//            'as' => 'store',
+//            'uses' => 'CategoriesController@store'
+//        ]);
+//        Route::post('update/{id}', [
+//            'as' => 'update',
+//            'uses' => 'CategoriesController@update'
+//        ]);
+//        Route::get('destroy/{id}', [
+//            'as' => 'destroy',
+//            'uses' => 'CategoriesController@destroy'
+//        ]);
+//        Route::post('destroy', [
+//            'as' => 'destroySelected',
+//            'uses' => 'CategoriesController@destroySelected'
+//        ]);
+//    });
 });
 
 Route::group(['prefix' => 'costumer', 'middleware' => 'auth.checkrole:client', 'as' => 'costumer.'], function () {

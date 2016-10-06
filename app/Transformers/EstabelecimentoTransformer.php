@@ -24,6 +24,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
+            'cidade_id'      => (string) $model->cidade_id,
             'icone'      => (string) $model->icone,
             'nome'       => (string) $model->nome,
             'descricao'  => (string) $model->descricao,
@@ -31,6 +32,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
             'telefone'   => (string) $model->telefone,
             'status'     => (int) $model->status,
             'power'      => (int) $model->power,
+            'label_status'=> (string) $this->returnStatus($model->status),
             'label_power'=> (string) $this->returnPower($model->power),
             'nota'       => $this->getNotaFinal($model->id),
             /* place your other model properties here */
@@ -53,6 +55,21 @@ class EstabelecimentoTransformer extends TransformerAbstract
                 break;
             default :
                 $result = "on";
+                break;
+        }
+        return $result;
+    }
+
+    public function returnStatus($value)
+    {
+        $result = null;
+        switch ($value)
+        {
+            case 1 :
+                $result = "Ativo";
+                break;
+            case 2 :
+                $result = "Inativo";
                 break;
         }
         return $result;

@@ -13,6 +13,7 @@ class OrderItem extends Model implements Transformable
 
     protected $fillable = [
         'product_id',
+        'product_extra_id',
         'order_id',
         'price',
         'qtd',
@@ -22,11 +23,16 @@ class OrderItem extends Model implements Transformable
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function productExtra()
+    {
+        return $this->belongsTo(Product::class, 'product_extra_id', 'id');
     }
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 }

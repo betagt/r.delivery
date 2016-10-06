@@ -2,12 +2,10 @@
 
 namespace CodeDelivery\Http\Controllers\Admin;
 
-use CodeDelivery\Http\Controllers\Admin\Contracts\IEstabelecimentosController;
-use CodeDelivery\Http\Controllers\BetaGT\SimpleController;
-use CodeDelivery\Http\Requests\Admin\EstabelecimentoRequest;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
+use Illuminate\Routing\Controller;
 
-class EstabelecimentosController extends SimpleController implements IEstabelecimentosController
+class EstabelecimentosController extends Controller
 {
     public function __construct(EstabelecimentoRepository $repository)
     {
@@ -18,36 +16,17 @@ class EstabelecimentosController extends SimpleController implements IEstabeleci
         $this->route = 'admin.estabelecimentos';
     }
 
-    public function store(EstabelecimentoRequest $request)
+    public function index()
     {
-        try {
-            $data = $request->all();
+        $titulo = $this->titulo;
 
-            $entity = $this->repository->create($data);
+        $subtitulo = "Gerenciar Estabelecimentos";
 
-            return redirect()->route($this->route . '.show', [ 'id' => $entity->id ])->with('success', "Registro #{$entity->id} cadastrado com sucesso");
-        }
-        catch (\Exception $ex)
-        {
-            return redirect()->route($this->route . '.index')->with('warning', $ex->getMessage());
-        }
+        return view('admin.estabelecimentos.index', compact('titulo', 'subtitulo'));
     }
 
-    public function update(EstabelecimentoRequest $request, $id)
+    public function listar()
     {
-        try
-        {
-            $entity = $this->repository->find($id);
-
-            $data = $request->all();
-
-            $this->repository->update($data, $entity->id);
-
-            return redirect()->route($this->route . '.show', [ 'id' => $entity->id ])->with('success', "O registro {$entity->id} foi atualizado com sucesso");
-        }
-        catch (\Exception $ex)
-        {
-            return redirect()->route($this->route . '.index')->with('warning', $ex->getMessage());
-        }
+        return $this->repository->skipPresenter(false)->all();
     }
 }

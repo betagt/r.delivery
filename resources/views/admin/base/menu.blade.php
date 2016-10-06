@@ -56,27 +56,27 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-tag"></i>
-                    <span>Categorias dos Produtos</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="{{ route('admin.categories.index') }}">
-                            <i class="fa fa-list-ul"></i> Listar/Pesquisar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.categories.create') }}">
-                            <i class="fa fa-plus"></i> Novo Registro
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="treeview">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="fa fa-tag"></i>--}}
+                    {{--<span>Categorias dos Produtos</span>--}}
+                    {{--<span class="pull-right-container">--}}
+                      {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                    {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li>--}}
+                        {{--<a href="{{ route('admin.categories.index') }}">--}}
+                            {{--<i class="fa fa-list-ul"></i> Listar/Pesquisar--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<a href="{{ route('admin.categories.create') }}">--}}
+                            {{--<i class="fa fa-plus"></i> Novo Registro--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
             <li>
                 <a href="/auth/logout"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
             </li>
