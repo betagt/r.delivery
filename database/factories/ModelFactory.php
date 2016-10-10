@@ -175,7 +175,13 @@ $factory->define(\CodeDelivery\Models\Contato::class, function (Faker\Generator 
 $factory->define(\CodeDelivery\Models\ProductPorcao::class, function(Faker\Generator $faker) {
     return [
         'nome' => $faker->name,
-        'porcao' => random_int(1, 4),
         'preco' => 10,
+    ];
+});
+
+
+$factory->define(\CodeDelivery\Models\ProductPorcaoCategory::class, function(Faker\Generator $faker) {
+    return [
+        'qtde' => random_int(1,3)
     ];
 });

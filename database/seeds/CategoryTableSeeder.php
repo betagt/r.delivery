@@ -22,6 +22,26 @@ class CategoryTableSeeder extends Seeder
 
         $estado->cidades()->save($cidade);
 
+        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
+            'nome' => 'Paraíso'
+        ]);
+
+        $estado->cidades()->save($cidade);
+
+
+        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
+            'nome' => 'Gurupi'
+        ]);
+
+        $estado->cidades()->save($cidade);
+
+
+        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
+            'nome' => 'Araguaína'
+        ]);
+
+        $estado->cidades()->save($cidade);
+
         for ($i = 0; $i < 5 ;$i++)
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([

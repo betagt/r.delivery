@@ -20,6 +20,8 @@ Route::get('/test', [
     'as' => 'test.index'
 ]);
 
+
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::get('', [
         'as' => 'home',
@@ -106,12 +108,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
            'as' => 'index',
            'uses' => 'EstabelecimentosController@index'
         ]);
-        Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function(){
-            Route::get('listar', [
-                'as' => 'index',
-                'uses' => 'EstabelecimentosController@listar'
-            ]);
-        });
+
     });
 //    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {
 //        Route::get('', [
@@ -160,6 +157,24 @@ Route::group(['prefix' => 'costumer', 'middleware' => 'auth.checkrole:client', '
 });
 
 Route::group(['middleware' => 'cors'], function () {
+    Route::group(['prefix' => 'ajax', 'as' => 'ajax.', 'namespace' => 'Ajax'], function(){
+        Route::get('token', [
+            'as' => 'getToken',
+            'uses' => 'TokenController@getToken'
+        ]);
+        Route::group(['prefix' => 'estabelecimentos', 'as' => 'estabelecimentos.'], function(){
+            Route::get('', [
+                'as' => 'index',
+                'uses' => 'EstabelecimentosController@index'
+            ]);
+        });
+        Route::group(['prefix' => 'cidades', 'as' => 'cidades.'], function(){
+            Route::get('', [
+                'as' => 'index',
+                'uses' => 'CidadesController@index'
+            ]);
+        });
+    });
     Route::post('oauth/access_token', function () {
         return Response::json(Authorizer::issueAccessToken());
     });

@@ -33,10 +33,10 @@ class ProductTableSeeder extends Seeder
         }
 
         $porcoes = [
-            0 => [ 'nome' => 'P', 'porcao' => 1, 'preco' => 10, ],
-            1 => [ 'nome' => 'M', 'porcao' => 2, 'preco' => 20, ],
-            2 => [ 'nome' => 'G', 'porcao' => 3, 'preco' => 30, ],
-            3 => [ 'nome' => 'B', 'porcao' => 4, 'preco' => 40, ],
+            0 => [ 'nome' => 'P', 'preco' => 10, ],
+            1 => [ 'nome' => 'M', 'preco' => 20, ],
+            2 => [ 'nome' => 'G', 'preco' => 30, ],
+            3 => [ 'nome' => 'B', 'preco' => 40, ],
         ];
         $countPorcoes = count($porcoes);
 
@@ -45,15 +45,17 @@ class ProductTableSeeder extends Seeder
             $id = $i + 1;
             for($j = 0; $j < $countPorcoes; $j++)
             {
-                factory(\CodeDelivery\Models\ProductPorcao::class)->create([
+                $porcao = factory(\CodeDelivery\Models\ProductPorcao::class)->create([
                     'product_id' => $id,
                     'nome' => $porcoes[$j]['nome'],
-                    'porcao' => $porcoes[$j]['porcao'],
                     'preco' => $porcoes[$j]['preco'],
+                ]);
+
+                factory(\CodeDelivery\Models\ProductPorcaoCategory::class)->create([
+                    'product_porcao_id' => $porcao->id,
+                    'category_id' => random_int(6,50)
                 ]);
             }
         }
-
-
     }
 }

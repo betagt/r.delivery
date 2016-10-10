@@ -12,7 +12,6 @@ class ProductPorcao extends Model implements Transformable
 
     protected $fillable = [
 		'product_id',
-		'porcao',
 		'nome',
 		'preco',
 	];
@@ -30,5 +29,10 @@ class ProductPorcao extends Model implements Transformable
     public function getPrecoAttribute()
     {
         return number_format($this->attributes['preco'], 2, ",", ".");
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(ProductPorcaoCategory::class, 'product_porcao_id', 'id');
     }
 }
