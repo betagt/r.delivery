@@ -26,6 +26,7 @@ use CodeDelivery\Repositories\ProductExtraItemRepositoryEloquent;
 use CodeDelivery\Repositories\ProductExtraRepository;
 use CodeDelivery\Repositories\ProductExtraRepositoryEloquent;
 use CodeDelivery\Repositories\ProductPorcaoRepository;
+use CodeDelivery\Repositories\ProductPorcaoRepositoryEloquent;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserAddressRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;

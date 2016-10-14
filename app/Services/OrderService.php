@@ -13,6 +13,7 @@ use CodeDelivery\Models\Cupom;
 use CodeDelivery\Models\Order;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\OrderRepository;
+use CodeDelivery\Repositories\ProductPorcaoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use Dmitrovskiy\IonicPush\PushProcessor;
 use Illuminate\Support\Facades\DB;
