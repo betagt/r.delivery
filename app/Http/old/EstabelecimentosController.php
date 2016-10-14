@@ -20,13 +20,8 @@ class EstabelecimentosController extends Controller
     {
         $titulo = $this->titulo;
 
-        $subtitulo = "Gerenciar Estabelecimentos";
+        $subtitulo = "Gerenciar Registros";
 
         return view('admin.estabelecimentos.index', compact('titulo', 'subtitulo'));
-    }
-
-    public function listar()
-    {
-        return $this->repository->skipPresenter(false)->all();
     }
 }
