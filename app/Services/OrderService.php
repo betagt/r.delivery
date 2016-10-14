@@ -85,7 +85,7 @@ class OrderService
                 {
                     if ($item['porcao_id'] > 0)
                     {
-                        $item['price'] = $this->porcaoRepository->findWhere(['product_id' => $item['product_id'], 'porcao_id' => $item['porcao_id']])->price;
+                        $item['price'] = $this->porcaoRepository->findWhere(['product_id' => $item['product_id'], 'porcao_id' => $item['porcao_id']])->first()->price;
                     } else {
                         $item['price'] = $this->productRepository->find($item['product_id'])->price;
                     }
