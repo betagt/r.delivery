@@ -14,9 +14,9 @@ use CodeDelivery\Models\Product;
 class ProductTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = [ 'estabelecimento', 'category', 'porcoes' ];
+    protected $availableIncludes = [ 'estabelecimento', 'category'];
 
-    protected $defaultIncludes = [ 'filhos' ];
+    protected $defaultIncludes = [ 'filhos', 'porcoes'  ];
     /**
      * Transform the \Product entity
      * @param \Product $model
