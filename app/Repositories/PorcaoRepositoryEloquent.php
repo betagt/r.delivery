@@ -4,15 +4,15 @@ namespace CodeDelivery\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeDelivery\Repositories\ProductPorcaoCategoryRepository;
-use CodeDelivery\Models\ProductPorcaoCategory;
-use CodeDelivery\Validators\ProductPorcaoCategoryValidator;
+use CodeDelivery\Repositories\PorcaoRepository;
+use CodeDelivery\Models\Porcao;
+use CodeDelivery\Validators\PorcaoValidator;
 
 /**
- * Class ProductPorcaoCategoryRepositoryEloquent
+ * Class PorcaoRepositoryEloquent
  * @package namespace CodeDelivery\Repositories;
  */
-class ProductPorcaoCategoryRepositoryEloquent extends BaseRepository implements ProductPorcaoCategoryRepository
+class PorcaoRepositoryEloquent extends BaseRepository implements PorcaoRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +21,7 @@ class ProductPorcaoCategoryRepositoryEloquent extends BaseRepository implements 
      */
     public function model()
     {
-        return ProductPorcaoCategory::class;
+        return Porcao::class;
     }
 
     

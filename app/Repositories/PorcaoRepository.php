@@ -5,10 +5,10 @@ namespace CodeDelivery\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface ProductPorcaoCategoryRepository
+ * Interface PorcaoRepository
  * @package namespace CodeDelivery\Repositories;
  */
-interface ProductPorcaoCategoryRepository extends RepositoryInterface
+interface PorcaoRepository extends RepositoryInterface
 {
     //
 }

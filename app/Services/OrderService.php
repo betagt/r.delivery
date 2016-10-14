@@ -60,9 +60,8 @@ class OrderService
             if (isset($data['cupom_code'])) {
                 $cupom = $this->cupomRepository->findByField('code', $data['cupom_code'])->first();
 
-                $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [ $data['client_id'], $cupom->id ]);
-                if ($check)
-                {
+                $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [$data['client_id'], $cupom->id]);
+                if ($check) {
                     abort(300, 'Esse cupom não pode ser utilizado uma seugnda vez');
                 }
                 unset($data['cupom_code']);
@@ -79,20 +78,19 @@ class OrderService
             }
             $order->total = $total;
             if (isset($cupom)) {
-                $order->total = $data['taxa']+$total - $cupom->value;
+                $order->total = $data['taxa'] + $total - $cupom->value;
             }
             $order->save();
 
             DB::insert(
                 'INSERT INTO order_delivery_addresses (order_id, user_address_id) VALUES (?, ?)',
-                [ $order->id, $data['user_delivery_id']]
+                [$order->id, $data['user_delivery_id']]
             );
 
-            if ($cupom)
-            {
+            if ($cupom) {
                 DB::insert(
                     'INSERT INTO user_cupoms (user_id, cupom_id) VALUES (?, ?)',
-                    [$order->client_id , $cupom->id]
+                    [$order->client_id, $cupom->id]
                 );
             }
 
@@ -104,26 +102,28 @@ class OrderService
         }
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $order = $this->orderRepository->skipPresenter(false)->find($id);
         $order['data']['endereco'] = $order['data']['endereco']->first();
         return $order;
     }
 
-    public function updateStatus($id,$idDeliveryman,$status){
-        $order = $this->orderRepository->getByIdAndDeliveryman($id,$idDeliveryman);
+    public function updateStatus($id, $idDeliveryman, $status)
+    {
+        $order = $this->orderRepository->getByIdAndDeliveryman($id, $idDeliveryman);
         $order->status = $status;
         switch ((int)$order->status) {
             case 1:
-                if( !$order->hash) {
+                if (!$order->hash) {
                     $order->hash = md5((new \DateTime())->getTimestamp());
                 }
                 $order->save();
                 break;
             case 2:
                 $user = $order->client->user;
-                $this->pushProcessor->notify([$user->device_token],[
-                    'message'=>"Seu Pedido #".$order->id." acabou de ser entregue"
+                $this->pushProcessor->notify([$user->device_token], [
+                    'message' => "Seu Pedido #" . $order->id . " acabou de ser entregue"
                 ]);
                 $order->save();
                 break;

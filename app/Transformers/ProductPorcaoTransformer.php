@@ -12,7 +12,7 @@ use CodeDelivery\Models\ProductPorcao;
 class ProductPorcaoTransformer extends TransformerAbstract
 {
 
-    protected $defaultIncludes = ['categories'];
+    protected $availableIncludes = ['procuct', 'porcao'];
 
     /**
      * Transform the \ProductPorcao entity
@@ -24,23 +24,31 @@ class ProductPorcaoTransformer extends TransformerAbstract
     {
         return [
             'id'                => (int) $model->id,
-            'nome'              => (string) $model->nome,
+            'product_id'        => (string) $model->product_id,
+            'porcao_id'         => (string) $model->porcao_id,
             'preco'             => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->preco)),
             'preco_label'       => (string)$model->preco,
-            /* place your other model properties here */
-
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
     }
 
-    public function includeCategories(ProductPorcao $model)
+    public function includeProduct(ProductPorcao $model)
     {
-        if (!$model->categories)
+        if (!$model->product)
         {
             return null;
         }
-        return $this->collection($model->categories, new ProductPorcaoCategoryTransformer());
+        return $this->item($model->product, new ProductTransformer());
+    }
+
+    public function includePorcao(ProductPorcao $model)
+    {
+        if (!$model->porcao)
+        {
+            return null;
+        }
+        return $this->item($model->porcao, new PorcaoTransformer());
     }
 
 }
