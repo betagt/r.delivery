@@ -35,18 +35,24 @@ class OrderService
      * @var PushProcessor
      */
     private $pushProcessor;
+    /**
+     * @var ProductPorcaoRepository
+     */
+    private $porcaoRepository;
 
     public function __construct(
         OrderRepository $orderRepository,
         CupomRepository $cupomRepository,
         ProductRepository $productRepository,
-        PushProcessor $pushProcessor
+        PushProcessor $pushProcessor,
+        ProductPorcaoRepository $porcaoRepository
     )
     {
         $this->orderRepository = $orderRepository;
         $this->cupomRepository = $cupomRepository;
         $this->productRepository = $productRepository;
         $this->pushProcessor = $pushProcessor;
+        $this->porcaoRepository = $porcaoRepository;
     }
 
     public function create($data)
@@ -66,13 +72,22 @@ class OrderService
                 }
                 unset($data['cupom_code']);
             }
-            $items = $data['items'];
+            $items = $this->getItems($data['items']);
+
             unset($data['items']);
 
             $order = $this->orderRepository->create($data);
             $total = 0;
             foreach ($items as $item) {
-                $item['price'] = $this->productRepository->find($item['product_id'])->price;
+                if ($item['price'] > 0)
+                {
+                    if ($item['porcao_id'] > 0)
+                    {
+                        $item['price'] = $this->porcaoRepository->findWhere(['product_id' => $item['product_id'], 'porcao_id' => $item['porcao_id']])->price;
+                    } else {
+                        $item['price'] = $this->productRepository->find($item['product_id'])->price;
+                    }
+                }
                 $order->items()->create($item);
                 $total += $item['price'] * $item['qtd'];
             }
@@ -100,6 +115,88 @@ class OrderService
             DB::rollback();
             throw $e;
         }
+    }
+
+    public function getItems($items)
+    {
+        $result = [];
+        foreach ($items as $item) {
+            $this->mountIntersection($item, $result);
+        }
+
+        $this->calcPrice($result);
+
+        $result = $this->reagruparArray($result);
+
+        $count = count($items);
+        $countResult = count($result);
+        for ($i = 0; $i < $count; $i++) {
+            for ($j = 0; $j < $countResult; $j++) {
+                if ($items[$i]['product_id'] == $result[$j]['product_id']) {
+                    $items[$i]['price'] = $result[$j]['price'];
+                }
+            }
+        }
+        return $items;
+    }
+
+    public function mountIntersection($item, &$result)
+    {
+        if ($item['porcao_id'] == 0) {
+            return;
+        }
+        $index = $item['porcao_id'];
+        $result[$index][] = $item;
+    }
+
+    public function calcPrice(&$result)
+    {
+        $count = count($result);
+        if ($count == 0) {
+            return;
+        }
+        $keys = array_keys($result);
+        $countIndex = count($keys);
+
+        for ($k = 0; $k < $countIndex; $k++) {
+            $price = $this->maxValueInArray($result[$keys[$k]], 'price');
+
+            $countK = count($result[$keys[$k]]);
+            for ($i = 0; $i < $countK; $i++) {
+                if ($i == 0) {
+                    $result[$keys[$k]][$i]['price'] = $price;
+                } else {
+                    $result[$keys[$k]][$i]['price'] = 0;
+                }
+            }
+        }
+    }
+
+    public function reagruparArray($items)
+    {
+        $result = [];
+        $keys = array_keys($items);
+        $countKeys = count($keys);
+        for ($i = 0; $i < $countKeys; $i++) {
+            $countItem = count($items[$keys[$i]]);
+            for ($j = 0; $j < $countItem; $j++) {
+                $result[] = $items[$keys[$i]][$j];
+            }
+        }
+        return $result;
+    }
+
+    public function maxValueInArray($array, $keyToSearch)
+    {
+        $currentMax = NULL;
+        foreach ($array as $arr) {
+            foreach ($arr as $key => $value) {
+                if ($key == $keyToSearch && ($value >= $currentMax)) {
+                    $currentMax = $value;
+                }
+            }
+        }
+        return $currentMax;
     }
 
     public function show($id)

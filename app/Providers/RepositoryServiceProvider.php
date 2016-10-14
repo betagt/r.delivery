@@ -20,10 +20,12 @@ use CodeDelivery\Repositories\EstadoRepository;
 use CodeDelivery\Repositories\EstadoRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
+use CodeDelivery\Repositories\PorcaoRepository;
 use CodeDelivery\Repositories\ProductExtraItemRepository;
 use CodeDelivery\Repositories\ProductExtraItemRepositoryEloquent;
 use CodeDelivery\Repositories\ProductExtraRepository;
 use CodeDelivery\Repositories\ProductExtraRepositoryEloquent;
+use CodeDelivery\Repositories\ProductPorcaoRepository;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserAddressRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
@@ -95,6 +97,13 @@ class RepositoryServiceProvider extends ServiceProvider
             ContatoRepository::class,
             ContatoRepositoryEloquent::class
         );
-
+        $this->app->bind(
+            PorcaoRepository::class,
+            PorcaoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            ProductPorcaoRepository::class,
+            ProductPorcaoRepositoryEloquent::class
+        );
     }
 }

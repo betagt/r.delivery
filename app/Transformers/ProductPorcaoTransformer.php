@@ -12,7 +12,7 @@ use CodeDelivery\Models\ProductPorcao;
 class ProductPorcaoTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = ['procuct', 'porcao'];
+    protected $availableIncludes = ['product', 'porcao'];
 
     /**
      * Transform the \ProductPorcao entity
