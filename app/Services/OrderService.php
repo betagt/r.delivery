@@ -61,7 +61,7 @@ class OrderService
         DB::beginTransaction();
         try {
             $data['status'] = 0;
-            $data['cupom_id'] = null;
+            $cupom = null;
             if (isset($data['cupom_id'])) {
                 unset($data['cupom_id']);
             }
@@ -74,22 +74,10 @@ class OrderService
                 }
                 unset($data['cupom_code']);
             }
-            $items = $this->getItems($data['items']);
-
-            unset($data['items']);
-
+            $data['items'] = $this->getItems($data['items']);
             $order = $this->orderRepository->create($data);
             $total = 0;
-            foreach ($items as $item) {
-                if ($item['price'] > 0)
-                {
-                    if ($item['porcao_id'] > 0)
-                    {
-                        $item['price'] = $this->porcaoRepository->findWhere(['product_id' => $item['product_id'], 'porcao_id' => $item['porcao_id']])->first()->price;
-                    } else {
-                        $item['price'] = $this->productRepository->find($item['product_id'])->price;
-                    }
-                }
+            foreach ($data['items'] as $key =>$item) {
                 $order->items()->create($item);
                 $total += $item['price'] * $item['qtd'];
             }
@@ -119,7 +107,46 @@ class OrderService
         }
     }
 
-    public function getItems($items)
+    public function getItems($items){
+        $arr_pai = array_filter($items,function ($var) use ($items){
+            return $var["product_extra_id"]== 0;
+        });
+        $todosfilhos = [];
+        foreach ($arr_pai as $key=>$value){
+            $id = $arr_pai[$key]['id'];
+            $arr_pai[$key]['price'] = $this->checkPrice($arr_pai[$key]);
+            $arr_filho = array_filter($items,function ($var) use ($id){
+                return $var["product_extra_id"]== $id;
+            });
+            foreach ($arr_filho as $index => $val){
+                $aux = $arr_pai[$key]['price'];
+                $arr_filho[$index]['price']= $this->checkPrice($arr_filho[$index]);
+                if($arr_filho[$index]['price'] > $aux){
+                    $aux = $arr_filho[$index]['price'];
+                    $arr_pai[$key]['price'] = $aux;
+                    $arr_pai[$key]['price_label'] = $arr_filho[$index]['price_label'];
+                }
+                $arr_filho[$index]['price'] = 0;
+                $arr_filho[$index]['price_label'] = "0,00";
+            }
+            $todosfilhos = array_merge($arr_filho,$todosfilhos);
+        }
+        return array_merge($arr_pai,$todosfilhos);
+    }
+
+    private function checkPrice($item){
+        if(!isset($item['porcao_id'])){
+            $item['porcao_id'] = 0;
+        }
+        if ($item['porcao_id'] > 0)
+        {
+            return $this->porcaoRepository->findWhere(['product_id' => $item['id'], 'porcao_id' => $item['porcao_id']])->first()->preco;
+        } else {
+            return  $this->productRepository->find($item['product_id'])->price;
+        }
+    }
+
+    /*public function getItems_antigo($items)
     {
         $result = [];
         foreach ($items as $item) {
@@ -144,14 +171,17 @@ class OrderService
 
     public function mountIntersection($item, &$result)
     {
+        if(!isset($item['porcao_id'])){
+            return;
+        }
         if ($item['porcao_id'] == 0) {
             return;
         }
         $index = $item['porcao_id'];
         $result[$index][] = $item;
-    }
+    }*/
 
-    public function calcPrice(&$result)
+    /*public function calcPrice(&$result)
     {
         $count = count($result);
         if ($count == 0) {
@@ -172,9 +202,9 @@ class OrderService
                 }
             }
         }
-    }
+    }*/
 
-    public function reagruparArray($items)
+    /*public function reagruparArray($items)
     {
         $result = [];
         $keys = array_keys($items);
@@ -186,9 +216,9 @@ class OrderService
             }
         }
         return $result;
-    }
+    }*/
 
-    public function maxValueInArray($array, $keyToSearch)
+    /*public function maxValueInArray($array, $keyToSearch)
     {
         $currentMax = NULL;
         foreach ($array as $arr) {
@@ -199,7 +229,7 @@ class OrderService
             }
         }
         return $currentMax;
-    }
+    }*/
 
     public function show($id)
     {

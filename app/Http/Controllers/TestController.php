@@ -37,20 +37,20 @@ class TestController extends Controller
 //            return ['data' => 'Esse cupom não pode ser utilizado uma seugnda vez'];
 //        }
 //        return $cupom;
-/*
-        SELECT DISTINCT
-            `cupoms`.`id`,
-            `cupoms`.`code`,
-            `cupoms`.`value`,
-            `cupoms`.`deleted_at`,
-            `orders`.`created_at`
-        FROM
-            `user_cupoms`
-            INNER JOIN `cupoms` ON (`user_cupoms`.`cupom_id` = `cupoms`.`id`)
-            INNER JOIN `orders` ON (`user_cupoms`.`user_id` = `orders`.`client_id`)
-        WHERE
-            `user_cupoms`.`user_id` = 1
-*/
+        /*
+                SELECT DISTINCT
+                    `cupoms`.`id`,
+                    `cupoms`.`code`,
+                    `cupoms`.`value`,
+                    `cupoms`.`deleted_at`,
+                    `orders`.`created_at`
+                FROM
+                    `user_cupoms`
+                    INNER JOIN `cupoms` ON (`user_cupoms`.`cupom_id` = `cupoms`.`id`)
+                    INNER JOIN `orders` ON (`user_cupoms`.`user_id` = `orders`.`client_id`)
+                WHERE
+                    `user_cupoms`.`user_id` = 1
+        */
         $list = DB::table('cupoms')
             ->distinct()
             ->join('user_cupoms', 'cupoms.id', '=', 'user_cupoms.cupom_id')
@@ -60,7 +60,7 @@ class TestController extends Controller
             ->where('orders.cupom_id', '<>', '')
             ->get();
 
-        return [ 'data' => $list ];
+        return ['data' => $list];
     }
 
 //    private function getAvaliacoes($idEstabelecimento)
@@ -112,8 +112,6 @@ class TestController extends Controller
 //        $data = DB::select('select * from users where id = :id', ['id' => 1]);
 //        return $data[0]->id;
 //    }
-
-
 
 
 }
