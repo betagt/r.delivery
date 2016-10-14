@@ -60,6 +60,7 @@ class OrderService
         DB::beginTransaction();
         try {
             $data['status'] = 0;
+            $data['cupom_id'] = null;
             if (isset($data['cupom_id'])) {
                 unset($data['cupom_id']);
             }
