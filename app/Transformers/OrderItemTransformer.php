@@ -25,6 +25,9 @@ class OrderItemTransformer extends TransformerAbstract
         return [
             'id'                => (int) $model->id,
             'product_id'        => (int) $model->product_id,
+            'product_extra_id'  => (int) $model->product_extra_id,
+            'porcao_id'         => (int) $model->porcao_id,
+            'category_id'       => (int) $model->category_id,
             'qtd'               => (int) $model->qtd,
             'taxa_entrega'      => (float) $model->taxa_entrega,
             'price'             => (float) $model->price,
@@ -40,5 +43,26 @@ class OrderItemTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->product,new ProductTransformer());
+    }
+
+    public function includeProductExtra(OrderItem $model){
+        if(!$model->productExtra){
+            return null;
+        }
+        return $this->item($model->productExtra,new ProductTransformer());
+    }
+
+    public function includeCategory(OrderItem $model){
+        if(!$model->category){
+            return null;
+        }
+        return $this->item($model->category,new CategoryTransformer());
+    }
+
+    public function includePorcao(OrderItem $model){
+        if(!$model->porcao){
+            return null;
+        }
+        return $this->item($model->porcao,new PorcaoTransformer());
     }
 }

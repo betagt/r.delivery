@@ -14,6 +14,8 @@ class OrderItem extends Model implements Transformable
     protected $fillable = [
         'product_id',
         'product_extra_id',
+        'porcao_id',
+        'category_id',
         'order_id',
         'price',
         'qtd',
@@ -28,7 +30,29 @@ class OrderItem extends Model implements Transformable
 
     public function productExtra()
     {
-        return $this->belongsTo(Product::class, 'product_extra_id', 'id');
+        if ($this->attributes['product_extra_id'] > 0)
+        {
+            return $this->belongsTo(Product::class, 'product_extra_id', 'id');
+        }
+        return null;
+    }
+
+    public function category()
+    {
+        if ($this->attributes['category_id'] > 0)
+        {
+            return $this->belongsTo(Category::class, 'category_id', 'id');
+        }
+        return null;
+    }
+
+    public function porcao()
+    {
+        if ($this->attributes['porcao_id'] > 0)
+        {
+            return $this->belongsTo(Porcao::class, 'porcao_id', 'id');
+        }
+        return null;
     }
 
     public function order()

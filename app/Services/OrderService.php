@@ -122,7 +122,7 @@ class OrderService
             });
             foreach ($arr_filho as $index => $val){
                 $aux = $arr_pai[$key]['price'];
-                $arr_filho[$index]['price']= $this->checkPrice($arr_filho[$index]);
+                $arr_filho[$index]['price'] = $this->checkPrice($arr_filho[$index]);
                 if($arr_filho[$index]['price'] > $aux){
                     $aux = $arr_filho[$index]['price'];
                     $arr_pai[$key]['price'] = $aux;
