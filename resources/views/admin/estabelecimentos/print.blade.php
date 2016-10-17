@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="page-header">
-                    <i class="fa fa-print"></i> Dados do Produto: {{ $entity->name }}.
+                    <i class="fa fa-print"></i> Dados do Produto: {{ $entity->nome }}.
                     <small class="pull-right">Data do Relatório: {!! Carbon\Carbon::today()->format('d/m/Y H:i:s') !!}
                     </small>
                 </h2>
@@ -24,24 +24,44 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Estabelecimento Comercial</td>
-                            <td>{{ $entity->estabelecimento->nome }}</td>
-                        </tr>
-                        <tr>
-                            <td>Categoria</td>
-                            <td>{{ $entity->category->name }}</td>
+                            <td>Cidade</td>
+                            <td>{{ $entity->cidade->nome }}/{{ $entity->cidade->estado->uf }}</td>
                         </tr>
                         <tr>
                             <td>Nome</td>
-                            <td>{{ $entity->name }}</td>
+                            <td>{{ $entity->nome }}</td>
                         </tr>
                         <tr>
                             <td>Descrição</td>
-                            <td>{{ $entity->description }}</td>
+                            <td>{{ $entity->descricao }}</td>
                         </tr>
                         <tr>
-                            <td>Preço</td>
-                            <td>{{ $entity->price }}</td>
+                            <td>Telefone</td>
+                            <td>{{ $entity->telefone }}</td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td>{{ $entity->email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Situação do Estabelecimento</td>
+                            <td>
+                                @if ($entity->power == 1)
+                                    Aberto
+                                @else
+                                    Fechado
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                @if ($entity->status == 1)
+                                    Ativo
+                                @else
+                                    Inativo
+                                @endif
+                            </td>
                         </tr>
                     </tbody>
                 </table>

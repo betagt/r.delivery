@@ -74,9 +74,11 @@ class OrderService
                 }
                 unset($data['cupom_code']);
             }
+
             $data['items'] = $this->getItems($data['items']);
             $order = $this->orderRepository->create($data);
             $total = 0;
+
             foreach ($data['items'] as $key =>$item) {
                 $order->items()->create($item);
                 $total += $item['price'] * $item['qtd'];

@@ -1,16 +1,16 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_avaliacoes_edit', $entity) !!}
+    {!! Breadcrumbs::render('admin_categories_create', $relation) !!}
 @endsection
 @section('content')
-    {!! Form::Model($entity,['route'=>['admin.avaliacoes.update',$entity->id]]) !!}
+    {!! Form::Open(['route'=>'admin.categories.store']) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Preencher formulário abaixo</h3>
         </div>
         <div class="box-body">
             @include('admin.base.errors')
-            @include('admin.avaliacoes._form')
+            @include('admin.estabelecimentos.categories._form')
         </div>
         <div class="box-footer">
             <button class="btn btn-warning btn-flat pull-right">

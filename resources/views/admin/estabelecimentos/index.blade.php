@@ -1,11 +1,11 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_avaliacoes') !!}
+    {!! Breadcrumbs::render('admin_estabelecimentos') !!}
 @endsection
 @section('header')
-    <div class="row">
+    <div class="row mb">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <a href="{{ route('admin.avaliacoes.create') }}" class="btn btn-primary btn-flat" target="_blank">
+            <a href="{{ route('admin.estabelecimentos.create') }}" class="btn btn-primary btn-flat" target="_blank">
                 <i class="fa fa-plus"></i> Novo Registro
             </a>
         </div>
@@ -38,8 +38,8 @@
         <tr>
             <th><input type="checkbox" name="all" id="all" data-toggle="tooltip" data-placement="top" title="Marcar/Desmarcar Todos"></th>
             <th>ID</th>
-            <th>Questão</th>
-            <th>Status</th>
+            <th>Nome</th>
+            <th>Situação do Estabelecimento</th>
             <th>Ação</th>
         </tr>
         </thead>
@@ -48,26 +48,35 @@
             <tr>
                 <td><input type="checkbox" name="id[]" value="{{ $item->id }}" class="item"></td>
                 <td>{{$item->id}}</td>
-                <td>{{$item->questao}}</td>
                 <td>
-                    @if ($item->status == 1)
-                        <span class="label label-success"><i class="fa fa-check"></i> Ativo</span>
+                    {{$item->nome}} <br>
+                    <strong>E-mail: </strong>{{$item->email}} <br>
+                    <strong>Telefone: </strong>{{$item->telefone}}
+                </td>
+                <td>
+                    @if ($item->power == 1)
+                        <span class="label label-success"><i class="fa fa-toggle-on"></i> Aberto</span>
                     @else
-                        <span class="label label-warning"><i class="fa fa-exclamation"></i> Inativo</span>
+                        <span class="label label-default"><i class="fa fa-toggle-off"></i> Fechado</span>
                     @endif
                 </td>
                 <td>
-                    <a href="{{route('admin.avaliacoes.edit',['id'=>$item->id])}}" class="btn btn-default"
+                    <a href="{{route('admin.estabelecimentos.edit',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Editar #{{ $item->id }}"
                     >
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="{{route('admin.avaliacoes.show',['id'=>$item->id])}}" class="btn btn-default"
+                    <a href="{{route('admin.estabelecimentos.show',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Visualizar #{{ $item->id }}"
                     >
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="{{ route('admin.avaliacoes.destroy', [ 'id' => $item->id]) }}" class="btn btn-danger delete"
+                    <a href="{{route('admin.estabelecimentos.print',['id'=>$item->id])}}" class="btn btn-default"
+                       data-toggle="tooltip" data-placement="top" target="_blank" title="Imprimir#{{ $item->id }}"
+                    >
+                        <i class="fa fa-print"></i>
+                    </a>
+                    <a href="{{ route('admin.estabelecimentos.destroy', [ 'id' => $item->id]) }}" class="btn btn-danger delete"
                        data-toggle="tooltip" data-placement="top" title="Excluir #{{ $item->id }}"
                     >
                         <i class="fa fa-close"></i>

@@ -1,6 +1,6 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories_show', $entity) !!}
+    {!! Breadcrumbs::render('admin_categories_show', $relation, $entity) !!}
 @endsection
 @section('header')
     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i>

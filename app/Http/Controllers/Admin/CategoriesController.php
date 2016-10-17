@@ -5,22 +5,24 @@ namespace CodeDelivery\Http\Controllers\Admin;
 
 use CodeDelivery\Http\Controllers\Admin\Contracts\ICategoryController;
 use CodeDelivery\Http\Controllers\BetaGT\SimpleController;
+use CodeDelivery\Http\Controllers\BetaGT\SimpleRelationController;
 use CodeDelivery\Http\Requests\Admin\CategoryRequest;
 use CodeDelivery\Repositories\CategoryRepository;
+use CodeDelivery\Repositories\EstabelecimentoRepository;
 
-class CategoriesController extends SimpleController implements ICategoryController
+class CategoriesController extends SimpleRelationController implements ICategoryController
 {
 
-    public function __construct(CategoryRepository $repository)
+    public function __construct(CategoryRepository $repository, EstabelecimentoRepository $relationRepository)
     {
         $this->repository = $repository;
+        $this->relationRepository = $relationRepository;
 
         $this->titulo = "Categorias dos Produtos";
-
-        $this->route = 'admin.categories';
+        $this->route = 'admin.estabelecimentos.categories';
     }
 
-    public function index()
+    public function index($estabelecimento_id)
     {
         $titulo = $this->titulo;
 
@@ -33,7 +35,7 @@ class CategoriesController extends SimpleController implements ICategoryControll
         return view($this->route . '.index', compact('list', 'titulo', 'subtitulo'));
     }
 
-    public function create()
+    public function create($estabelecimento_id)
     {
         $titulo = $this->titulo;
 
@@ -44,7 +46,7 @@ class CategoriesController extends SimpleController implements ICategoryControll
         return view($this->route . '.create', compact('titulo', 'subtitulo', 'select'));
     }
 
-    public function edit($id)
+    public function edit($estabelecimento_id, $id)
     {
         try {
             $entity = $this->repository->find($id);
@@ -62,7 +64,7 @@ class CategoriesController extends SimpleController implements ICategoryControll
         }
     }
 
-    public function store(CategoryRequest $request)
+    public function store($estabelecimento_id, CategoryRequest $request)
     {
         try {
             $data = $request->all();
@@ -77,7 +79,7 @@ class CategoriesController extends SimpleController implements ICategoryControll
         }
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update($estabelecimento_id, CategoryRequest $request, $id)
     {
         try
         {

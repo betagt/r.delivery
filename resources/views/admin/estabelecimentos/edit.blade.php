@@ -1,16 +1,16 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_avaliacoes_edit', $entity) !!}
+    {!! Breadcrumbs::render('admin_estabelecimentos_edit', $entity) !!}
 @endsection
 @section('content')
-    {!! Form::Model($entity,['route'=>['admin.avaliacoes.update',$entity->id]]) !!}
+    {!! Form::Model($entity,['route'=>['admin.estabelecimentos.update',$entity->id], 'files'=>true]) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Preencher formulário abaixo</h3>
         </div>
         <div class="box-body">
             @include('admin.base.errors')
-            @include('admin.avaliacoes._form')
+            @include('admin.estabelecimentos._form')
         </div>
         <div class="box-footer">
             <button class="btn btn-warning btn-flat pull-right">

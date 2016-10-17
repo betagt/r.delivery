@@ -26,7 +26,6 @@ class CreateEstabelecimentoEnderecosTable extends Migration
 			$table->string('cep');
 			$table->string('latitude')->nullable();;
 			$table->string('longitude')->nullable();;
-
             $table->timestamps();
             $table->softDeletes();
 		});

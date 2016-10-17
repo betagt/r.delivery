@@ -1,6 +1,6 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories_edit', $entity) !!}
+    {!! Breadcrumbs::render('admin_categories_edit', $relation, $entity) !!}
 @endsection
 @section('content')
     {!! Form::Model($entity,['route'=>['admin.categories.update',$entity->id]]) !!}
@@ -10,7 +10,7 @@
         </div>
         <div class="box-body">
             @include('admin.base.errors')
-            @include('admin.categories._form')
+            @include('admin.estabelecimentos.categories._form')
         </div>
         <div class="box-footer">
             <button class="btn btn-warning btn-flat pull-right">

@@ -105,9 +105,79 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
     });
     Route::group(['prefix' => 'estabelecimentos', 'as' => 'estabelecimentos.'], function(){
         Route::get('', [
-           'as' => 'index',
-           'uses' => 'EstabelecimentosController@index'
+            'as' => 'index',
+            'uses' => 'EstabelecimentosController@index'
         ]);
+        Route::get('create', [
+            'as' => 'create',
+            'uses' => 'EstabelecimentosController@create'
+        ]);
+        Route::get('print/{id}', [
+            'as' => 'print',
+            'uses' => 'EstabelecimentosController@printReport'
+        ]);
+        Route::get('show/{id}', [
+            'as' => 'show',
+            'uses' => 'EstabelecimentosController@show'
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'edit',
+            'uses' => 'EstabelecimentosController@edit'
+        ]);
+        Route::post('store', [
+            'as' => 'store',
+            'uses' => 'EstabelecimentosController@store'
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'update',
+            'uses' => 'EstabelecimentosController@update'
+        ]);
+        Route::get('destroy/{id}', [
+            'as' => 'destroy',
+            'uses' => 'EstabelecimentosController@destroy'
+        ]);
+        Route::post('destroy', [
+            'as' => 'destroySelected',
+            'uses' => 'EstabelecimentosController@destroySelected'
+        ]);
+        Route::group(['prefix' => 'categories', 'as' => 'categories.'], function(){
+            Route::get('{estabelecimento_id}', [
+                'as' => 'index',
+                'uses' => 'CategoriesController@index'
+            ]);
+            Route::get('{estabelecimento_id}/create', [
+                'as' => 'create',
+                'uses' => 'CategoriesController@create'
+            ]);
+            Route::get('{estabelecimento_id}/print/{id}', [
+                'as' => 'print',
+                'uses' => 'CategoriesController@printReport'
+            ]);
+            Route::get('{estabelecimento_id}/show/{id}', [
+                'as' => 'show',
+                'uses' => 'CategoriesController@show'
+            ]);
+            Route::get('{estabelecimento_id}/edit/{id}', [
+                'as' => 'edit',
+                'uses' => 'CategoriesController@edit'
+            ]);
+            Route::post('{estabelecimento_id}/store', [
+                'as' => 'store',
+                'uses' => 'CategoriesController@store'
+            ]);
+            Route::post('{estabelecimento_id}/update/{id}', [
+                'as' => 'update',
+                'uses' => 'CategoriesController@update'
+            ]);
+            Route::get('{estabelecimento_id}/destroy/{id}', [
+                'as' => 'destroy',
+                'uses' => 'CategoriesController@destroy'
+            ]);
+            Route::post('{estabelecimento_id}/destroy', [
+                'as' => 'destroySelected',
+                'uses' => 'CategoriesController@destroySelected'
+            ]);
+        });
 
     });
 //    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {

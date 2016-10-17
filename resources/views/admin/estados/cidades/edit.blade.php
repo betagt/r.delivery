@@ -10,7 +10,7 @@
         </div>
         <div class="box-body">
             @include('admin.base.errors')
-            @include('admin.categories._form')
+            @include('admin.estabelecimentos.categories._form')
         </div>
         <div class="box-footer">
             <button class="btn btn-warning btn-flat pull-right">

@@ -18,6 +18,7 @@ class CreateOrderItemsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->integer('product_extra_id')->unsigned()->default(0);
             $table->decimal('price');
             $table->smallInteger('qtd');
             $table->timestamps();

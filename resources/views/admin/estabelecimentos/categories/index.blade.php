@@ -1,6 +1,6 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories') !!}
+    {!! Breadcrumbs::render('admin_categories', $relation) !!}
 @endsection
 @section('header')
     <div class="row">

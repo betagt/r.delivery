@@ -8,6 +8,7 @@ use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use Illuminate\Support\Facades\DB;
+use League\Flysystem\Plugin\ForcedRename;
 
 class TestController extends Controller
 {
@@ -24,44 +25,88 @@ class TestController extends Controller
         $this->repository = $repository;
     }
 
-    public function index()
+    public function getItems($items)
     {
-        //return $this->getAvaliacoes(11);
+        $result = [];
+        foreach ($items as $item) {
+            $this->mountIntersection($item, $result);
+        }
 
-//        $cupom = $this->repository->findByField('code', 599)->first();
-//
-//        $check = DB::select('select * from user_cupoms where user_id = ? AND cupom_id = ?', [1, $cupom->id]);
-//
-//        if ($check)
-//        {
-//            return ['data' => 'Esse cupom não pode ser utilizado uma seugnda vez'];
-//        }
-//        return $cupom;
-        /*
-                SELECT DISTINCT
-                    `cupoms`.`id`,
-                    `cupoms`.`code`,
-                    `cupoms`.`value`,
-                    `cupoms`.`deleted_at`,
-                    `orders`.`created_at`
-                FROM
-                    `user_cupoms`
-                    INNER JOIN `cupoms` ON (`user_cupoms`.`cupom_id` = `cupoms`.`id`)
-                    INNER JOIN `orders` ON (`user_cupoms`.`user_id` = `orders`.`client_id`)
-                WHERE
-                    `user_cupoms`.`user_id` = 1
-        */
-        $list = DB::table('cupoms')
-            ->distinct()
-            ->join('user_cupoms', 'cupoms.id', '=', 'user_cupoms.cupom_id')
-            ->join('orders', 'user_cupoms.user_id', '=', 'orders.client_id')
-            ->select('orders.id', 'cupoms.code', 'orders.created_at')
-            ->where('user_cupoms.user_id', 1)
-            ->where('orders.cupom_id', '<>', '')
-            ->get();
+        $this->calcPrice($result);
 
-        return ['data' => $list];
+        $result = $this->reagruparArray($result);
+
+        $count = count($items);
+        $countResult = count($result);
+        for ($i = 0; $i < $count; $i++) {
+            for ($j = 0; $j < $countResult; $j++) {
+                if ($items[$i]['product_id'] == $result[$j]['product_id']) {
+                    $items[$i]['price'] = $result[$j]['price'];
+                }
+            }
+        }
+        return $items;
     }
+
+    public function mountIntersection($item, &$result)
+    {
+        if ($item['product_porcao_id'] == 0) {
+            return;
+        }
+        $index = $item['product_porcao_id'];
+        $result[$index][] = $item;
+    }
+
+    public function calcPrice(&$result)
+    {
+        $count = count($result);
+        if ($count == 0) {
+            return;
+        }
+        $keys = array_keys($result);
+        $countIndex = count($keys);
+
+        for ($k = 0; $k < $countIndex; $k++) {
+            $price = $this->maxValueInArray($result[$keys[$k]], 'price');
+
+            $countK = count($result[$keys[$k]]);
+            for ($i = 0; $i < $countK; $i++) {
+                if ($i == 0) {
+                    $result[$keys[$k]][$i]['price'] = $price;
+                } else {
+                    $result[$keys[$k]][$i]['price'] = 0;
+                }
+            }
+        }
+    }
+
+    public function reagruparArray($items)
+    {
+        $result = [];
+        $keys = array_keys($items);
+        $countKeys = count($keys);
+        for ($i = 0; $i < $countKeys; $i++) {
+            $countItem = count($items[$keys[$i]]);
+            for ($j = 0; $j < $countItem; $j++) {
+                $result[] = $items[$keys[$i]][$j];
+            }
+        }
+        return $result;
+    }
+
+    public function maxValueInArray($array, $keyToSearch)
+    {
+        $currentMax = NULL;
+        foreach ($array as $arr) {
+            foreach ($arr as $key => $value) {
+                if ($key == $keyToSearch && ($value >= $currentMax)) {
+                    $currentMax = $value;
+                }
+            }
+        }
+        return $currentMax;
+    }
+
 
 //    private function getAvaliacoes($idEstabelecimento)
 //    {

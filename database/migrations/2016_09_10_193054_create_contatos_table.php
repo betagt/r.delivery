@@ -19,6 +19,7 @@ class CreateContatosTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 			$table->string('assunto');
 			$table->text('mensagem');
+            $table->string('telefone');
 			$table->integer('status')->default(0);
             $table->timestamps();
 		});

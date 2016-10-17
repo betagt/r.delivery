@@ -17,8 +17,8 @@ class CreateProductPorcaosTable extends Migration
             $table->increments('id');
 			$table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
-			$table->integer('porcao')->unsigned();
-			$table->string('nome');
+            $table->integer('porcao_id')->unsigned();
+            $table->foreign('porcao_id')->references('id')->on('porcaos');
 			$table->decimal('preco')->default(0);
             $table->timestamps();
 		});

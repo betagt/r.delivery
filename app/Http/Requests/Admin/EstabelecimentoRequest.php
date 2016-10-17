@@ -13,7 +13,7 @@ class EstabelecimentoRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class EstabelecimentoRequest extends Request
     public function rules()
     {
         return [
-            //
+            'nome' => 'required|min:3|max:255',
+            'telefone' => 'required|min:3|max:255',
+            'email' => 'required|email|min:3|max:255',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'nome' => 'Nome',
+            'telefone' => 'Telefone',
+            'email' => 'E-mail'
         ];
     }
 }

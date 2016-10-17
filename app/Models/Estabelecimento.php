@@ -16,7 +16,6 @@ class Estabelecimento extends Model implements Transformable
     protected $fillable = [
         'cidade_id',
         'icone',
-        'icone_link',
         'nome',
         'descricao',
         'email',
@@ -25,10 +24,14 @@ class Estabelecimento extends Model implements Transformable
         'power'
     ];
 
-    public function setIconeAttribute($value)
+    public function getIconeAttribute()
     {
-        $this->attributes['icone'] = $value;
-        $this->attributes['icone_link'] = '/public/images/estabelecimentos/' . $value;
+        $value = $this->attributes['icone'];
+        if (mb_ereg("^http", $value))
+        {
+            return $value;
+        }
+        return '/images/estabelecimentos/' . $this->attributes['icone'];
     }
 
     protected $dates = ['deleted_at'];

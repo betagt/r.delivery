@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('estabelecimento_id')->unsigned()->nullable();
             $table->foreign('estabelecimento_id')->references('id')->on('estabelecimentos');
             $table->decimal('total');
+            $table->decimal('taxa_entrega');
             $table->smallInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

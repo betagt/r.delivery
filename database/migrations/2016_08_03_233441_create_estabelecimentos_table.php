@@ -15,12 +15,16 @@ class CreateEstabelecimentosTable extends Migration
 	{
 		Schema::create('estabelecimentos', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('cidade_id')->unsigned();
+            $table->foreign('cidade_id')->references('id')->on('cidades');
 			$table->string('icone')->default('logo.jpg');
+            $table->string('icone_link', 255);
 			$table->string('nome');
 			$table->string('descricao')->nullable();
 			$table->string('telefone');
 			$table->string('email');
 			$table->integer('status')->default(1);
+            $table->integer('power')->default(1);
             $table->timestamps();
             $table->softDeletes();
 		});
