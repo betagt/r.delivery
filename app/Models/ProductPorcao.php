@@ -24,7 +24,6 @@ class ProductPorcao extends Model implements Transformable
         return $this->belongsTo(Porcao::class, 'porcao_id', 'id');
     }
 
-
     public function setPrecoAttribute($value)
     {
         $this->attributes['preco'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));

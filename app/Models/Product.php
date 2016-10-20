@@ -36,16 +36,6 @@ class Product extends Model implements Transformable
         return number_format($this->attributes['price'], 2, ",", ".");
     }
 
-    public function children()
-    {
-        return $this->hasMany(Product::class, 'parent_id', 'id');
-    }
-
-    public function parent()
-    {
-        return $this->hasOne(Product::class, 'id', 'parent_id');
-    }
-
     public function porcoes()
     {
         return $this->hasMany(ProductPorcao::class, 'product_id', 'id');

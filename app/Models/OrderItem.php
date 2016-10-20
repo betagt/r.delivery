@@ -15,8 +15,8 @@ class OrderItem extends Model implements Transformable
         'product_id',
         'product_extra_id',
         'porcao_id',
-        'category_id',
         'order_id',
+        'ide',
         'price',
         'qtd',
     ];
@@ -33,15 +33,6 @@ class OrderItem extends Model implements Transformable
         if ($this->attributes['product_extra_id'] > 0)
         {
             return $this->belongsTo(Product::class, 'product_extra_id', 'id');
-        }
-        return null;
-    }
-
-    public function category()
-    {
-        if ($this->attributes['category_id'] > 0)
-        {
-            return $this->belongsTo(Category::class, 'category_id', 'id');
         }
         return null;
     }

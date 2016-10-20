@@ -106,6 +106,8 @@ $factory->define(\CodeDelivery\Models\UserAddress::class, function (Faker\Genera
         'number' => random_int(1, 200),
         'city' => $faker->city,
         'state' => $faker->state,
+        'latitude' => $faker->latitude,
+        'longitude' => $faker->longitude,
         'zipcode' => $faker->postcode,
     ];
 });
@@ -140,12 +142,6 @@ $factory->define(\CodeDelivery\Models\OrderItem::class, function (Faker\Generato
 $factory->define(\CodeDelivery\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'parent_id' => 0,
-        'name' => $faker->word,
-    ];
-});
-
-$factory->define(\CodeDelivery\Models\CategoryExtra::class, function (Faker\Generator $faker) {
-    return [
         'name' => $faker->word,
     ];
 });

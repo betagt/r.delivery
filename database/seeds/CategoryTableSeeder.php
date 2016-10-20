@@ -22,30 +22,12 @@ class CategoryTableSeeder extends Seeder
 
         $estado->cidades()->save($cidade);
 
-        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
-            'nome' => 'Paraíso'
-        ]);
-
-        $estado->cidades()->save($cidade);
-
-
-        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
-            'nome' => 'Gurupi'
-        ]);
-
-        $estado->cidades()->save($cidade);
-
-
-        $cidade = factory(\CodeDelivery\Models\Cidade::class)->make([
-            'nome' => 'Araguaína'
-        ]);
-
-        $estado->cidades()->save($cidade);
-
         for ($i = 0; $i < 5 ;$i++)
         {
             $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
                 'cidade_id' => 1,
+                'nome' => 'Moorango',
+                'icone' => 'B57b4cd318f466.jpg',
                 'power'=>random_int(1,2),
             ]);
 
@@ -70,5 +52,21 @@ class CategoryTableSeeder extends Seeder
                 $e->funcionamentos()->save(factory(\CodeDelivery\Models\EstabelecimentoFuncionamento::class)->make());
             }
         }
+    }
+
+    public function estabelecimento($nome, $foto, $power=1)
+    {
+        $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
+            'cidade_id' => 1,
+            'nome' => $nome,
+            'icone' => $foto,
+            'power'=> $power,
+        ]);
+
+        $e->endereco()->save(factory(\CodeDelivery\Models\EstabelecimentoEndereco::class)->make());
+
+        $e->entrega()->save(factory(\CodeDelivery\Models\EstabelecimentoEntrega::class)->make());
+
+        return $e;
     }
 }
