@@ -10,6 +10,7 @@ use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Services\AvaliacoesService;
 use CodeDelivery\Services\EstabelecimentoService;
+use CodeDelivery\Services\GeoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,12 +36,26 @@ class ClientEstabelecimentoController extends Controller
      * @var Avaliacao
      */
     private $avaliacaoRepository;
+    /**
+     * @var GeoService
+     */
+    private $geoService;
 
+    /**
+     * ClientEstabelecimentoController constructor.
+     * @param EstabelecimentoRepository $repository
+     * @param ProductRepository $productRepository
+     * @param AvaliacoesService $service
+     * @param EstabelecimentoService $estabelecimentoService
+     * @param AvaliacaoRepository $avaliacaoRepository
+     * @param GeoService $geoService
+     */
     public function __construct(EstabelecimentoRepository $repository,
                                 ProductRepository $productRepository,
                                 AvaliacoesService $service,
                                 EstabelecimentoService $estabelecimentoService,
-                                AvaliacaoRepository $avaliacaoRepository
+                                AvaliacaoRepository $avaliacaoRepository,
+                                GeoService  $geoService
     )
     {
         $this->repository = $repository;
@@ -48,6 +63,7 @@ class ClientEstabelecimentoController extends Controller
         $this->service = $service;
         $this->estabelecimentoService = $estabelecimentoService;
         $this->avaliacaoRepository = $avaliacaoRepository;
+        $this->geoService = $geoService;
     }
 
     /**
@@ -67,6 +83,10 @@ class ClientEstabelecimentoController extends Controller
     {
 
         return $this->repository->skipPresenter(false)->find($id);
+    }
+
+    public function distanceCalculate(){
+        $this->geoService->distanceCalculate('-10.1834459,-48.3095536','-10.1846156,-48.3312915|-10.1918945,-48.33133');
     }
 
     public function questoes(){

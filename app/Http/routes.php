@@ -270,6 +270,7 @@ Route::group(['middleware' => 'cors'], function () {
                     'create', 'edit', 'update', 'destroy'
                 ]
             ]);
+            Route::get('distancia', 'ClientEstabelecimentoController@distanceCalculate');
             Route::post('{id}/store_avaliacao', [
                 'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
