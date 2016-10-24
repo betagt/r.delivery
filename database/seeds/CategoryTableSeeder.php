@@ -23,6 +23,8 @@ class CategoryTableSeeder extends Seeder
         $estado->cidades()->save($cidade);
 
         $this->moorango();
+
+        $this->divinoFogao();
     }
 
     public function estabelecimento($nome, $foto, $power=1)
@@ -70,41 +72,15 @@ class CategoryTableSeeder extends Seeder
         ]);
     }
 
-    public function products($category, $products, $porcao)
+    public function products($category, $products)
     {
-        $p = [];
+        $result = [];
         $count = count($products);
-        $countPorcao = count($porcao);
-
         for ($i = 0; $i < $count; $i++)
         {
-            $p[] = $this->product($category, $products[$i]['name'], $products[$i]['price'], $products[$i]['description']);
+            $result[] = $this->product($category, $products[$i]['name'], $products[$i]['price'], $products[$i]['description']);
         }
-        if ($countPorcao > 0)
-        {
-            for ($i = 0; $i < $countPorcao; $i++)
-            {
-                try
-                {
-                    $r = \CodeDelivery\Models\Porcao::where('nome', '=', $porcao[$i]['nome'])->firstOrFail();
-                } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e)
-                {
-                    $r = factory(\CodeDelivery\Models\Porcao::class)->create([
-                        'nome' => $porcao[$i]['nome'],
-                        'qtde' => $porcao[$i]['qtde'],
-                    ]);
-                }
-
-                for($j = 0; $j < $count; $j++)
-                {
-                    factory(\CodeDelivery\Models\ProductPorcao::class)->create([
-                        'product_id' => $p[$j]->id,
-                        'porcao_id' => $r->id,
-                        'preco' => $p[$j]->price + $j,
-                    ]);
-                }
-            }
-        }
+        return $result;
     }
 
     public function moorango()
@@ -118,7 +94,7 @@ class CategoryTableSeeder extends Seeder
             1 => ['name' => 'Escondidinho de batata doce com patinho moido ao molho de espinafre', 'description' => '', 'price' => '10.00'],
             2 => ['name' => 'Beringela parmegiana light', 'description' => '', 'price' => '10.00'],
         ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
 
         ////
         $category = $this->category($e->id, 'Omeletes');
@@ -130,7 +106,7 @@ class CategoryTableSeeder extends Seeder
             4 => ['name' => 'Peito de peru, queijo branco, tomate e orégano', 'description' => '', 'price' => '19.00'],
             5 => ['name' => 'Peito de peru e requeijão', 'description' => '', 'price' => '19.00'],
         ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
         ///
         $category = $this->category($e->id, 'Tapiocas ou Crepiocas Salgadas');
         $products = [
@@ -140,11 +116,7 @@ class CategoryTableSeeder extends Seeder
             3 => ['name' => 'Queijo branco, tomate seco e rúcula', 'description' => '', 'price' => '9.00'],
             4 => ['name' => 'Peito de peru, queijo branco, tomate e orégano', 'description' => '', 'price' => '11.00'],
         ];
-//        $porcao = [
-//            0 => [ 'nome' => 'Tapioca', 'qtde' => 1, 'status' => 1],
-//            1 => [ 'nome' => 'Crepiocas', 'qtde' => 1, 'status' => 1]
-//        ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
 
         ///
         $category = $this->category($e->id, 'Tapiocas ou Crepiocas Doces');
@@ -155,7 +127,7 @@ class CategoryTableSeeder extends Seeder
             3 => ['name' => 'Abacaxi, canela, queijo mussarela e leite condensado', 'description' => '', 'price' => '11.00'],
             4 => ['name' => 'Morango com leite condensado', 'description' => '', 'price' => '11.00'],
         ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
 
         ///
         $category = $this->category($e->id, 'Lanches no Pão Baguete');
@@ -186,7 +158,7 @@ class CategoryTableSeeder extends Seeder
                 'price' => '23.00'
             ],
         ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
 
         ///
         $category = $this->category($e->id, 'Sanduíche Natural no Pão Integral');
@@ -207,6 +179,127 @@ class CategoryTableSeeder extends Seeder
                 'price' => '13.00'
             ],
         ];
-        $this->products($category->id, $products, null);
+        $this->products($category->id, $products);
+    }
+
+    public function divinoFogao()
+    {
+        $e = $this->estabelecimento('Divino Fogão', '55d0f0e7ba994.jpg', 1);
+
+        $category = $this->category($e->id, 'Massas');
+        $products = [
+            0 => ['name' => 'Pizza', 'description' => '', 'price' => '0.00'],
+        ];
+        $this->products($category->id, $products);
+
+        $parent = $this->category($e->id, 'Pizza', $category->id);
+        $products = [
+            0 => [
+                'name' => 'Calabresa',
+                'description' => 'Molho de tomate, mussarela, calabresa, cebola e orégano',
+                'price' => '34.99'
+            ],
+            1 => [
+                'name' => 'Margherita',
+                'description' => 'Molho de tomate, mussarela, tomate e manjericão',
+                'price' => '34.90'
+            ],
+            2 => [
+                'name' => 'Carne de Sol',
+                'description' => 'Molho de tomate, mussarela, carne de sol desfiada, cebola e catupiry',
+                'price' => '37.99'
+            ],
+            3 => [
+                'name' => 'Divina',
+                'description' => '',
+                'price' => '37.99'
+            ],
+            4 => [
+                'name' => 'Frango com Catupiry',
+                'description' => 'Molho de tomate, mussarela, frango desfiado, catupiry e orégano',
+                'price' => '37.99'
+            ],
+            5 => [
+                'name' => 'Lombinho',
+                'description' => 'Molho de tomate, mussarela, lombo canadense defumado, catupiry e orégano.',
+                'price' => '37.99'
+            ],
+        ];
+
+        $porcaoProduct = [
+            0 => ['nome' => 'Grande 2 Sabores', 'qtde' => 2],
+            1 => ['nome' => 'Grande 1 Sabor', 'qtde' => 1],
+            2 => ['nome' => 'Individual', 'qtde' => 1],
+        ];
+
+        $porcoes = $this->porcoes($porcaoProduct);
+        $products = $this->products($parent->id, $products);
+
+        $this->makeProductsPorcoes($porcoes, $products);
+
+        $parent = $this->category($e->id, 'Bordas', $category->id);
+        $products = [
+            0 => [
+                'name' => 'Cheddar',
+                'description' => '',
+                'price' => '2.00'
+            ],
+            1 => [
+                'name' => '4 Queijos',
+                'description' => '',
+                'price' => '2.50'
+            ],
+            2 => [
+                'name' => 'Catupiry',
+                'description' => '',
+                'price' => '3.50'
+            ],
+        ];
+        $this->products($parent->id, $products);
+    }
+
+    /**
+     * @param $porcaoProduct
+     */
+    public function porcoes($porcaoProduct)
+    {
+        $count = count($porcaoProduct);
+        $result = [];
+        if ($count > 0) {
+            for ($i = 0; $i < $count; $i++) {
+                try {
+                    $r = \CodeDelivery\Models\Porcao::where('nome', '=', $porcaoProduct[$i]['nome'])->firstOrFail();
+                } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+                    $r = factory(\CodeDelivery\Models\Porcao::class)->create([
+                        'nome' => $porcaoProduct[$i]['nome'],
+                        'qtde' => $porcaoProduct[$i]['qtde'],
+                    ]);
+                }
+                $result[] = $r;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param $porcoes
+     * @param $return
+     */
+    public function makeProductsPorcoes($porcoes, $products)
+    {
+        $countPorcoes = count($porcoes);
+        $countProducts = count($products);
+
+        for ($i=0; $i < $countPorcoes; $i++)
+        {
+            for ($j=0; $j < $countProducts; $j++)
+            {
+                factory(\CodeDelivery\Models\ProductPorcao::class)->create([
+                    'product_id' => $products[$j]->id,
+                    'porcao_id' => $porcoes[$i]->id,
+                    'preco' => random_int(25,50)
+                ]);
+            }
+        }
     }
 }
