@@ -52,10 +52,10 @@ class CategoryTableSeeder extends Seeder
             'parent_id' => $parent,
             'name' => $nome,
         ]);
-        if ($parent = 0)
+        if ($parent == 0)
         {
             $extra = $this->category($estabelecimento, 'Embalagens', $category->id);
-            $this->product($extra->id, 'Embalagem', '0.50');
+            $this->product($extra->id, 'Embalagem', '0.50', '');
         }
         return $category;
     }
