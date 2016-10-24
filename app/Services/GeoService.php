@@ -50,12 +50,12 @@ class GeoService
             abort(303,'Localização não encontrada');
         }
         $distanciaTotal = 0;
-
-        foreach ($response_a['rows'][0]['elements'] as $key=>$value){
-            $distanciaTotal +=floatval(str_replace(',','.',str_replace(' km','',$value['distance']['text'])));
+        foreach ($response_a['rows'] as $v => $item){
+            foreach ($item['elements'] as $key=>$value){
+                $distanciaTotal +=floatval(str_replace(',','.',str_replace(' km','',$value['distance']['text'])));
+            }
         }
-        $total = ($distanciaTotal*0.41)*2;
-
+        $total = ($distanciaTotal*2)*0.41;
         return $this->geoPosition->create([
             'lat_log_origens'=>$origens,
             'lat_log_destinos'=>$destinos,
