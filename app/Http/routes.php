@@ -270,7 +270,6 @@ Route::group(['middleware' => 'cors'], function () {
                     'create', 'edit', 'update', 'destroy'
                 ]
             ]);
-            Route::get('distancia', 'ClientEstabelecimentoController@distanceCalculate');
             Route::post('{id}/store_avaliacao', [
                 'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
@@ -345,6 +344,7 @@ Route::group(['middleware' => 'cors'], function () {
 
         Route::get('authenticated', 'Api\UserController@authenticated');
         Route::get('cep/{cep}/json', 'Api\UtilController@cep');
+        Route::post('geo/distancia', 'Api\UtilController@distanceCalculate');
         Route::get('cep/logradouro', 'Api\UtilController@cepLocation');
         Route::get('cupom/{code}', 'Api\CupomController@show');
         Route::get('cupom/list/utilizados', 'Api\CupomController@utilizados');

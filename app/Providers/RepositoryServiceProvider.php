@@ -18,6 +18,8 @@ use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\EstadoRepository;
 use CodeDelivery\Repositories\EstadoRepositoryEloquent;
+use CodeDelivery\Repositories\GeoPositionRepository;
+use CodeDelivery\Repositories\GeoPositionRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
 use CodeDelivery\Repositories\PorcaoRepository;
@@ -105,6 +107,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductPorcaoRepository::class,
             ProductPorcaoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            GeoPositionRepository::class,
+            GeoPositionRepositoryEloquent::class
         );
     }
 }

@@ -24,6 +24,8 @@ class CreateUserAddressesTable extends Migration
 			$table->string('city');
 			$table->string('state');
 			$table->string('zipcode');
+			$table->string('latitude');
+			$table->string('longetude');
 			$table->integer('status')->default(1);
             $table->timestamps();
 		});

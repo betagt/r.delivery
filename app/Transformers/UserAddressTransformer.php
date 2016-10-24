@@ -29,6 +29,8 @@ class UserAddressTransformer extends TransformerAbstract
             'city'       => (string) $model->city,
             'state'      => (string) $model->state,
             'zipcode'    => (int) $model->zipcode,
+            'latitude'    => (double) $model->latitude,
+            'longetude'    => (double) $model->longetude,
 
             /* place your other model properties here */
 

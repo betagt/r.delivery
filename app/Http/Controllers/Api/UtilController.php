@@ -8,6 +8,7 @@ use CodeDelivery\Repositories\CidadeRepository;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\EstadoRepository;
 use CodeDelivery\Services\CepService;
+use CodeDelivery\Services\GeoService;
 use Illuminate\Http\Request;
 
 class UtilController extends Controller
@@ -24,12 +25,17 @@ class UtilController extends Controller
      * @var CepService
      */
     private $cepService;
+    /**
+     * @var GeoService
+     */
+    private $geoService;
 
-    public function __construct(CidadeRepository $cidadeRepository, EstadoRepository $estadoRepository, CepService $cepService)
+    public function __construct(CidadeRepository $cidadeRepository, EstadoRepository $estadoRepository, CepService $cepService,GeoService $geoService)
     {
         $this->cidadeRepository = $cidadeRepository;
         $this->estadoRepository = $estadoRepository;
         $this->cepService = $cepService;
+        $this->geoService = $geoService;
     }
 
 
@@ -39,6 +45,10 @@ class UtilController extends Controller
         return $this->cepService->requestCep($urlUri);
     }
 
+    public function distanceCalculate(Request $request){
+        $destinoInicial = "|-10.1836952,-48.3100962";
+        return $this->geoService->distanceCalculate($request->get('origens').$destinoInicial,$request->get('destinos'));
+    }
     public function cepLocation(Request $request)
     {
         $urlUri = 'http://viacep.com.br/ws/' . $request->get('estado') . '/' . $request->get('cidade') . '/' . $request->get('logradouro') . '/json/';

@@ -23,7 +23,6 @@ class ProductTableSeeder extends Seeder
                 for ($l = 0; $l < 3; $l++) {
                     factory(\CodeDelivery\Models\Product::class)->create([
                         'category_id' => random_int(6, 50),
-                        'parent_id' => $product->id
                     ]);
                 }
             }

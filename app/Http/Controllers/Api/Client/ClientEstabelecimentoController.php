@@ -81,13 +81,9 @@ class ClientEstabelecimentoController extends Controller
 
     public function show($id)
     {
-
         return $this->repository->skipPresenter(false)->find($id);
     }
 
-    public function distanceCalculate(){
-        $this->geoService->distanceCalculate('-10.1834459,-48.3095536','-10.1846156,-48.3312915|-10.1918945,-48.33133');
-    }
 
     public function questoes(){
       return $this->avaliacaoRepository->skipPresenter(false)->scopeQuery(function ($query) {

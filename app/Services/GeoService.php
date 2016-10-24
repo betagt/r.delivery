@@ -10,18 +10,30 @@ namespace CodeDelivery\Services;
 
 
 
+use CodeDelivery\Models\GeoPosition;
+use CodeDelivery\Repositories\GeoPositionRepository;
+
 class GeoService
 {
 
 
-    public function __construct()
+    /**
+     * @var GeoPosition
+     */
+    private $geoPosition;
+
+    public function __construct(GeoPositionRepository $geoPosition)
     {
 
+        $this->geoPosition = $geoPosition;
     }
 
     public function distanceCalculate($origens,$destinos){
-        //para varios destinos
-        //-10.1846156,-48.3312915|-10.1918945,-48.33133
+        $cachePosition =  $this->geoPosition->skipPresenter(false)->getPosition($origens,$destinos);
+        if($cachePosition){
+            return $cachePosition;
+        }
+
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$origens&destinations=$destinos&mode=driving&language=pt-BR";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -33,17 +45,25 @@ class GeoService
         curl_close($ch);
         $response_a = [];
         $response_a = json_decode($response, true);
+
         if($response_a['rows'][0]['elements'][0]['status']=='ZERO_RESULTS'){
             abort(303,'Localização não encontrada');
         }
         $distanciaTotal = 0;
+
         foreach ($response_a['rows'][0]['elements'] as $key=>$value){
             $distanciaTotal +=floatval(str_replace(',','.',str_replace(' km','',$value['distance']['text'])));
         }
-        return($distanciaTotal*0.41)*2;
+        $total = ($distanciaTotal*0.41)*2;
+
+        return $this->geoPosition->create([
+            'lat_log_origens'=>$origens,
+            'lat_log_destinos'=>$destinos,
+            'price' =>floatval($total)
+        ]);
     }
 
-    private function getSinglePosition($cidade,$endereco,$estado){
+    public function getSinglePosition($cidade,$endereco,$estado){
         $address = urlencode($cidade.','.$endereco.','.$estado);
         $url = "http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=Brazil";
         $ch = curl_init();
@@ -56,7 +76,7 @@ class GeoService
         curl_close($ch);
         $response_a = json_decode($response);
         $status = $response_a->status;
-        dd('lat =>'.$response_a->results[0]->geometry->location->lat. ' long =>'.$response_a->results[0]->geometry->location->lng);
+        //dd('lat =>'.$response_a->results[0]->geometry->location->lat. ' long =>'.$response_a->results[0]->geometry->location->lng);
         if ( $status == 'ZERO_RESULTS' )
         {
             return FALSE;

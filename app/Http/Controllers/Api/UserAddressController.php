@@ -5,6 +5,7 @@ namespace CodeDelivery\Http\Controllers\Api;
 use CodeDelivery\Http\Requests\AdminUserAddressRequest;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Services\GeoService;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class UserAddressController extends Controller
@@ -13,10 +14,15 @@ class UserAddressController extends Controller
      * @var UserAddressRepository
      */
     private $repository;
+    /**
+     * @var GeoService
+     */
+    private $geoService;
 
-    public function __construct(UserAddressRepository $repository)
+    public function __construct(UserAddressRepository $repository, GeoService $geoService)
     {
         $this->repository = $repository;
+        $this->geoService = $geoService;
     }
 
     public function index(){
@@ -40,7 +46,9 @@ class UserAddressController extends Controller
         $data = $request->all();
 
         $data['user_id'] = Authorizer::getResourceOwnerId();
-
+        $location = $this->geoService->getSinglePosition($data['address'],$data['city'],$data['state']);
+        $data['latitude'] = $location['lat'];
+        $data['longetude'] = $location['long'];
         return $this->repository->create($data);
     }
 
@@ -51,6 +59,9 @@ class UserAddressController extends Controller
             $entity = $this->repository->find($id);
 
             $data = $request->all();
+            $location = $this->geoService->getSinglePosition($data['address'],$data['city'],$data['state']);
+            $data['latitude'] = $location['lat'];
+            $data['longetude'] = $location['long'];
 
             return $this->repository->update($data, $entity->id);
 

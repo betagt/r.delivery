@@ -21,7 +21,7 @@ class UserAddress extends Model implements Transformable
 		'state',
 		'zipcode',
         'latitude',
-        'longitude',
+        'longetude',
 		'status',
 	];
 

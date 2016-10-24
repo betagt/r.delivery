@@ -106,8 +106,6 @@ $factory->define(\CodeDelivery\Models\UserAddress::class, function (Faker\Genera
         'number' => random_int(1, 200),
         'city' => $faker->city,
         'state' => $faker->state,
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
         'zipcode' => $faker->postcode,
     ];
 });
