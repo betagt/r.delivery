@@ -23,6 +23,6 @@ class EstabelecimentoService
 
     public function returnCategoriesByEstabelecimento($id)
     {
-        return $this->repository->skipPresenter(false)->findWhere(['estabelecimento_id' => $id]);
+        return $this->repository->skipPresenter(false)->findWhere(['estabelecimento_id' => $id, 'parent_id' => 0]);
     }
 }
