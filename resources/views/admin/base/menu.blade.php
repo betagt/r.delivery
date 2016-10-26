@@ -37,6 +37,27 @@
             </li>
             <li class="treeview">
                 <a href="#">
+                    <i class="fa fa-building"></i>
+                    <span>Estabelecimentos</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{{ route('admin.estabelecimentos.index') }}">
+                            <i class="fa fa-list-ul"></i> Listar/Pesquisar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.estabelecimentos.create') }}">
+                            <i class="fa fa-plus"></i> Novo Registro
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-users"></i>
                     <span>Usuários do Sistema</span>
                     <span class="pull-right-container">

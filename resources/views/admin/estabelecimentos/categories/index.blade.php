@@ -1,11 +1,11 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories', $relation) !!}
+    {!! Breadcrumbs::render('admin_estabelecimento_categories', $relation) !!}
 @endsection
 @section('header')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt mb">
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat" target="_blank">
+            <a href="{{ route('admin.estabelecimentos.categories.create') }}" class="btn btn-primary btn-flat" target="_blank">
                 <i class="fa fa-plus"></i> Novo Registro
             </a>
         </div>
@@ -58,17 +58,17 @@
                 </td>
                 <td>{{$item->name}}</td>
                 <td>
-                    <a href="{{route('admin.categories.edit',['id'=>$item->id])}}" class="btn btn-default"
+                    <a href="{{route('admin.estabelecimentos.categories.edit',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Editar #{{ $item->id }}"
                     >
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="{{route('admin.categories.show',['id'=>$item->id])}}" class="btn btn-default"
+                    <a href="{{route('admin.estabelecimentos.categories.show',['id'=>$item->id])}}" class="btn btn-default"
                        data-toggle="tooltip" data-placement="top" target="_blank" title="Visualizar #{{ $item->id }}"
                     >
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="{{ route('admin.categories.destroy', [ 'id' => $item->id]) }}"
+                    <a href="{{ route('admin.estabelecimentos.categories.destroy', [ 'id' => $item->id]) }}"
                        class="btn btn-danger delete"
                        data-toggle="tooltip" data-placement="top" title="Excluir #{{ $item->id }}"
                     >

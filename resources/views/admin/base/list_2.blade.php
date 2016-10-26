@@ -1,7 +1,8 @@
 @extends('admin.base.template')
 @section('content')
     <!-- Modal -->
-    <div class="modal fade" id="confirmSingleDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmSingleDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -20,7 +21,8 @@
     </div><!-- /.modal -->
 
     <!-- Modal -->
-    <div class="modal fade" id="confirmMultipleDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmMultipleDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -55,14 +57,7 @@
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    Opções
-                </div>
-                <div class="box-body">
-                    @yield('options')
-                </div>
-            </div>
+            @yield('options')
         </div>
     </div>
 @endsection

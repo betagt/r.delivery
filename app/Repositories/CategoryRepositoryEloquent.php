@@ -21,23 +21,10 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
         'name' => 'like'
     ];
 
-    public function getCategories()
+    public function getCategories($estabelecimento, $parent)
     {
-        $collection = $this->model->orderBy('name', 'asc')->lists('name', 'id');
-
-        $result = [];
-        $i = 0;
-        foreach ($collection as $key => $value)
-        {
-            if ($i == 0)
-            {
-                $result[0] = 'Categoria Pai';
-                $i++;
-            }
-            $result[$key] = $value;
-        }
-
-         return $result;
+        //return $this->model->where('parent_id', 0)->where('estabelecimento_id', $estabelecimento)->orderBy('name', 'asc')->lists('name', 'id');;
+        return $this->model->where('parent_id', $parent)->where('estabelecimento_id', $estabelecimento)->orderBy('name', 'asc')->get();
     }
 
 

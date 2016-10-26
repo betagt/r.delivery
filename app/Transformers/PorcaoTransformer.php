@@ -17,7 +17,6 @@ class PorcaoTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'nome'         => (string) $model->nome,
-            'qtde'         => (int) $model->qtde,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];

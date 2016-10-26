@@ -3,6 +3,7 @@
 namespace CodeDelivery\Http\Controllers\Admin;
 
 use CodeDelivery\Repositories\CategoryRepository;
+use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\UserRepository;
 use Illuminate\Routing\Controller;
@@ -14,19 +15,19 @@ class DashboardController extends Controller
      */
     private $repository;
     /**
-     * @var CategoryRepository
-     */
-    private $categoryRepository;
-    /**
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var EstabelecimentoRepository
+     */
+    private $estabelecimentoRepository;
 
-    public function __construct(OrderRepository $repository, UserRepository $userRepository, CategoryRepository $categoryRepository)
+    public function __construct(OrderRepository $repository, UserRepository $userRepository, EstabelecimentoRepository $estabelecimentoRepository)
     {
         $this->repository = $repository;
-        $this->categoryRepository = $categoryRepository;
         $this->userRepository = $userRepository;
+        $this->estabelecimentoRepository = $estabelecimentoRepository;
     }
 
     public function index()
@@ -43,10 +44,10 @@ class DashboardController extends Controller
             return $q->where(['role' => 'client'])->orderBy('id', 'desc');
         })->paginate(10);
 
-        $categories = $this->categoryRepository->scopeQuery(function($q){
+        $estabelecimentos = $this->estabelecimentoRepository->scopeQuery(function($q){
             return $q->orderBy('id', 'desc');
         })->paginate(10);
 
-        return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders', 'clients', 'categories'));
+        return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders', 'clients', 'estabelecimentos'));
     }
 }

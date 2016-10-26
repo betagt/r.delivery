@@ -107,7 +107,7 @@ Breadcrumbs::register("admin_estabelecimento_categories", function($breadcrumbs,
     $breadcrumbs->parent("admin_home");
     $breadcrumbs->push("Todos os Estabelecimentos", route("admin.estabelecimentos.index"));
     $breadcrumbs->push("Estabelecimento #{$relation->id}", route("admin.estabelecimentos.show", [ 'id' => $relation->id ]));
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimento.categories.index", ['estabelecimento_id' => $relation->id]));
+    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimentos.categories.index", ['estabelecimento_id' => $relation->id]));
 });
 
 // Dashboard > Estabelecimentos > Categorias > Create
@@ -116,8 +116,8 @@ Breadcrumbs::register("admin_estabelecimento_categories_create", function($bread
     $breadcrumbs->parent("admin_home");
     $breadcrumbs->push("Todos os Estabelecimentos", route("admin.estabelecimentos.index"));
     $breadcrumbs->push("Estabelecimento #{$relation->id}", route("admin.estabelecimentos.show", [ 'id' => $relation->id ]));
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimento.categories.index", ['estabelecimento_id' => $relation->id]));
-    $breadcrumbs->push("Novo Registro", route("admin.estabelecimento.categories.create"));
+    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimentos.categories.index", ['estabelecimento_id' => $relation->id]));
+    $breadcrumbs->push("Novo Registro", route("admin.estabelecimentos.categories.create"));
 });
 
 // Dashboard > Estabelecimentos > Categorias > Show
@@ -126,8 +126,8 @@ Breadcrumbs::register("admin_estabelecimento_categories_show", function($breadcr
     $breadcrumbs->parent("admin_home");
     $breadcrumbs->push("Todos os Estabelecimentos", route("admin.estabelecimentos.index"));
     $breadcrumbs->push("Estabelecimento #{$relation->id}", route("admin.estabelecimentos.show", [ 'id' => $relation->id ]));
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimento.categories.index", ['estabelecimento_id' => $relation->id]));
-    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.estabelecimento.categories.show", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
+    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimentos.categories.index", ['estabelecimento_id' => $relation->id]));
+    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.estabelecimentos.categories.show", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
 });
 
 // Dashboard > Estabelecimentos > Categorias > Edit
@@ -136,7 +136,7 @@ Breadcrumbs::register("admin_estabelecimento_categories_edit", function($breadcr
     $breadcrumbs->parent("admin_home");
     $breadcrumbs->push("Todos os Estabelecimentos", route("admin.estabelecimentos.index"));
     $breadcrumbs->push("Estabelecimento #{$relation->id}", route("admin.estabelecimentos.show", [ 'id' => $relation->id ]));
-    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimento.categories.index", ['estabelecimento_id' => $relation->id]));
-    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.estabelecimento.categories.show", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
-    $breadcrumbs->push("Editar #{$entity->id}", route("admin.estabelecimento_categories.edit", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
+    $breadcrumbs->push("Listagem/Pesquisa de Registros", route("admin.estabelecimentos.categories.index", ['estabelecimento_id' => $relation->id]));
+    $breadcrumbs->push("Visualizar Registro #{$entity->id}", route("admin.estabelecimentos.categories.show", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
+    $breadcrumbs->push("Editar #{$entity->id}", route("admin.estabelecimentos.categories.edit", [ 'estabelecimento_id' => $relation->id, 'id' => $entity->id ]));
 });

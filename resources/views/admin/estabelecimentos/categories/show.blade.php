@@ -1,9 +1,9 @@
 @extends('admin.base.list')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories_show', $relation, $entity) !!}
+    {!! Breadcrumbs::render('admin_estabelecimento_categories', $relation, $entity) !!}
 @endsection
 @section('header')
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i>
+    <a href="{{ route('admin.estabelecimentos.categories.create') }}" class="btn btn-primary btn-flat mt mb"><i class="fa fa-plus"></i>
         Novo Registro</a>
 @endsection
 @section('list')
@@ -21,7 +21,7 @@
                 @if($entity->parent_id == 0)
                     Categoria Principal
                 @else
-                    <a href="{{ route('admin.categories.show', ['id' => $entity->parent_id]) }}">
+                    <a href="{{ route('admin.estabelecimentos.categories.show', ['id' => $entity->parent_id]) }}">
                         {{ $entity->parent->name }}
                     </a>
                 @endif
@@ -45,14 +45,14 @@
     </table>
 @endsection
 @section('footer')
-    <a href="{{ route('admin.categories.index') }}" class="btn btn-default">
+    <a href="{{ route('admin.estabelecimentos.categories.index') }}" class="btn btn-default">
         <i class="fa fa-list-ul"></i>
         Listar Registros
     </a>
-    <a href="{{ route('admin.categories.edit', ['id' => $entity->id]) }}" class="btn btn-default">
+    <a href="{{ route('admin.estabelecimentos.categories.edit', ['id' => $entity->id]) }}" class="btn btn-default">
         <i class="fa fa-pencil"></i> Alterar Registro
     </a>
-    <a href="{{ route('admin.categories.destroy', [ 'id' => $entity->id]) }}" class="btn btn-danger delete">
+    <a href="{{ route('admin.estabelecimentos.categories.destroy', [ 'id' => $entity->id]) }}" class="btn btn-danger delete">
         <i class="fa fa-close"></i> Excluir
     </a>
 @endsection

@@ -28,11 +28,13 @@ class CategoriesController extends SimpleRelationController implements ICategory
 
         $subtitulo = "Listagem/Pesquisa de Registros";
 
+        $relation = $this->relationRepository->find($estabelecimento_id);
+
         $list = $this->repository->scopeQuery(function($query){
             return $query->orderBy('parent_id','asc');
         })->paginate();
 
-        return view($this->route . '.index', compact('list', 'titulo', 'subtitulo'));
+        return view($this->route . '.index', compact('list', 'titulo', 'subtitulo', 'relation'));
     }
 
     public function create($estabelecimento_id)
@@ -41,9 +43,11 @@ class CategoriesController extends SimpleRelationController implements ICategory
 
         $subtitulo = "Novo Registro";
 
-        $select = $this->repository->getCategories();
+        $relation = $this->relationRepository->find($estabelecimento_id);
 
-        return view($this->route . '.create', compact('titulo', 'subtitulo', 'select'));
+        $select = $this->repository->getCategories($estabelecimento_id);
+
+        return view($this->route . '.create', compact('titulo', 'subtitulo', 'select', 'relation'));
     }
 
     public function edit($estabelecimento_id, $id)
@@ -55,7 +59,7 @@ class CategoriesController extends SimpleRelationController implements ICategory
 
             $subtitulo = "Alterar Registro #{$id}";
 
-            $select = $this->repository->getCategories();
+            $select = $this->repository->getCategories($estabelecimento_id);
 
             return view($this->route . '.edit', compact('entity', 'titulo', 'subtitulo', 'select'));
         } catch (\Exception $ex)

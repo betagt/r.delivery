@@ -1,9 +1,9 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories_edit', $relation, $entity) !!}
+    {!! Breadcrumbs::render('admin_estabelecimento_categories', $relation, $entity) !!}
 @endsection
 @section('content')
-    {!! Form::Model($entity,['route'=>['admin.categories.update',$entity->id]]) !!}
+    {!! Form::Model($entity,['route'=>['admin.estabelecimentos.categories.update',$entity->id]]) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Preencher formulário abaixo</h3>

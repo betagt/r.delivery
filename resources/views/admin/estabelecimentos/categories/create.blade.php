@@ -1,9 +1,9 @@
 @extends('admin.base.template')
 @section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_categories_create', $relation) !!}
+    {!! Breadcrumbs::render('admin_estabelecimento_categories', $relation) !!}
 @endsection
 @section('content')
-    {!! Form::Open(['route'=>'admin.categories.store']) !!}
+    {!! Form::Open(['route'=>'admin.estabelecimentos.categories.store']) !!}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Preencher formulário abaixo</h3>

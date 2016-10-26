@@ -78,7 +78,9 @@ class CategoryTableSeeder extends Seeder
         $count = count($products);
         for ($i = 0; $i < $count; $i++)
         {
-            $result[] = $this->product($category, $products[$i]['name'], $products[$i]['price'], $products[$i]['description']);
+            $p = $this->product($category, $products[$i]['name'], $products[$i]['price'], $products[$i]['description']);
+
+            $result[] = $p->id;
         }
         return $result;
     }
@@ -186,13 +188,29 @@ class CategoryTableSeeder extends Seeder
     {
         $e = $this->estabelecimento('Divino Fogão', '55d0f0e7ba994.jpg', 1);
 
-        $category = $this->category($e->id, 'Massas');
-        $products = [
-            0 => ['name' => 'Pizza', 'description' => '', 'price' => '0.00'],
+        $porcaoProduct = [
+            0 => ['nome' => 'Grande 2 Sabores', 'qtde' => 2],
+            1 => ['nome' => 'Grande 1 Sabor', 'qtde' => 1],
+            2 => ['nome' => 'Individual', 'qtde' => 1],
         ];
-        $this->products($category->id, $products);
 
-        $parent = $this->category($e->id, 'Pizza', $category->id);
+        $porcoes = $this->porcoes($porcaoProduct);
+
+        $category = $this->category($e->id, 'Massas');
+
+        $products = [
+            0 => [
+                'name' => 'Pizza',
+                'description' => '',
+                'price' => '0.00'
+            ],
+        ];
+
+        $products = $this->products($category->id, $products);
+
+        $this->makeProductsPorcoes($porcoes, $products);
+
+        $parent = $this->category($e->id, 'Sabores de Pizza', $category->id);
         $products = [
             0 => [
                 'name' => 'Calabresa',
@@ -226,36 +244,47 @@ class CategoryTableSeeder extends Seeder
             ],
         ];
 
-        $porcaoProduct = [
-            0 => ['nome' => 'Grande 2 Sabores', 'qtde' => 2],
-            1 => ['nome' => 'Grande 1 Sabor', 'qtde' => 1],
-            2 => ['nome' => 'Individual', 'qtde' => 1],
-        ];
-
-        $porcoes = $this->porcoes($porcaoProduct);
         $products = $this->products($parent->id, $products);
 
-        $this->makeProductsPorcoes($porcoes, $products);
+        $this->makeCategoriesPorcoes($porcaoProduct, $porcoes, $parent->id);
 
-        $parent = $this->category($e->id, 'Bordas', $category->id);
-        $products = [
-            0 => [
-                'name' => 'Cheddar',
-                'description' => '',
-                'price' => '2.00'
-            ],
-            1 => [
-                'name' => '4 Queijos',
-                'description' => '',
-                'price' => '2.50'
-            ],
-            2 => [
-                'name' => 'Catupiry',
-                'description' => '',
-                'price' => '3.50'
-            ],
-        ];
-        $this->products($parent->id, $products);
+//        $parent = $this->category($e->id, 'Bordas', $category->id);
+//        $products = [
+//            0 => [
+//                'name' => 'Cheddar',
+//                'description' => '',
+//                'price' => '2.00'
+//            ],
+//            1 => [
+//                'name' => '4 Queijos',
+//                'description' => '',
+//                'price' => '2.50'
+//            ],
+//            2 => [
+//                'name' => 'Catupiry',
+//                'description' => '',
+//                'price' => '3.50'
+//            ],
+//        ];
+//        $this->products($parent->id, $products);
+    }
+
+    public function makeCategoriesPorcoes($porcaoProduct, $porcoes, $categoria)
+    {
+        $pc = count($porcaoProduct);
+        $p = count($porcoes);
+
+        if ($pc == $p && $p > 0)
+        {
+            for ($i = 0; $i < $pc; $i++)
+            {
+                factory(\CodeDelivery\Models\CategoryPorcao::class)->create([
+                    'porcao_id' => $porcoes[$i],
+                    'category_id' => $categoria,
+                    'qtde' => $porcaoProduct[$i]['qtde'],
+                ]);
+            }
+        }
     }
 
     /**
@@ -272,10 +301,9 @@ class CategoryTableSeeder extends Seeder
                 } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
                     $r = factory(\CodeDelivery\Models\Porcao::class)->create([
                         'nome' => $porcaoProduct[$i]['nome'],
-                        'qtde' => $porcaoProduct[$i]['qtde'],
                     ]);
                 }
-                $result[] = $r;
+                $result[] = $r->id;
             }
         }
         return $result;
@@ -295,8 +323,8 @@ class CategoryTableSeeder extends Seeder
             for ($j=0; $j < $countProducts; $j++)
             {
                 factory(\CodeDelivery\Models\ProductPorcao::class)->create([
-                    'product_id' => $products[$j]->id,
-                    'porcao_id' => $porcoes[$i]->id,
+                    'product_id' => $products[$j],
+                    'porcao_id' => $porcoes[$i],
                     'preco' => random_int(25,50)
                 ]);
             }

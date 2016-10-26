@@ -11,12 +11,17 @@ class Porcao extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'nome', 'qtde', 'status'
+        'nome', 'status'
     ];
 
     public function produtos()
     {
         return $this->hasMany(ProductPorcao::class, 'porcao_id', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(CategoryPorcao::class, 'porcao_id', 'id');
     }
 
 }

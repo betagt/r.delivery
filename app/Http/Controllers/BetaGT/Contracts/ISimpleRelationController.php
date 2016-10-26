@@ -6,7 +6,7 @@ use CodeDelivery\Http\Requests\Request;
 
 interface ISimpleRelationController
 {
-    public function index();
+    public function index($fk);
 
     public function create($fk);
 

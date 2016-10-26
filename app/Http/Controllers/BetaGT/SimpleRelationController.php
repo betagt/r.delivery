@@ -2,7 +2,7 @@
 
 namespace CodeDelivery\Http\Controllers\BetaGT;
 
-use CodeDelivery\Http\Controllers\BetaGT\Contracts\ISimpleController;
+use CodeDelivery\Http\Controllers\BetaGT\Contracts\ISimpleRelationController;
 use CodeDelivery\Http\Requests\Request;
 use Illuminate\Routing\Controller;
 
@@ -10,15 +10,17 @@ class SimpleRelationController extends Controller  implements ISimpleRelationCon
 {
     protected $repository, $relationRepository, $route, $routeRelation, $titulo;
 
-    public function index()
+    public function index($fk)
     {
         $titulo = $this->titulo;
 
         $subtitulo = "Listagem/Pesquisa de Registros";
 
+        $relation = $this->relationRepository->find($fk);
+
         $list = $this->repository->paginate();
 
-        return view($this->route . '.index', compact('list', 'titulo', 'subtitulo'));
+        return view($this->route . '.index', compact('list', 'titulo', 'subtitulo', 'relation'));
     }
 
     public function create($fk)
