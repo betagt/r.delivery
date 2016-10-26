@@ -12,7 +12,7 @@ use CodeDelivery\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['filhos', 'products'];
+    protected $defaultIncludes = ['filhos', 'products', 'porcoes'];
 
     /**
      * Transform the \Category entity
