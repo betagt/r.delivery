@@ -246,27 +246,29 @@ class CategoryTableSeeder extends Seeder
 
         $products = $this->products($parent->id, $products);
 
+        $this->makeProductsPorcoes($porcoes, $products);
+
         $this->makeCategoriesPorcoes($porcaoProduct, $porcoes, $parent->id);
 
-//        $parent = $this->category($e->id, 'Bordas', $category->id);
-//        $products = [
-//            0 => [
-//                'name' => 'Cheddar',
-//                'description' => '',
-//                'price' => '2.00'
-//            ],
-//            1 => [
-//                'name' => '4 Queijos',
-//                'description' => '',
-//                'price' => '2.50'
-//            ],
-//            2 => [
-//                'name' => 'Catupiry',
-//                'description' => '',
-//                'price' => '3.50'
-//            ],
-//        ];
-//        $this->products($parent->id, $products);
+        $parent = $this->category($e->id, 'Bordas', $category->id);
+        $products = [
+            0 => [
+                'name' => 'Cheddar',
+                'description' => '',
+                'price' => '2.00'
+            ],
+            1 => [
+                'name' => '4 Queijos',
+                'description' => '',
+                'price' => '2.50'
+            ],
+            2 => [
+                'name' => 'Catupiry',
+                'description' => '',
+                'price' => '3.50'
+            ],
+        ];
+        $this->products($parent->id, $products);
     }
 
     public function makeCategoriesPorcoes($porcaoProduct, $porcoes, $categoria)
