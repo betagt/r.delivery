@@ -54,11 +54,11 @@ class CategoryTransformer extends TransformerAbstract
 
     public function includePorcoes(Category $model)
     {
-        if (!$model->porcao)
+        if (!$model->porcoes)
         {
             return null;
         }
-        return $this->collection($model->porcao, new CategoryPorcaoTransformer());
+        return $this->collection($model->porcoes, new CategoryPorcaoTransformer());
     }
 
     public function includeFilhos(Category $model)

@@ -33,7 +33,6 @@ class ProductTransformer extends TransformerAbstract
             'price'                 => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),
             'price_label'           => (string) $model->price,
             /* place your other model properties here */
-
             'created_at'            => $model->created_at,
             'updated_at'            => $model->updated_at
         ];
