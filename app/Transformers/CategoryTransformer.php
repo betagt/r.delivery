@@ -28,6 +28,7 @@ class CategoryTransformer extends TransformerAbstract
             'parent_id' => (int)$model->parent_id,
             'name' => (string)$model->name,
             'tipo' => (int)$model->tipo,
+            'multi' => (int)$model->multi,
 
             /* place your other model properties here */
 

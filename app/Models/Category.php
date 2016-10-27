@@ -12,7 +12,7 @@ class Category extends Model implements Transformable
     use TransformableTrait, SoftDeletes;
     
     protected $fillable = [
-        'estabelecimento_id', 'parent_id', 'name', 'tipo'
+        'estabelecimento_id', 'parent_id', 'name', 'tipo', 'multi'
     ];
 
     protected $dates = ['deleted_at'];

@@ -202,7 +202,7 @@ class CategoryTableSeeder extends Seeder
             0 => [
                 'name' => 'Pizza',
                 'description' => '',
-                'price' => '0.00'
+                'price' => '30.00'
             ],
         ];
 
