@@ -27,10 +27,11 @@ class OrderTransformer extends TransformerAbstract
     {
         return [
             'id'                => (int)$model->id,
-            'total'             => (float) str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->total)),
-            'total_label'       => (string)$model->total,
+            'total'             => (float) $model->total,
+            'total_label'       => (string)number_format($model->total,2,'.',','),
             'taxa_entrega'      => (float) $model->taxa_entrega,
             'status'            => (int)$model->status,
+            'status_label'            => $this->statusLabel($model->status),
             'count_avaliacao'   => ($model->avaliacao)?(int) $model->avaliacao->where('order_id', $model->id)->count():0,
             'product_names'     => $this->getArrayProductNames($model->items),
             'endereco'          => $model->deliveryAddresses,
@@ -47,6 +48,26 @@ class OrderTransformer extends TransformerAbstract
             $names[] = $item->product->name;
         }
         return $names;
+    }
+
+    private function statusLabel($idLabel){
+            switch ($idLabel){
+                case 0 :
+                    return 'Aguardando Pagamento';
+                    break;
+                case 1 :
+                    return 'Andamento';
+                    break;
+                case 2 :
+                    return 'Em entrega';
+                    break;
+                case 3 :
+                    return 'Concluído';
+                    break;
+                case 4 :
+                    return 'Cancelado';
+                    break;
+            }
     }
 
     public function includeCupom(Order $model)

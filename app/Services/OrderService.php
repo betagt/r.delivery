@@ -75,15 +75,16 @@ class OrderService
                 unset($data['cupom_code']);
             }
 
-            $data['items'] = $this->getItems($data['items']);
+            //$data['items'] = $this->getItems($data['items']);
             $order = $this->orderRepository->create($data);
-            $total = 0;
+            $total = $data['total'] ;
+            $order->taxa_entrega = $data['taxa'];
 
             foreach ($data['items'] as $key =>$item) {
                 $order->items()->create($item);
-                $total += $item['price'] * $item['qtd'];
+                //$total += $item['price'] * $item['qtd'];
             }
-            $order->total = $total;
+            //$order->total = $total;
             if (isset($cupom)) {
                 $order->total = $data['taxa'] + $total - $cupom->value;
             }

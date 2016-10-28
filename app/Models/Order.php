@@ -31,7 +31,7 @@ class Order extends Model implements Transformable
         ];
     }
 
-    public function setTotalAttribute($value)
+    /*public function setTotalAttribute($value)
     {
         $this->attributes['total'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
     }
@@ -39,17 +39,17 @@ class Order extends Model implements Transformable
     public function getTotalAttribute()
     {
         return number_format($this->attributes['total'], 2, ",", ".");
-    }
+    }*/
 
-    public function setTaxaEntregaAttribute($value)
+    /*public function setTaxaEntregaAttribute($value)
     {
         $this->attributes['taxa_entrega'] = str_replace(',','.', preg_replace('#[^\d\,]#is','',$value));
-    }
-
+    }*/
+/*
     public function getTaxaEntregaAttribute()
     {
         return number_format($this->attributes['taxa_entrega'], 2, ",", ".");
-    }
+    }*/
 
     public function client()
     {

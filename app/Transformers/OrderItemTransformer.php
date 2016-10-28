@@ -29,6 +29,7 @@ class OrderItemTransformer extends TransformerAbstract
             'porcao_id'         => (int) $model->porcao_id,
             'category_id'       => (int) $model->category_id,
             'qtd'               => (int) $model->qtd,
+            'ide'               => (string) $model->ide,
             'taxa_entrega'      => (float) $model->taxa_entrega,
             'price'             => (float) $model->price,
             'price_label'       => (string)str_replace(',','.', preg_replace('#[^\d\,]#is','',$model->price)),

@@ -38,7 +38,6 @@ class UtilController extends Controller
         $this->geoService = $geoService;
     }
 
-
     public function cep($cep)
     {
         $urlUri = 'http://viacep.com.br/ws/' . $cep . '/json/';
@@ -46,9 +45,10 @@ class UtilController extends Controller
     }
 
     public function distanceCalculate(Request $request){
-        $destinoInicial = "|-10.1836952,-48.3100962";
-        return $this->geoService->distanceCalculate($request->get('origens').$destinoInicial,$request->get('destinos'));
+        //$destinoInicial = "|-10.1836952,-48.3100962";
+        return $this->geoService->distanceCalculate($request->get('origens'),$request->get('destinos'));
     }
+
     public function cepLocation(Request $request)
     {
         $urlUri = 'http://viacep.com.br/ws/' . $request->get('estado') . '/' . $request->get('cidade') . '/' . $request->get('logradouro') . '/json/';
