@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\Dmitrovskiy\IonicPush\PushProcessor::class,function (){
             return new \Dmitrovskiy\IonicPush\PushProcessor(env('IONIC_PROFILE_ID'),env('IONIC_JWT_TOKEN'));
         });
+        \PagSeguroLibrary::init();
+        \PagSeguroConfig::init();
+        \PagSeguroResources::init();
     }
 }

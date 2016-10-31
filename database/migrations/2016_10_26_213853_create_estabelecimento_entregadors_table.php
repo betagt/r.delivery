@@ -15,7 +15,10 @@ class CreateEstabelecimentoEntregadorsTable extends Migration
 	{
 		Schema::create('estabelecimento_entregadors', function(Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('estabelecimento_id')->unsigned()->nullable();
+            $table->foreign('estabelecimento_id')->references('id')->on('estabelecimentos');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
 		});
 	}

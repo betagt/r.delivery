@@ -347,6 +347,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('geo/distancia', 'Api\UtilController@distanceCalculate');
         Route::get('cep/logradouro', 'Api\UtilController@cepLocation');
         Route::get('cupom/{code}', 'Api\CupomController@show');
+        Route::get('pagamentoSession', 'Api\PagamentosController@getSessionId');
         Route::get('cupom/list/utilizados', 'Api\CupomController@utilizados');
         Route::get('order', ['as' => 'order.index', 'uses' => 'CheckoutController@index']);
     });

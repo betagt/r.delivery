@@ -160,6 +160,7 @@ return [
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Cagartner\CorreiosConsulta\ServiceProvider::class,
         ValidadorCpf\CpfServiceProvider::class,
+        //\laravel\pagseguro\Platform\Laravel5\ServiceProvider::class,
     ],
 
     /*
@@ -214,5 +215,6 @@ return [
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Correios' => Cagartner\CorreiosConsulta\Facade::class,
+        //'PagSeguro' => laravel\pagseguro\Facades\PagSeguro::class,
     ],
 ];

@@ -26,7 +26,9 @@
         "dmitrovskiy/ionic-push-php": "0.0.3",
         "cagartner/correios-consulta": "^0.1.4",
         "doctrine/dbal": "^2.5",
-        "jailtonsc/validador-cpf-laravel": "^2.0"
+        "jailtonsc/validador-cpf-laravel": "^2.0",
+        "michael/laravelpagseguro": "^1.0",
+        "pagseguro/php": "2.7.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

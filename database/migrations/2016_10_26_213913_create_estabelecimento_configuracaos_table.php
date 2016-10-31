@@ -15,7 +15,8 @@ class CreateEstabelecimentoConfiguracaosTable extends Migration
 	{
 		Schema::create('estabelecimento_configuracaos', function(Blueprint $table) {
             $table->increments('id');
-
+            $table->decimal('fuel_value');
+            $table->decimal('max_distance');
             $table->timestamps();
 		});
 	}
