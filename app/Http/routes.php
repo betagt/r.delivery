@@ -274,6 +274,10 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'store_avaliacao',
                 'uses' => 'ClientCheckoutController@storeAvaliacao'
             ]);
+            Route::post('order/payment', [
+                'as' => 'order.payment',
+                'uses' => 'ClientCheckoutController@paymentConfirmation'
+            ]);
             Route::get('products', [
                 'as' => 'products.index',
                 'uses' => 'ClientProductController@index'

@@ -77,8 +77,8 @@ $factory->define(\CodeDelivery\Models\EstabelecimentoEndereco::class, function (
         'cidade' => $faker->city,
         'estado' => $faker->state,
         'cep' => $faker->postcode,
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
+        'latitude' => -10.1821551,
+        'longitude' => -48.3400806,
     ];
 });
 
