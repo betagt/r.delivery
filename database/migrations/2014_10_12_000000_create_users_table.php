@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('client');
             $table->char('sexo')->default('M');
             $table->date('data_nascimento')->nullable();
+            $table->string('ddd_celular', 15);
             $table->string('telefone_celular', 15);
+            $table->string('ddd_fixo', 15);
             $table->string('telefone_fixo', 15)->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -34,8 +34,6 @@ class CupomRepositoryEloquent extends BaseRepository implements CupomRepository
         return Cupom::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -54,7 +52,7 @@ class CupomRepositoryEloquent extends BaseRepository implements CupomRepository
             return $this->parserResult($result);
         }
 
-        throw (new ModelNotFoundException)->setModel(get_class($this->model));
+        throw (new ModelNotFoundException)->setModel($this->model());
     }
 
     public function presenter()

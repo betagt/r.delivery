@@ -253,9 +253,10 @@ class OrderService
                 $order->save();
                 break;
             case 2:
-                $user = $order->client->user;
+                $user = $order->client;
                 $this->pushProcessor->notify([$user->device_token], [
-                    'message' => "Seu Pedido #" . $order->id . " acabou de ser entregue"
+                    'title' => "<b>Entrega</b>",
+                    'message' => "<b>Seu Pedido: #" . $order->id . "</b> acabou de ser iniciada a entrega"
                 ]);
                 $order->save();
                 break;

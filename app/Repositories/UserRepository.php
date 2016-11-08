@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface UserRepository extends RepositoryInterface
 {
     public function updateDeviceToken($id,$devicetoken);
-    public function updateFone($id,$telefoneCelular);
+    public function updateFone($id,$ddd,$telefoneCelular);
 }

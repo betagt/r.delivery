@@ -83,7 +83,9 @@ class DeliverymanCheckoutController extends Controller
 
         $idDeliveryman = Authorizer::getResourceOwnerId();
 
-        return  $this->service->show($id);
+        return  $this->repository->with(['client','items','cupom'])
+            ->skipPresenter(false)
+            ->getByIdAndDeliveryman($id,$idDeliveryman);
     }
 
     public function geo(Request $request, Geo $geo, $id)

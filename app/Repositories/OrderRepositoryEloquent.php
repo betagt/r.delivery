@@ -43,8 +43,21 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
             return $this->parserResult($result);
         }
 
-        throw new ModelNotFoundException('Order não existe');
+        throw (new ModelNotFoundException())->setModel($this->model());
 
+    }
+
+    public function getByIdAndClient($id, $idClient)
+    {
+        $result =  $this->model
+            ->where('id',$id)
+            ->where('client_id',$idClient)
+            ->first();
+        if($result){
+            return $this->parserResult($result);
+        }
+
+        throw (new ModelNotFoundException())->setModel($this->model());
     }
 
     /**

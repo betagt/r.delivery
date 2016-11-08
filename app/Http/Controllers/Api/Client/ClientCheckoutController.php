@@ -85,7 +85,7 @@ class ClientCheckoutController extends Controller
             ->skipPresenter(false)
             ->with($this->with)->scopeQuery(function ($query) use ($id) {
                 return $query->where('client_id', '=', $id);
-            })->all();
+            })->paginate();
 
         return $orders;
     }
@@ -134,6 +134,7 @@ class ClientCheckoutController extends Controller
             abort(300,'Erro ao realizar pagamento');
         }
 
+        $user = $this->userRepository->find($id);
         $method = $request->get('method');
         $currency = 'BRL';
         $hash = $request->get('hash');
@@ -159,13 +160,23 @@ class ClientCheckoutController extends Controller
         $directPaymentRequest->addItem("5000",'taxa de entrega',1,$order->taxa_entrega);
 
         $directPaymentRequest->setSender(
-            'joão Compador',
+            $user->name,
+            $user->email,
+            $user->ddd_celular,
+            $user->telefone_celular,
+            'CPF',
+            $user->cpf
+        );
+        /*
+         $directPaymentRequest->setSender(
+            $user->name,
             'c39797427091303561162@sandbox.pagseguro.com.br',
-            '11',
+            '63',
             '56273440',
             'CPF',
             '156.009.442-76'
         );
+         * */
 
         $directPaymentRequest->setSenderHash($hash);
         $installments = new \PagSeguroDirectPaymentInstallment([
@@ -207,13 +218,13 @@ class ClientCheckoutController extends Controller
                 'billing' => $billingAddress,
                 'holder' => new \PagSeguroCreditCardHolder(
                     array(
-                        'name' => 'João Comprador',
-                        'birthDate' => date('01/10/1979'),
-                        'areaCode' => '11',
-                        'number' => '56273440',
+                        'name' =>  $user->name,
+                        'birthDate' => date_format(date_create($user->data_nascimento),"d/m/Y"),
+                        'areaCode' => $user->ddd_celular,
+                        'number' => $user->telefone_celular,
                         'documents' => array(
                             'type' => 'CPF',
-                            'value' => '156.009.442-76'
+                            'value' =>  $user->cpf
                         )
                     )
                 )
@@ -221,7 +232,10 @@ class ClientCheckoutController extends Controller
         );
 
         $directPaymentRequest->setCreditCard($creditCardData);
-
+        if (!$order->hash) {
+            $order->hash = md5((new \DateTime())->getTimestamp());
+        }
+        $order->save();
         try {
             $credentials = \PagSeguroConfig::getAccountCredentials(); // getApplicationCredentials()
             $response = $directPaymentRequest->register($credentials);
@@ -247,6 +261,9 @@ class ClientCheckoutController extends Controller
 
     public function show($id)
     {
-        return $this->service->show($id);
+        $idUser= Authorizer::getResourceOwnerId();
+        return  $this->repository
+            ->skipPresenter(false)
+            ->getByIdAndClient($id,$idUser);
     }
 }

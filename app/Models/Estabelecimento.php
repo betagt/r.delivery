@@ -31,7 +31,7 @@ class Estabelecimento extends Model implements Transformable
         {
             return $value;
         }
-        return '/images/estabelecimentos/' . $this->attributes['icone'];
+        return 'http://'.$_SERVER['HTTP_HOST'].'/images/estabelecimentos/' . $this->attributes['icone'];
     }
 
     protected $dates = ['deleted_at'];

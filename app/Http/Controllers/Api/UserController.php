@@ -37,8 +37,9 @@ class UserController extends Controller
     public function updateFone(Request $request)
     {
         $id = Authorizer::getResourceOwnerId();
+        $ddd = $request->get('ddd_celular');
         $telefoneCelular = $request->get('telefone_celular');
-        return $this->repository->updateFone($id, $telefoneCelular);
+        return $this->repository->updateFone($id,$ddd, $telefoneCelular);
     }
 
     public function updateUser(AdminUserRequest $request)
