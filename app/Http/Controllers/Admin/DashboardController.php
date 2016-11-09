@@ -32,22 +32,39 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $titulo = "Área Administrativa";
+        if (auth()->user()->role == 'admin') {
+            $titulo = "Área Administrativa";
 
-        $subtitulo = "Página Principal";
+            $subtitulo = "Página Principal";
 
-        $orders = $this->repository->scopeQuery(function($q){
-            return $q->orderBy('id', 'desc');
-        })->paginate(10);
+            $orders = $this->repository->scopeQuery(function ($q) {
+                return $q->orderBy('id', 'desc');
+            })->paginate(10);
 
-        $clients = $this->userRepository->scopeQuery(function($q){
-            return $q->where(['role' => 'client'])->orderBy('id', 'desc');
-        })->paginate(10);
+            $clients = $this->userRepository->scopeQuery(function ($q) {
+                return $q->where(['role' => 'client'])->orderBy('id', 'desc');
+            })->paginate(10);
 
-        $estabelecimentos = $this->estabelecimentoRepository->scopeQuery(function($q){
-            return $q->orderBy('id', 'desc');
-        })->paginate(10);
+            $estabelecimentos = $this->estabelecimentoRepository->scopeQuery(function ($q) {
+                return $q->orderBy('id', 'desc');
+            })->paginate(10);
 
-        return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders', 'clients', 'estabelecimentos'));
+            return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders', 'clients', 'estabelecimentos'));
+        }
+        if (auth()->user()->role == 'estabelecimento') {
+            $id = auth()->user()->id;
+
+            $titulo = "Ambiente do Estabelecimento";
+
+            $subtitulo = "Listagem de Pedidos";
+
+            $orders = $this->repository->scopeQuery(function ($q) use ($id) {
+                $q->where(['estabelecimento_id' => $id]);
+                return $q->orderBy('id', 'desc');
+            })->paginate(10);
+
+            return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders'));
+        }
+
     }
 }

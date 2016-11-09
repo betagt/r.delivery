@@ -11,6 +11,21 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
+            'titulo' => 'Restaurantes'
+        ]);
+        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
+            'titulo' => 'Lanchonetes'
+        ]);
+        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
+            'titulo' => 'Farmácias'
+        ]);
+        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
+            'titulo' => 'Informática'
+        ]);
+        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
+            'titulo' => 'Papelarias'
+        ]);
         $estado = factory(\CodeDelivery\Models\Estado::class)->create([
             'uf' => 'TO',
             'nome' => 'Tocantins'
@@ -31,6 +46,7 @@ class CategoryTableSeeder extends Seeder
     {
         $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
             'cidade_id' => 1,
+            'estabelecimento_categoria_id' => random_int(1, 5),
             'nome' => $nome,
             'icone' => $foto,
             'power'=> $power,

@@ -5,6 +5,18 @@ Breadcrumbs::register("admin_home", function($breadcrumbs)
     $breadcrumbs->push("Principal", route("admin.home"));
 });
 
+Breadcrumbs::register("cliente_home", function($breadcrumbs)
+{
+    $breadcrumbs->push("Principal", route("cliente.home"));
+});
+
+// Dashboard > Usuários
+Breadcrumbs::register("cliente_users_show", function($breadcrumbs, $entity)
+{
+    $breadcrumbs->parent("cliente_home");
+    $breadcrumbs->push("Meu Perfil", route("cliente.users.show", [ 'id' => $entity->id ]));
+});
+
 // Dashboard > Usuários
 Breadcrumbs::register("admin_users", function($breadcrumbs)
 {

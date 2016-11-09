@@ -4,16 +4,18 @@ namespace CodeDelivery\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeDelivery\Repositories\OrderIemRepository;
-use CodeDelivery\Models\OrderIem;
-use CodeDelivery\Validators\OrderIemValidator;
+use CodeDelivery\Repositories\OrderItemRepository;
+use CodeDelivery\Models\OrderItem;
+use CodeDelivery\Validators\OrderItemValidator;
 
 /**
- * Class OrderIemRepositoryEloquent
- * @package namespace App\Repositories;
+ * Class OrderItemRepositoryEloquent
+ * @package namespace CodeDelivery\Repositories;
  */
-class OrderIemRepositoryEloquent extends BaseRepository implements OrderIemRepository
+class OrderItemRepositoryEloquent extends BaseRepository implements OrderItemRepository
 {
+    protected $skipPresenter = true;
+
     /**
      * Specify Model class name
      *
@@ -21,7 +23,7 @@ class OrderIemRepositoryEloquent extends BaseRepository implements OrderIemRepos
      */
     public function model()
     {
-        return OrderIem::class;
+        return OrderItem::class;
     }
 
     

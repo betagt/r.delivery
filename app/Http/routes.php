@@ -20,7 +20,30 @@ Route::get('/test', [
     'as' => 'test.index'
 ]);
 
-
+Route::group(['prefix' => 'cliente', 'middleware' => 'auth.checkrole:estabelecimento', 'as' => 'cliente.', 'namespace' => 'Admin'], function () {
+    Route::get('', [
+        'as' => 'home',
+        'uses' => 'DashboardController@index'
+    ]);
+    Route::group(['prefix' => 'usuarios', 'as' => 'users.'], function () {
+        Route::get('print/{id}', [
+            'as' => 'print',
+            'uses' => 'UsersController@printReport'
+        ]);
+        Route::get('show/{id}', [
+            'as' => 'show',
+            'uses' => 'UsersController@show'
+        ]);
+        Route::get('edit/{id}', [
+            'as' => 'edit',
+            'uses' => 'UsersController@edit'
+        ]);
+        Route::post('update/{id}', [
+            'as' => 'update',
+            'uses' => 'UsersController@update'
+        ]);
+    });
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::get('', [

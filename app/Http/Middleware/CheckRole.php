@@ -22,9 +22,11 @@ class CheckRole
         }
 
         if(Auth::user()->role <> $role) { //se a role do usuário autenticado bate com a $role que passamos
+            if(Auth::user()->role == 'estabelecimento') {
+                return redirect('/cliente');
+            }
             return redirect('/auth/login');
         }
-
         return $next($request);
     }
 }

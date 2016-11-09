@@ -27,6 +27,15 @@ $factory->define(CodeDelivery\Models\User::class, function (Faker\Generator $fak
     ];
 });
 
+$factory->define(\CodeDelivery\Models\EstabelecimentoCategoria::class, function (Faker\Generator $faker) {
+    $titulo = $faker->name;
+
+    return [
+        'titulo' => $faker->name,
+        'slug' => str_slug($titulo),
+    ];
+});
+
 $factory->define(\CodeDelivery\Models\Estabelecimento::class, function (Faker\Generator $faker) {
     return [
         'icone' => $faker->imageUrl(177, 150),

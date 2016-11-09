@@ -17,6 +17,8 @@ class CreateEstabelecimentosTable extends Migration
             $table->increments('id');
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
+            $table->integer('estabelecimento_categoria_id')->unsigned();
+            $table->foreign('estabelecimento_categoria_id')->references('id')->on('estabelecimento_categorias');
 			$table->string('icone')->default('logo.jpg');
             $table->string('icone_link', 255);
 			$table->string('nome');

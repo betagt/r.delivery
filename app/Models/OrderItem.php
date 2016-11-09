@@ -50,4 +50,5 @@ class OrderItem extends Model implements Transformable
     {
         return $this->belongsTo(Order::class, 'order_id', 'id');
     }
+
 }

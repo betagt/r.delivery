@@ -4,16 +4,20 @@ namespace CodeDelivery\Providers;
 
 use CodeDelivery\Repositories\AvaliacaoRepository;
 use CodeDelivery\Repositories\AvaliacaoRepositoryEloquent;
-use CodeDelivery\Repositories\CategoryExtrasRepository;
-use CodeDelivery\Repositories\CategoryExtrasRepositoryEloquent;
+use CodeDelivery\Repositories\CategoryPorcaoRepository;
+use CodeDelivery\Repositories\CategoryPorcaoRepositoryEloquent;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\CategoryRepositoryEloquent;
 use CodeDelivery\Repositories\CidadeRepository;
 use CodeDelivery\Repositories\CidadeRepositoryEloquent;
+use CodeDelivery\Repositories\ClientRepository;
+use CodeDelivery\Repositories\ClientRepositoryEloquent;
 use CodeDelivery\Repositories\ContatoRepository;
 use CodeDelivery\Repositories\ContatoRepositoryEloquent;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\CupomRepositoryEloquent;
+use CodeDelivery\Repositories\EstabelecimentoCategoriaRepository;
+use CodeDelivery\Repositories\EstabelecimentoCategoriaRepositoryEloquent;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepositoryEloquent;
 use CodeDelivery\Repositories\EstadoRepository;
@@ -22,15 +26,19 @@ use CodeDelivery\Repositories\GeoPositionRepository;
 use CodeDelivery\Repositories\GeoPositionRepositoryEloquent;
 use CodeDelivery\Repositories\OrderAvaliacaoRepository;
 use CodeDelivery\Repositories\OrderAvaliacaoRepositoryEloquent;
+use CodeDelivery\Repositories\OrderItemRepository;
+use CodeDelivery\Repositories\OrderItemRepositoryEloquent;
+use CodeDelivery\Repositories\OrderRepository;
+use CodeDelivery\Repositories\OrderRepositoryEloquent;
 use CodeDelivery\Repositories\PorcaoRepository;
-use CodeDelivery\Repositories\ProductExtraItemRepository;
-use CodeDelivery\Repositories\ProductExtraItemRepositoryEloquent;
-use CodeDelivery\Repositories\ProductExtraRepository;
-use CodeDelivery\Repositories\ProductExtraRepositoryEloquent;
 use CodeDelivery\Repositories\ProductPorcaoRepository;
 use CodeDelivery\Repositories\ProductPorcaoRepositoryEloquent;
+use CodeDelivery\Repositories\ProductRepository;
+use CodeDelivery\Repositories\ProductRepositoryEloquent;
 use CodeDelivery\Repositories\UserAddressRepository;
 use CodeDelivery\Repositories\UserAddressRepositoryEloquent;
+use CodeDelivery\Repositories\UserRepository;
+use CodeDelivery\Repositories\UserRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -65,32 +73,36 @@ class RepositoryServiceProvider extends ServiceProvider
             CupomRepositoryEloquent::class
         );
         $this->app->bind(
-            'CodeDelivery\Repositories\ClientRepository',
-            'CodeDelivery\Repositories\ClientRepositoryEloquent'
+            ClientRepository::class,
+            ClientRepositoryEloquent::class
         );
         $this->app->bind(
-            'CodeDelivery\Repositories\OrderRepository',
-            'CodeDelivery\Repositories\OrderRepositoryEloquent'
+            OrderRepository::class,
+            OrderRepositoryEloquent::class
         );
         $this->app->bind(
-            'CodeDelivery\Repositories\OrderItemRepository',
-            'CodeDelivery\Repositories\OrderItemRepositoryEloquent'
+            ProductRepository::class,
+            ProductRepositoryEloquent::class
         );
         $this->app->bind(
-            'CodeDelivery\Repositories\ProductRepository',
-            'CodeDelivery\Repositories\ProductRepositoryEloquent'
-        );
-        $this->app->bind(
-            'CodeDelivery\Repositories\UserRepository',
-            'CodeDelivery\Repositories\UserRepositoryEloquent'
+            UserRepository::class,
+            UserRepositoryEloquent::class
         );
         $this->app->bind(
             EstabelecimentoRepository::class,
             EstabelecimentoRepositoryEloquent::class
         );
         $this->app->bind(
+            EstabelecimentoCategoriaRepository::class,
+            EstabelecimentoCategoriaRepositoryEloquent::class
+        );
+        $this->app->bind(
             OrderAvaliacaoRepository::class,
             OrderAvaliacaoRepositoryEloquent::class
+        );
+        $this->app->bind(
+            OrderItemRepository::class,
+            OrderItemRepositoryEloquent::class
         );
         $this->app->bind(
             UserAddressRepository::class,
@@ -112,5 +124,10 @@ class RepositoryServiceProvider extends ServiceProvider
             GeoPositionRepository::class,
             GeoPositionRepositoryEloquent::class
         );
+        $this->app->bind(
+            CategoryPorcaoRepository::class,
+            CategoryPorcaoRepositoryEloquent::class
+        );
+
     }
 }

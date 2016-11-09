@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 class SimpleController extends Controller  implements ISimpleController
 {
-    protected $repository, $route, $titulo;
+    protected $repository, $route, $titulo, $template;
 
     public function index()
     {
@@ -20,7 +20,7 @@ class SimpleController extends Controller  implements ISimpleController
             return $query->orderBy('id','desc');
         })->paginate();
 
-        return view($this->route . '.index', compact('list', 'titulo', 'subtitulo'));
+        return view($this->template . '.index', compact('list', 'titulo', 'subtitulo'));
     }
 
     public function create()
@@ -28,7 +28,7 @@ class SimpleController extends Controller  implements ISimpleController
         $titulo = $this->titulo;
         $subtitulo = "Novo Registro";
 
-        return view($this->route . '.create', compact('titulo', 'subtitulo'));
+        return view($this->template . '.create', compact('titulo', 'subtitulo'));
     }
 
     public function edit($id)
@@ -40,7 +40,7 @@ class SimpleController extends Controller  implements ISimpleController
 
             $subtitulo = "Alterar Registro #{$id}";
 
-            return view($this->route . '.edit', compact('entity', 'titulo', 'subtitulo'));
+            return view($this->template . '.edit', compact('entity', 'titulo', 'subtitulo'));
         } catch (\Exception $ex)
         {
             return redirect()->route($this->route . '.index')->with('warning', "O registro #{$id} não foi localizado: {$ex->getMessage()}" );
@@ -56,10 +56,13 @@ class SimpleController extends Controller  implements ISimpleController
 
             $subtitulo = "Visualizar Registro #{$entity->id}";
 
-            return view($this->route . '.show', compact('entity', 'titulo', 'subtitulo'));
+            return view($this->template . '.show', compact('entity', 'titulo', 'subtitulo'));
         } catch (\Exception $ex)
         {
-            return redirect()->route($this->route . '.index')->with('warning', "O registro #{$id} não foi localizado: {$ex->getMessage()}" );
+            if(auth()->user()->role == 'admin')
+            {
+                return redirect()->route($this->route . '.index')->with('warning', "O registro #{$id} não foi localizado: {$ex->getMessage()}" );
+            }
         }
     }
 
@@ -72,7 +75,7 @@ class SimpleController extends Controller  implements ISimpleController
 
             $subtitulo = "Visualizar Registro # {$entity->id}";
 
-            return view($this->route . '.print', compact('entity', 'titulo', 'subtitulo'));
+            return view($this->template . '.print', compact('entity', 'titulo', 'subtitulo'));
         } catch (\Exception $ex)
         {
             return redirect()->route($this->route . '.index')->with('warning', $ex->getMessage() );

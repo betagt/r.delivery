@@ -33,7 +33,7 @@
             <div class="pull-left">
                 <a href="#" class="btn btn-default btn-flat">
                     <i class="fa fa-user"></i>
-                    Perfil do Usuário
+                    Meu Perfil
                 </a>
             </div>
             <div class="pull-right">

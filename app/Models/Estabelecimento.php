@@ -14,6 +14,7 @@ class Estabelecimento extends Model implements Transformable
     protected $table = 'estabelecimentos';
 
     protected $fillable = [
+        'estabelecimento_categoria_id',
         'cidade_id',
         'icone',
         'nome',
@@ -59,6 +60,11 @@ class Estabelecimento extends Model implements Transformable
     public function categories()
     {
         return $this->hasMany(Category::class, 'estabelecimento_id', 'id');
+    }
+
+    public function estabelecimentoCategoria()
+    {
+        return $this->belongsTo(EstabelecimentoCategoria::class, 'estabelecimento_categoria_id', 'id');
     }
 
     public function orders()

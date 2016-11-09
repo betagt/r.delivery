@@ -25,78 +25,92 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">Navegação</li>
-            <li>
-                <a href="{{ route('admin.home') }}">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.orders.index') }}">
-                    <i class="fa fa-shopping-cart"></i> <span>Pedidos</span>
-                </a>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-building"></i>
-                    <span>Estabelecimentos</span>
-                    <span class="pull-right-container">
+            @if (Auth::user()->role == 'admin')
+                <li>
+                    <a href="{{ route('admin.home') }}">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.orders.index') }}">
+                        <i class="fa fa-shopping-cart"></i> <span>Pedidos</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-building"></i>
+                        <span>Estabelecimentos</span>
+                        <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="{{ route('admin.estabelecimentos.index') }}">
-                            <i class="fa fa-list-ul"></i> Listar/Pesquisar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.estabelecimentos.create') }}">
-                            <i class="fa fa-plus"></i> Novo Registro
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-users"></i>
-                    <span>Usuários do Sistema</span>
-                    <span class="pull-right-container">
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('admin.estabelecimentos.index') }}">
+                                <i class="fa fa-list-ul"></i> Listar/Pesquisar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.estabelecimentos.create') }}">
+                                <i class="fa fa-plus"></i> Novo Registro
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-users"></i>
+                        <span>Usuários do Sistema</span>
+                        <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="{{ route('admin.users.index') }}">
-                            <i class="fa fa-list-ul"></i> Listar/Pesquisar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.users.create') }}">
-                            <i class="fa fa-plus"></i> Novo Registro
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('admin.users.index') }}">
+                                <i class="fa fa-list-ul"></i> Listar/Pesquisar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.users.create') }}">
+                                <i class="fa fa-plus"></i> Novo Registro
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+            @if (Auth::user()->role == 'estabelecimento')
+                <li>
+                    <a href="{{ route('cliente.home') }}">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('cliente.users.show', ['id' => Auth::user()->id]) }}">
+                        <i class="fa fa-user"></i> <span>Meu Perfil</span>
+                    </a>
+                </li>
+            @endif
             {{--<li class="treeview">--}}
-                {{--<a href="#">--}}
-                    {{--<i class="fa fa-tag"></i>--}}
-                    {{--<span>Categorias dos Produtos</span>--}}
-                    {{--<span class="pull-right-container">--}}
-                      {{--<i class="fa fa-angle-left pull-right"></i>--}}
-                    {{--</span>--}}
-                {{--</a>--}}
-                {{--<ul class="treeview-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="{{ route('admin.categories.index') }}">--}}
-                            {{--<i class="fa fa-list-ul"></i> Listar/Pesquisar--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="{{ route('admin.categories.create') }}">--}}
-                            {{--<i class="fa fa-plus"></i> Novo Registro--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
+            {{--<a href="#">--}}
+            {{--<i class="fa fa-tag"></i>--}}
+            {{--<span>Categorias dos Produtos</span>--}}
+            {{--<span class="pull-right-container">--}}
+            {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+            {{--</a>--}}
+            {{--<ul class="treeview-menu">--}}
+            {{--<li>--}}
+            {{--<a href="{{ route('admin.categories.index') }}">--}}
+            {{--<i class="fa fa-list-ul"></i> Listar/Pesquisar--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li>--}}
+            {{--<a href="{{ route('admin.categories.create') }}">--}}
+            {{--<i class="fa fa-plus"></i> Novo Registro--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
             {{--</li>--}}
             <li>
                 <a href="/auth/logout"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
