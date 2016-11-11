@@ -40,13 +40,15 @@ class CategoryTableSeeder extends Seeder
         $this->moorango();
 
         $this->divinoFogao();
+
+        $this->rosario();
     }
 
-    public function estabelecimento($nome, $foto, $power=1)
+    public function estabelecimento($nome, $foto, $tipo, $power=1)
     {
         $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
             'cidade_id' => 1,
-            'estabelecimento_categoria_id' => random_int(1, 5),
+            'estabelecimento_categoria_id' => $tipo,
             'nome' => $nome,
             'icone' => $foto,
             'power'=> $power,
@@ -103,8 +105,7 @@ class CategoryTableSeeder extends Seeder
 
     public function moorango()
     {
-        $e = $this->estabelecimento('Morango', 'B57b4cd318f466.jpg', 1);
-
+        $e = $this->estabelecimento('Morango', 'B57b4cd318f466.jpg', 2, 1);
         ///
         $category = $this->category($e->id, 'Marmitas');
         $products = [
@@ -202,7 +203,7 @@ class CategoryTableSeeder extends Seeder
 
     public function divinoFogao()
     {
-        $e = $this->estabelecimento('Divino Fogão', '55d0f0e7ba994.jpg', 1);
+        $e = $this->estabelecimento('Divino Fogão', '55d0f0e7ba994.jpg', 1, 1);
 
         $porcaoProduct = [
             0 => ['nome' => 'Grande 2 Sabores', 'qtde' => 2],
@@ -285,6 +286,44 @@ class CategoryTableSeeder extends Seeder
             ],
         ];
         $this->products($parent->id, $products);
+    }
+
+    public function rosario()
+    {
+        $e = $this->estabelecimento('Drogaria Rosário', 'rosario.jpg', 3, 1);
+        ///
+        $category = $this->category($e->id, 'Higiene Pessoal');
+        $products = [
+            0 => ['name' => 'Absorvente Biofral Maxi', 'description' => '', 'price' => '14.99'],
+            1 => ['name' => 'Antisséptico Bucal Colgate Pax 500ml', 'description' => '', 'price' => '12.99'],
+            2 => ['name' => 'Creme Dental Colgate Sensitive Pró Alívio 110g', 'description' => '', 'price' => '13.99'],
+            3 => ['name' => 'Desodorante Dove Aerosol 169 ml e 85 ml', 'description' => '', 'price' => '15.99'],
+            4 => ['name' => 'Desodorante Rexona Aerosol 179 ml e 85 mil', 'description' => '', 'price' => '13.99'],
+            5 => ['name' => 'Escova Dental Curaprox 5460 Ultra Macia', 'description' => '', 'price' => '24.99'],
+            6 => ['name' => 'Fralda Adulta Sensaty', 'description' => '', 'price' => '16.99'],
+            7 => ['name' => 'Fralda Adulta', 'description' => '', 'price' => '15.99'],
+        ];
+        $this->products($category->id, $products);
+
+        ////
+        $category = $this->category($e->id, 'Medicamentos');
+        $products = [
+            0 => ['name' => 'Cimegripe c/ 20 cáps', 'description' => '', 'price' => '9.99'],
+            1 => ['name' => 'Probentol Derma Solução 50 ml', 'description' => '', 'price' => '23.99'],
+            2 => ['name' => 'Probentol Derma Spray 50 ml', 'description' => '', 'price' => '23.99'],
+            3 => ['name' => 'Vitergyl C 3 Tubos c/ 10 comp. cada', 'description' => '', 'price' => '17.99'],
+            4 => ['name' => 'Peito de peru, queijo branco, tomate e orégano', 'description' => '', 'price' => '19.00'],
+        ];
+        $this->products($category->id, $products);
+        ///
+        $category = $this->category($e->id, 'Diversos');
+        $products = [
+            0 => ['name' => 'Aparelho de Pressão Arterial Digital Automático Techline', 'description' => '', 'price' => '154.99'],
+            1 => ['name' => 'Claricure Creme 60 g', 'description' => '', 'price' => '42.40'],
+            2 => ['name' => 'Fralda Enxutita', 'description' => '', 'price' => '27.99'],
+            3 => ['name' => 'Lavita Beauty c/ 30 comp.', 'description' => '', 'price' => '34.89'],
+        ];
+        $this->products($category->id, $products);
     }
 
     public function makeCategoriesPorcoes($porcaoProduct, $porcoes, $categoria)

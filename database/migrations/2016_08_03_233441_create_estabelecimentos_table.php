@@ -15,6 +15,8 @@ class CreateEstabelecimentosTable extends Migration
 	{
 		Schema::create('estabelecimentos', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
             $table->integer('estabelecimento_categoria_id')->unsigned();

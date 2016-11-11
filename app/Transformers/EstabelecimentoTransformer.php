@@ -14,7 +14,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
 {
 
     protected $availableIncludes = [
-        'cidade', 'categoria', 'entrega', 'endereco', 'items', 'funcionamentos', 'produtos', 'orders', 'cozinhas'
+        'user', 'cidade', 'categoria', 'entrega', 'endereco', 'items', 'funcionamentos', 'produtos', 'orders', 'cozinhas'
     ];
 
     /**
@@ -27,6 +27,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$model->id,
+            'user_id' => (integer)$model->user,
             'estabelecimento_categoria_id' => (integer)$model->estabelecimento_categoria_id,
             'cidade_id' => (integer)$model->cidade_id,
             'icone' => (string)$model->icone,
@@ -91,6 +92,14 @@ class EstabelecimentoTransformer extends TransformerAbstract
             return null;
         }
         return $this->item($model->estabelecimentoCategoria, new EstabelecimentoCategoriaTransformer());
+    }
+
+    public function includeUser(Estabelecimento $model)
+    {
+        if (!$model->user) {
+            return null;
+        }
+        return $this->item($model->user, new UserTransformer());
     }
 
     public function includeCidade(Estabelecimento $model)
