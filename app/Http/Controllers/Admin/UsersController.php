@@ -5,6 +5,7 @@ namespace CodeDelivery\Http\Controllers\Admin;
 use CodeDelivery\Http\Controllers\Admin\Contracts\IUsersController;
 use CodeDelivery\Http\Controllers\BetaGT\SimpleController;
 use CodeDelivery\Http\Requests\Admin\UserRequest;
+use CodeDelivery\Models\Estabelecimento;
 use CodeDelivery\Repositories\UserRepository;
 
 class UsersController extends SimpleController implements IUsersController

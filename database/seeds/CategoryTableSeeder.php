@@ -48,6 +48,7 @@ class CategoryTableSeeder extends Seeder
     {
         $e = factory(\CodeDelivery\Models\Estabelecimento::class)->create([
             'cidade_id' => 1,
+            'user_id' => 1,
             'estabelecimento_categoria_id' => $tipo,
             'nome' => $nome,
             'icone' => $foto,
