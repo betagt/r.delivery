@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Repositories;
 
+use CodeDelivery\Presenters\EstabelecimentoCategoriaPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeDelivery\Repositories\EstabelecimentoCategoriaRepository;
@@ -34,5 +35,10 @@ class EstabelecimentoCategoriaRepositoryEloquent extends BaseRepository implemen
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return EstabelecimentoCategoriaPresenter::class;
     }
 }

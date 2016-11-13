@@ -153,7 +153,7 @@ $factory->define(\CodeDelivery\Models\Category::class, function (Faker\Generator
         'parent_id' => 0,
         'name' => $faker->word,
         'tipo' => 1,
-        'multi' => 1,
+        'multi' => 0,
     ];
 });
 

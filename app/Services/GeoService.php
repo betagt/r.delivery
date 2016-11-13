@@ -55,7 +55,7 @@ class GeoService
                 $distanciaTotal +=floatval(str_replace(',','.',str_replace(' km','',$value['distance']['text'])));
             }
         }
-        $total = ($distanciaTotal*2)*0.81;
+        $total = ($distanciaTotal*2)*0.75;
         return $this->geoPosition->create([
             'lat_log_origens'=>$origens,
             'lat_log_destinos'=>$destinos,

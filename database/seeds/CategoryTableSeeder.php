@@ -12,19 +12,19 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
-            'titulo' => 'Restaurantes'
+            'titulo' => 'Comida',
+            'legenda' => 'Fome? Deixa a gente matar sua fome :)',
+            'icon'=>'procura.jpg'
         ]);
         factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
-            'titulo' => 'Lanchonetes'
+            'titulo' => 'Fármacia',
+            'legenda' => 'Precisa de remédio? Nós te ligamos a farmácia',
+            'icon'=>'procura.jpg'
         ]);
         factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
-            'titulo' => 'Farmácias'
-        ]);
-        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
-            'titulo' => 'Informática'
-        ]);
-        factory(\CodeDelivery\Models\EstabelecimentoCategoria::class)->create([
-            'titulo' => 'Papelarias'
+            'titulo' => 'Informática',
+            'legenda' => 'Precisa de equipamento pede com a gente!',
+            'icon'=>'procura.jpg'
         ]);
         $estado = factory(\CodeDelivery\Models\Estado::class)->create([
             'uf' => 'TO',
@@ -106,7 +106,7 @@ class CategoryTableSeeder extends Seeder
 
     public function moorango()
     {
-        $e = $this->estabelecimento('Morango', 'B57b4cd318f466.jpg', 2, 1);
+        $e = $this->estabelecimento('Morango', 'B57b4cd318f466.jpg', 1, 1);
         ///
         $category = $this->category($e->id, 'Marmitas');
         $products = [
@@ -291,7 +291,7 @@ class CategoryTableSeeder extends Seeder
 
     public function rosario()
     {
-        $e = $this->estabelecimento('Drogaria Rosário', 'rosario.jpg', 3, 1);
+        $e = $this->estabelecimento('Drogaria Rosário', 'rosario.jpg', 2, 1);
         ///
         $category = $this->category($e->id, 'Higiene Pessoal');
         $products = [

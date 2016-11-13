@@ -24,6 +24,8 @@ class EstabelecimentoCategoriaTransformer extends TransformerAbstract
             'id'        => (int)$model->id,
             'titulo'    => (string)$model->titulo,
             'slug'      => (string)$model->slug,
+            'legenda'      => (string)$model->legenda,
+            'icon'      => (string)$model->icon,
             'status'      => (integer)$model->status,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at

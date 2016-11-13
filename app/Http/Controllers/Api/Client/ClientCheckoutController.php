@@ -124,6 +124,8 @@ class ClientCheckoutController extends Controller
 
     public function paymentConfirmation(Request $request){
         $idOrder = intval($request->get('order'));
+        $nome = $request->get('nome');
+        $cpf = $request->get('cpf');
         $id = Authorizer::getResourceOwnerId();
         $order = $this->repository->findWhere([
             'id'=>$idOrder,
@@ -160,12 +162,12 @@ class ClientCheckoutController extends Controller
         $directPaymentRequest->addItem("5000",'taxa de entrega',1,$order->taxa_entrega);
 
         $directPaymentRequest->setSender(
-            $user->name,
+            $nome,
             $user->email,
             $user->ddd_celular,
             $user->telefone_celular,
             'CPF',
-            $user->cpf
+            $cpf
         );
         /*
          $directPaymentRequest->setSender(

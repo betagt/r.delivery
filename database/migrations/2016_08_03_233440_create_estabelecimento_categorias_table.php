@@ -16,7 +16,9 @@ class CreateEstabelecimentoCategoriasTable extends Migration
 		Schema::create('estabelecimento_categorias', function(Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
+            $table->string('legenda');
             $table->string('slug');
+            $table->string('icon');
             $table->integer('status')->default(1);
             $table->timestamps();
 		});

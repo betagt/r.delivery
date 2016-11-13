@@ -14,9 +14,32 @@ class UserTableSeeder extends Seeder
         // Usuário Teste
         $user = factory(\CodeDelivery\Models\User::class)->create([
                 'name' => 'Estabelecimento Teste',
-                'email' => 'teste@teste.com',
+                'email' => 'estabelecimento@teste.com',
                 'role' => 'estabelecimento',
-                'password' => bcrypt('0409901'),
+                'password' => bcrypt('123456'),
+                'remember_token' => str_random(10),
+            ]);
+
+        $user->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+        $user->mensagens()->save(factory(\CodeDelivery\Models\Contato::class)->make());
+        // Usuário Teste
+        $user = factory(\CodeDelivery\Models\User::class)->create([
+                'name' => 'Estabelecimento Teste',
+                'email' => 'teste@teste.com',
+                'role' => 'client',
+                'password' => bcrypt('123456'),
+                'remember_token' => str_random(10),
+            ]);
+
+        $user->addresses()->save(factory(\CodeDelivery\Models\UserAddress::class)->make());
+        $user->mensagens()->save(factory(\CodeDelivery\Models\Contato::class)->make());
+
+        // Usuário Teste
+        $user = factory(\CodeDelivery\Models\User::class)->create([
+                'name' => 'Estabelecimento Teste',
+                'email' => 'delivery@teste.com',
+                'role' => 'deliveryman',
+                'password' => bcrypt('123456'),
                 'remember_token' => str_random(10),
             ]);
 

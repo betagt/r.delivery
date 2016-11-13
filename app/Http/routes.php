@@ -342,6 +342,11 @@ Route::group(['middleware' => 'cors'], function () {
             'uses' => 'Api\UserController@rememberMe'
         ]);
 
+        Route::get('estabelecimento-categoria', [
+            'as' => 'estabelecimentos.categories',
+            'uses' => 'Api\Client\ClientEstabelecimentoController@categoriasEstabelecimentos'
+        ]);
+
         Route::resource('estabelecimentos', 'Api\Client\ClientEstabelecimentoController', [
             'except' => [
                 'edit', 'update', 'destroy'
@@ -352,6 +357,7 @@ Route::group(['middleware' => 'cors'], function () {
             'as' => 'estabelecimentos.categories',
             'uses' => 'Api\Client\ClientEstabelecimentoController@returnCategoriesAndProductsByEstabelecimento'
         ]);
+
         Route::get('questoes', [
             'as' => 'avalicaoes.questoes',
             'uses' => 'Api\Client\ClientEstabelecimentoController@questoes'

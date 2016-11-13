@@ -6,6 +6,7 @@ use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Http\Requests\AdminEstabelecimentoRequest;
 use CodeDelivery\Models\Avaliacao;
 use CodeDelivery\Repositories\AvaliacaoRepository;
+use CodeDelivery\Repositories\EstabelecimentoCategoriaRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Services\AvaliacoesService;
@@ -40,6 +41,10 @@ class ClientEstabelecimentoController extends Controller
      * @var GeoService
      */
     private $geoService;
+    /**
+     * @var EstabelecimentoCategoriaRepository
+     */
+    private $estabelecimentoCategoriaRepository;
 
     /**
      * ClientEstabelecimentoController constructor.
@@ -55,7 +60,8 @@ class ClientEstabelecimentoController extends Controller
                                 AvaliacoesService $service,
                                 EstabelecimentoService $estabelecimentoService,
                                 AvaliacaoRepository $avaliacaoRepository,
-                                GeoService  $geoService
+                                GeoService  $geoService,
+                                EstabelecimentoCategoriaRepository $estabelecimentoCategoriaRepository
     )
     {
         $this->repository = $repository;
@@ -64,6 +70,7 @@ class ClientEstabelecimentoController extends Controller
         $this->estabelecimentoService = $estabelecimentoService;
         $this->avaliacaoRepository = $avaliacaoRepository;
         $this->geoService = $geoService;
+        $this->estabelecimentoCategoriaRepository = $estabelecimentoCategoriaRepository;
     }
 
     /**
@@ -74,14 +81,24 @@ class ClientEstabelecimentoController extends Controller
     public function index(Request $request)
     {
         $idCidade = $request->get('cidade');
+        $idCategory = $request->get('category');
         return $this->repository
             ->skipPresenter(false)
-            ->findByField('cidade_id',(int)$idCidade);
+            ->findWhere([
+                'cidade_id'=>(int)$idCidade,
+                'estabelecimento_categoria_id'=>(int)$idCategory,
+            ]);
     }
 
     public function show($id)
     {
         return $this->repository->skipPresenter(false)->find($id);
+    }
+
+    public function categoriasEstabelecimentos(){
+        return $this->estabelecimentoCategoriaRepository
+            ->skipPresenter(false)
+            ->all();
     }
 
 

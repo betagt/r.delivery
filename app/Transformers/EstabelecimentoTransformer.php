@@ -27,7 +27,7 @@ class EstabelecimentoTransformer extends TransformerAbstract
     {
         return [
             'id' => (int)$model->id,
-            'user_id' => (integer)$model->user,
+            'user_id' => (integer) $model->user->id,
             'estabelecimento_categoria_id' => (integer)$model->estabelecimento_categoria_id,
             'cidade_id' => (integer)$model->cidade_id,
             'icone' => (string)$model->icone,
