@@ -274,6 +274,10 @@ Route::group(['middleware' => 'cors'], function () {
                 'as' => 'update',
                 'uses' => 'CategoriasController@update'
             ]);
+            Route::get('delete/{id}', [
+                'as' => 'delete',
+                'uses' => 'CategoriasController@delete'
+            ]);
         });
         Route::group(['prefix' => 'cidades', 'as' => 'cidades.'], function(){
             Route::get('', [

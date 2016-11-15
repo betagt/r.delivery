@@ -84,7 +84,8 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="active tab-pane" id="categorias" ng-controller="CategoriaController" ng-init="init({{ $estabelecimento->id }})">
+                    <div class="active tab-pane" id="categorias" ng-controller="CategoriaController"
+                         ng-init="init({{ $estabelecimento->id }})">
                         @include('admin.users.angular.modal')
                         <button class="btn btn-primary btn-flat mb" ng-click="novo()">
                             <i class="fa fa-plus"></i> Adicionar Nova Categoria
@@ -108,67 +109,27 @@
                             <tr dir-paginate="item in listagem.data | itemsPerPage: perPage | filter: search"
                                 total-items="total" current-page="pagination.current">
                                 <td>
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        <div class="panel box box-default">
-                                            <div class="box-header with-border" role="tab" id="heading_@{{ item.id }}">
-                                                <h4 class="box-title">
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                                       href="#collapse_@{{ item.id }}" aria-expanded="true"
-                                                       aria-controls="collapseOne">
-                                                        @{{ item.name }}
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapse_@{{ item.id }}" class="panel-collapse collapse"
-                                                 role="tabpanel" aria-labelledby="heading_@{{ item.id }}">
-                                                <div class="box-body">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <td colspan="2">
-                                                                <label>Filtrar Sub Categorias</label>
-                                                                <input type="text" ng-model="search_subcategorias"
-                                                                       class="form-control"
-                                                                       placeholder="Especifique o nome da subcategoria"/>
-                                                            </td>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>
-                                                                Nome
-                                                            </th>
-                                                            <th>
-                                                                Opções
-                                                            </th>
-                                                        </tr>
-                                                        <tr ng-repeat="child in item.filhos.data|filter: search_subcategorias">
-                                                            <td>
-                                                                @{{ child.name }}
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-default btn-flat btn-sm"
-                                                                        ng-click="loadEntity(child);">
-                                                                    <span class="fa fa-pencil"></span>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @{{ item.name }}
                                 </td>
                                 <td>
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <button class="btn btn-primary btn-flat btn-sm" ng-click="novo(item.id);">
-                                            <span class="fa fa-plus"></span> Adicionar Sub Categoria
-                                        </button>
-                                        <button class="btn btn-default btn-flat btn-sm" ng-click="loadEntity(item);">
-                                            <span class="fa fa-pencil"></span> Alterar Categoria
-                                        </button>
-                                    </div>
+                                    <button class="btn btn-primary btn-flat btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Nova Sub Categoria"
+                                            ng-click="novo(item.id);"
+                                    >
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                    <button class="btn btn-default btn-flat btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Alterar Categoria: @{{ item.name }}"
+                                            ng-click="loadEntity(item);"
+                                    >
+                                        <span class="fa fa-pencil"></span>
+                                    </button>
+                                    <button class="btn btn-danger btn-flat btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Excluir Categoria: @{{ item.name }}"
+                                            ng-click="delete($index, item);"
+                                    >
+                                        <span class="fa fa-close"></span>
+                                    </button>
                                     {{--<button class="btn btn-danger" ng-click="removeEntity(item);">--}}
                                     {{--<span class="fa fa-close"></span>--}}
                                     {{--</button>--}}

@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Http\Controllers\Ajax;
 
+use CodeDelivery\Models\Category;
 use Illuminate\Http\Request;
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Http\Requests\Admin\CategoryRequest;
@@ -26,8 +27,11 @@ class CategoriasController extends Controller
     public function index(Request $request, $estabelecimento)
     {
         return $this->repository->scopeQuery(function ($q) use ($estabelecimento) {
-            $q->where(['estabelecimento_id' => $estabelecimento, 'parent_id' => 0, 'status' => 1]);
-            return $q->orderBy('id', 'desc');
+            return $q->where([
+                'estabelecimento_id' => $estabelecimento,
+                //'parent_id' => 0,
+                'status' => 1
+            ])->orderBy('id', 'desc');
         })->skipPresenter(false)->paginate(10);
     }
 
@@ -39,7 +43,8 @@ class CategoriasController extends Controller
 
         return Response::json(
             [
-                "data" => "Categoria {$entity->name} inserida com sucesso"
+                "data" => "Categoria {$entity->name} inserida com sucesso",
+                "id" => $entity->id
             ]
         );
     }
@@ -55,6 +60,21 @@ class CategoriasController extends Controller
         return Response::json(
             [
                 "data" => "Categoria {$entity->name} alterado com sucesso"
+            ]
+        );
+    }
+
+    public function delete($id)
+    {
+        $entity = Category::find($id);
+
+        $entity->status = 0;
+
+        $entity->save();
+
+        return Response::json(
+            [
+                "data" => "Categoria {$entity->name} removida com sucesso"
             ]
         );
     }

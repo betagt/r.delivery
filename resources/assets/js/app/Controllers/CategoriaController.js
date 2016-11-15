@@ -2,6 +2,7 @@ module.exports = function ($scope, $http, $uibModal, $log) {
 
   $scope.titulo = '';
   $scope.editing = false;
+  $scope.loading = false;
   $scope.estabelecimento = '';
   $scope.entity = {};
   $scope.token = '';
@@ -71,6 +72,7 @@ module.exports = function ($scope, $http, $uibModal, $log) {
     $scope.message = '';
 
     $scope.errors = {};
+    $scope.loading = false;
 
     $scope.editing = checkOption;
     if (checkOption) {
@@ -98,33 +100,80 @@ module.exports = function ($scope, $http, $uibModal, $log) {
     editForm(false);
   };
 
-  $scope.saveEntity = function (entity) {
-    if ($scope.entity.id) {
-      $http.put('/ajax/categorias/update/' + $scope.entity.id, entity)
-        .success(function (data, status) {
-          $scope.message = data;
-          $scope.openModal();
+  $scope.delete = function (key, entity) {
+    $http.get('/ajax/categorias/delete/' + entity.id)
+      .success(function (data) {
+        $scope.message = data;
 
-          editForm(false);
-          listar($scope.estabelecimento, 1);
-        });
-    } else {
-      $http.post('/ajax/categorias/create', entity)
-        .success(function (data, status) {
-          $scope.message = data;
-          $scope.openModal();
+        $scope.openModal();
 
+        $scope.listagem.data.splice(key, 1);
+
+        if ($scope.listagem.data.length  == 0)
+        {
           listar($scope.estabelecimento, 1);
-          editForm(false);
-        })
-        .error(function (data, status) {
+        }
+
+        editForm(false);
+
+        $scope.entity = {};
+      })
+      .error(function (data, status) {
           if (status == 422) {
             $scope.errors = data;
+
+            $scope.loading = false;
           }
-        });
-      delete $scope.entity;
+        }
+      );
+  };
+
+  $scope.saveEntity = function (entity) {
+    $scope.loading = true;
+    if ($scope.entity.id) {
+      $http.put('/ajax/categorias/update/' + $scope.entity.id, entity)
+        .success(function (data) {
+          $scope.message = data;
+
+          $scope.openModal();
+
+          editForm(false);
+
+          $scope.entity = {};
+        })
+        .error(function (data, status) {
+            if (status == 422) {
+              $scope.errors = data;
+
+              $scope.loading = false;
+            }
+          }
+        );
     }
-    $scope.entity = {};
+    else {
+      $http.post('/ajax/categorias/create', entity)
+        .success(function (data) {
+          $scope.message = data;
+
+          $scope.openModal();
+
+          $scope.entity.id = data.id;
+
+          $scope.listagem.data.unshift($scope.entity);
+
+          editForm(false);
+
+          $scope.entity = {};
+        })
+        .error(function (data, status) {
+            if (status == 422) {
+              $scope.errors = data;
+
+              $scope.loading = false;
+            }
+          }
+        );
+    }
   };
 };
 
