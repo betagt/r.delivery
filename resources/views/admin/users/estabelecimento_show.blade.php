@@ -7,14 +7,15 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="row" ng-app="app">
         <div class="col-md-3">
-
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <h3 class="profile-username text-center">{{ $entity->name }}</h3>
-                    <p class="text-muted text-center">{{ $entity->role }}</p>
+                    <img src="{{ $estabelecimento->icone }}" alt="{{ $estabelecimento->nome }}"
+                         class="profile-user-img img-responsive img-circle">
+                    <h3 class="profile-username text-center">{{ $estabelecimento->nome }}</h3>
+                    <p class="text-muted text-center">{{ $estabelecimento->cidade->nome }}</p>
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
                             <b>Pedidos em Aberto</b> <a class="pull-right">1,322</a>
@@ -26,7 +27,7 @@
                             <b>Total Faturado</b> <a class="pull-right">13,287</a>
                         </li>
                     </ul>
-                    <a href="{{ route('cliente.home') }}" class="btn btn-primary btn-block">
+                    <a href="{{ route('cliente.home') }}" class="btn btn-primary btn-block btn-flat">
                         <i class="fa fa-shopping-cart"></i> Detalhar Pedidos
                     </a>
                 </div>
@@ -42,6 +43,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <p>
+                        <strong>Nome: </strong> {{ $entity->name }} <br/>
                         <strong>E-mail: </strong> {{ $entity->email }} <br/>
                         <strong>Sexo: </strong> @if ($entity->sexo == 'M') Masculino @else Feminino @endif <br/>
                         @if($entity->telefone_celular)
@@ -59,7 +61,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <a href="{{ route('admin.users.print', [ 'id' => $entity->id]) }}"
-                       class="btn btn-default btn-block">
+                       class="btn btn-default btn-block btn-flat">
                         <i class="fa fa-print"></i> Imprimir
                     </a>
                 </div>
@@ -70,108 +72,143 @@
         <div class="col-md-9">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#activity" data-toggle="tab"><i class="fa fa-tags"></i> Categoria dos Produtos</a></li>
-                    <li><a href="#timeline" data-toggle="tab"><i class="fa fa-archive"></i> Produtos</a></li>
+                    <li class="active">
+                        <a href="#categorias" data-toggle="tab">
+                            <i class="fa fa-tags"></i> Categoria dos Produtos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#produtos" data-toggle="tab">
+                            <i class="fa fa-archive"></i> Produtos
+                        </a>
+                    </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="active tab-pane" id="activity">
-                        {!! dd($entity->estabelecimento) !!}
+                    <div class="active tab-pane" id="categorias" ng-controller="CategoriaController" ng-init="init({{ $estabelecimento->id }})">
+                        @include('admin.users.angular.modal')
+                        <button class="btn btn-primary btn-flat mb" ng-click="novo()">
+                            <i class="fa fa-plus"></i> Adicionar Nova Categoria
+                        </button>
+                        <div ng-show="editing">
+                            @include('admin.users.angular.categoria_form')
+                        </div>
+                        <div class="form-group mb">
+                            <label>Filtrar Categorias</label>
+                            <input type="text" ng-model="search" class="form-control"
+                                   placeholder="Especifique o nome da categoria"/>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Opções</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="item in listagem.data | itemsPerPage: perPage | filter: search"
+                                total-items="total" current-page="pagination.current">
+                                <td>
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel box box-default">
+                                            <div class="box-header with-border" role="tab" id="heading_@{{ item.id }}">
+                                                <h4 class="box-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                       href="#collapse_@{{ item.id }}" aria-expanded="true"
+                                                       aria-controls="collapseOne">
+                                                        @{{ item.name }}
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse_@{{ item.id }}" class="panel-collapse collapse"
+                                                 role="tabpanel" aria-labelledby="heading_@{{ item.id }}">
+                                                <div class="box-body">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <label>Filtrar Sub Categorias</label>
+                                                                <input type="text" ng-model="search_subcategorias"
+                                                                       class="form-control"
+                                                                       placeholder="Especifique o nome da subcategoria"/>
+                                                            </td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>
+                                                                Nome
+                                                            </th>
+                                                            <th>
+                                                                Opções
+                                                            </th>
+                                                        </tr>
+                                                        <tr ng-repeat="child in item.filhos.data|filter: search_subcategorias">
+                                                            <td>
+                                                                @{{ child.name }}
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-default btn-flat btn-sm"
+                                                                        ng-click="loadEntity(child);">
+                                                                    <span class="fa fa-pencil"></span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <button class="btn btn-primary btn-flat btn-sm" ng-click="novo(item.id);">
+                                            <span class="fa fa-plus"></span> Adicionar Sub Categoria
+                                        </button>
+                                        <button class="btn btn-default btn-flat btn-sm" ng-click="loadEntity(item);">
+                                            <span class="fa fa-pencil"></span> Alterar Categoria
+                                        </button>
+                                    </div>
+                                    {{--<button class="btn btn-danger" ng-click="removeEntity(item);">--}}
+                                    {{--<span class="fa fa-close"></span>--}}
+                                    {{--</button>--}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="timeline">
-                        <!-- The timeline -->
-                        <ul class="timeline timeline-inverse">
-                            <!-- timeline time label -->
-                            <li class="time-label">
-                        <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
-                            </li>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-envelope bg-blue"></i>
+                    <div class="tab-pane" id="produtos">
+                        <a href="" class="btn btn-primary btn-flat mb"><i class="fa fa-plus"></i> Adicionar Novo Produto</a>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>Opções do Produto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($categorias as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>
+                                        {{ $item->name }}
+                                    </td>
+                                    <td>
+                                        <a href="" class="btn btn-default btn-sm btn-flat"><i class="fa fa-pencil"></i>
+                                            Alterar </a>
+                                        <a href="" class="btn btn-default btn-sm btn-flat"><i class="fa fa-search"></i>
+                                            Detalhar</a>
+                                        <a href="" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-close"></i>
+                                            Remover </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                                    <div class="timeline-body">
-                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                        quora plaxo ideeli hulu weebly balihoo...
-                                    </div>
-                                    <div class="timeline-footer">
-                                        <a class="btn btn-primary btn-xs">Read more</a>
-                                        <a class="btn btn-danger btn-xs">Delete</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-user bg-aqua"></i>
-
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your
-                                        friend request
-                                    </h3>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-comments bg-yellow"></i>
-
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                                    <div class="timeline-body">
-                                        Take me to your leader!
-                                        Switzerland is small and neutral!
-                                        We are more like Germany, ambitious and misunderstood!
-                                    </div>
-                                    <div class="timeline-footer">
-                                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline time label -->
-                            <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
-                            </li>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-camera bg-purple"></i>
-
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                                    <div class="timeline-body">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <li>
-                                <i class="fa fa-clock-o bg-gray"></i>
-                            </li>
-                        </ul>
                     </div>
                     <!-- /.tab-pane -->
                 </div>

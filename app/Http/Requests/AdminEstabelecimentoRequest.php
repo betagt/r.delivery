@@ -22,7 +22,6 @@ class AdminEstabelecimentoRequest extends Request
     public function rules()
     {
         return [
-            'icone' => 'mimes:jpeg,jpg,bmp,png',
             'nome' => 'required|min:3|max:255',
             'telefone' => 'required|min:3|max:255',
             'email' => 'required|email|min:3|max:255',
@@ -32,7 +31,6 @@ class AdminEstabelecimentoRequest extends Request
     public function attributes()
     {
         return [
-            'icone' => 'Logomarca',
             'nome' => 'Nome',
             'telefone' => 'Telefone',
             'email' => 'E-mail'

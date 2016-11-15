@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->integer('tipo')->default(0);
             $table->integer('multi')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

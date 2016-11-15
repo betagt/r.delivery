@@ -23,12 +23,15 @@ elixir(function (mix) {
     './node_modules/admin-lte/plugins/datepicker/bootstrap-datepicker.js',
     './node_modules/admin-lte/plugins/datepicker/locales/bootstrap-datepicker.pt-BR.js',
     './node_modules/admin-lte/plugins/select2/select2.js',
-    './node_modules/jquery-mask-plugin/dist/jquery.mask.js',
-    './node_modules/angular/angular.min.js',
-    vendor + '/js/custom.js',
-    vendor + '/js/app/locale/angular-locale_pt-br.js',
-    vendor + '/js/app/app.js',
-    vendor + '/js/app/Controllers/EstabelecimentoController.js'
+    './node_modules/jquery-mask-plugin/dist/jquery.mask.js'
+    // './node_modules/angular/angular.min.js',
+    // './node_modules/angular-utils-pagination/dirPagination.js',
+    // './node_modules/angular-animate/angular-animate.min.js',
+    // vendor + '/js/custom.js',
+    // vendor + '/js/app/locale/angular-locale_pt-br.js',
+    // vendor + '/js/app/app.js',
+    // vendor + '/js/app/Controllers/EstabelecimentoController.js',
+    // vendor + '/js/app/Directives/Telefone.js'
   ], 'public/js/admin.js');
 
   // Compile AdminLTE to single file.
@@ -47,4 +50,32 @@ elixir(function (mix) {
   mix.copy('./node_modules/font-awesome/fonts', 'public/fonts')
     .copy('./node_modules/admin-lte/bootstrap/dist/fonts', 'public/fonts')
     .copy('./node_modules/admin-lte/dist/img', 'public/img')
+});
+
+var gulp = require('gulp'),
+  uglify = require('gulp-uglify'),
+  server = require('gulp-live-server'),
+  browserify = require('gulp-browserify'),
+  rename = require('gulp-rename');
+
+gulp.task('default', ['browserify', 'watch']);
+
+gulp.task('watch', function() {
+  gulp.watch('resources/assets/js/app/**/*.js', ['browserify']);
+});
+
+// gulp.task('serve', function(){
+//   var serve = server.static('./public', 8000);
+//   serve.start();
+//   gulp.watch('public/js/**/*.js', function(file){
+//     server.notify.apply(serve, [file]);
+//   });
+// });
+
+gulp.task('browserify', function(){
+  return gulp.src(['resources/assets/js/app/app.js'])
+    .pipe(browserify())
+    //.pipe(uglify())
+    .pipe(rename('app.js'))
+    .pipe(gulp.dest('public/js/'));
 });

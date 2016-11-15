@@ -261,6 +261,20 @@ Route::group(['middleware' => 'cors'], function () {
                 'uses' => 'EstabelecimentosController@index'
             ]);
         });
+        Route::group(['prefix' => 'categorias', 'as' => 'categorias.'], function(){
+            Route::get('{estabelecimento_id}', [
+                'as' => 'index',
+                'uses' => 'CategoriasController@index'
+            ]);
+            Route::post('create', [
+                'as' => 'create',
+                'uses' => 'CategoriasController@create'
+            ]);
+            Route::put('update/{id}', [
+                'as' => 'update',
+                'uses' => 'CategoriasController@update'
+            ]);
+        });
         Route::group(['prefix' => 'cidades', 'as' => 'cidades.'], function(){
             Route::get('', [
                 'as' => 'index',

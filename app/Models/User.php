@@ -82,4 +82,9 @@ class User extends Model implements Transformable, AuthenticatableContract,
         return $this->belongsToMany(Cupom::class, 'user_cupoms', 'user_id', 'cupom_id');
     }
 
+    public function estabelecimento()
+    {
+        return $this->hasOne(Estabelecimento::class, 'user_id', 'id');
+    }
+
 }
