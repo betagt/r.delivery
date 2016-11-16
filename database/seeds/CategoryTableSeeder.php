@@ -37,11 +37,11 @@ class CategoryTableSeeder extends Seeder
 
         $estado->cidades()->save($cidade);
 
-        //$this->moorango();
+        $this->moorango();
 
         $this->divinoFogao();
 
-        //$this->rosario();
+        $this->rosario();
     }
 
     public function estabelecimento($nome, $foto, $tipo, $power=1)
