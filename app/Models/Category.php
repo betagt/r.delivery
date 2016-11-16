@@ -2,6 +2,7 @@
 
 namespace CodeDelivery\Models;
 
+use Doctrine\DBAL\Driver\PDOException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
@@ -10,7 +11,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class Category extends Model implements Transformable
 {
     use TransformableTrait, SoftDeletes;
-    
+
     protected $fillable = [
         'estabelecimento_id', 'parent_id', 'name', 'tipo', 'multi', 'status'
     ];
@@ -22,6 +23,11 @@ class Category extends Model implements Transformable
         return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id', 'id');
     }
 
+    public function getParentIdAttributes()
+    {
+        return $this->attributes['parent_id'] = 0 ? $this->attributes['id'] : $this->attributes['parent_id'];
+    }
+
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id');
@@ -29,7 +35,10 @@ class Category extends Model implements Transformable
 
     public function parent()
     {
-        return $this->hasOne(Category::class, 'id', 'parent_id');
+        if ($this->parent_id == 0) {
+            $this->parent_id = $this->id;
+        }
+        return $this->belongsTo(CategoryParent::class, 'parent_id', 'id');
     }
 
     public function products()

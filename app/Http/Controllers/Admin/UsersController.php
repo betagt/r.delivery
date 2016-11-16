@@ -94,4 +94,18 @@ class UsersController extends SimpleController implements IUsersController
             return redirect()->route($this->route . '.index')->with('warning', $ex->getMessage());
         }
     }
+
+    public function test()
+    {
+//        $entity = $this->request->find($id);
+//
+//        $estabelecimento = $this->estabelecimentoRepository->findWhere(['user_id' => $id])->first();
+//
+//        $categorias = $this->categoryRepository->findWhere(['estabelecimento_id' => $estabelecimento->id, 'parent_id' => 0]);
+
+        $titulo = 'Test angular';
+        $subtitulo = 'testando formularios';
+
+        return view('admin.users.angular.test', compact('titulo', 'subtitulo'));
+    }
 }

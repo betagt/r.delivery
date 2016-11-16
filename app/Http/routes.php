@@ -42,6 +42,10 @@ Route::group(['prefix' => 'cliente', 'middleware' => 'auth.checkrole:estabelecim
             'as' => 'update',
             'uses' => 'UsersController@update'
         ]);
+        Route::get('test', [
+            'as' => 'test',
+            'uses' => 'UsersController@test'
+        ]);
     });
 });
 

@@ -93,55 +93,13 @@
                         <div ng-show="editing">
                             @include('admin.users.angular.categoria_form')
                         </div>
-                        <div class="form-group mb">
-                            <label>Filtrar Categorias</label>
-                            <input type="text" ng-model="search" class="form-control"
-                                   placeholder="Especifique o nome da categoria"/>
-                        </div>
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Opções</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr dir-paginate="item in listagem.data | itemsPerPage: perPage | filter: search"
-                                total-items="total" current-page="pagination.current">
-                                <td>
-                                    @{{ item.name }}
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary btn-flat btn-sm"
-                                            data-toggle="tooltip" data-placement="top" title="Nova Sub Categoria"
-                                            ng-click="novo(item.id);"
-                                    >
-                                        <span class="fa fa-plus"></span>
-                                    </button>
-                                    <button class="btn btn-default btn-flat btn-sm"
-                                            data-toggle="tooltip" data-placement="top" title="Alterar Categoria: @{{ item.name }}"
-                                            ng-click="loadEntity(item);"
-                                    >
-                                        <span class="fa fa-pencil"></span>
-                                    </button>
-                                    <button class="btn btn-danger btn-flat btn-sm"
-                                            data-toggle="tooltip" data-placement="top" title="Excluir Categoria: @{{ item.name }}"
-                                            ng-click="delete($index, item);"
-                                    >
-                                        <span class="fa fa-close"></span>
-                                    </button>
-                                    {{--<button class="btn btn-danger" ng-click="removeEntity(item);">--}}
-                                    {{--<span class="fa fa-close"></span>--}}
-                                    {{--</button>--}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                        @include('admin.users.angular.categoria_list')
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="produtos">
-                        <a href="" class="btn btn-primary btn-flat mb"><i class="fa fa-plus"></i> Adicionar Novo Produto</a>
+                        <a href="" class="btn btn-primary btn-flat mb">
+                            <i class="fa fa-plus"></i> Adicionar Novo Produto
+                        </a>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -158,18 +116,23 @@
                                         {{ $item->name }}
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-default btn-sm btn-flat"><i class="fa fa-pencil"></i>
-                                            Alterar </a>
-                                        <a href="" class="btn btn-default btn-sm btn-flat"><i class="fa fa-search"></i>
-                                            Detalhar</a>
-                                        <a href="" class="btn btn-danger btn-sm btn-flat"><i class="fa fa-close"></i>
-                                            Remover </a>
+                                        <a href="" class="btn btn-default btn-sm btn-flat">
+                                            <i class="fa fa-pencil"></i>
+                                            Alterar
+                                        </a>
+                                        <a href="" class="btn btn-default btn-sm btn-flat">
+                                            <i class="fa fa-search"></i>
+                                            Detalhar
+                                        </a>
+                                        <a href="" class="btn btn-danger btn-sm btn-flat">
+                                            <i class="fa fa-close"></i>
+                                            Remover
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-
                     </div>
                     <!-- /.tab-pane -->
                 </div>

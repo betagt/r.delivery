@@ -12,7 +12,7 @@ use CodeDelivery\Models\Category;
  */
 class CategoryTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['filhos', 'products', 'porcoes'];
+    protected $defaultIncludes = ['filhos', 'products', 'porcoes', 'parent'];
 
     /**
      * Transform the \Category entity
@@ -70,5 +70,14 @@ class CategoryTransformer extends TransformerAbstract
             return null;
         }
         return $this->collection($model->children, new CategoryTransformer());
+    }
+
+    public function includeParent(Category $model)
+    {
+        if (!$model->parent)
+        {
+            return null;
+        }
+        return $this->item($model->parent, new CategoryParentTransformer());
     }
 }

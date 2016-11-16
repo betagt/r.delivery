@@ -38,8 +38,8 @@
 </div>
 
 @section('js')
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 @show
 
 </body>

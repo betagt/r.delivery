@@ -24,15 +24,14 @@ class CategoriasController extends Controller
         $this->repository = $repository;
     }
 
-    public function index(Request $request, $estabelecimento)
+    public function index($estabelecimento)
     {
         return $this->repository->scopeQuery(function ($q) use ($estabelecimento) {
             return $q->where([
                 'estabelecimento_id' => $estabelecimento,
-                //'parent_id' => 0,
                 'status' => 1
-            ])->orderBy('id', 'desc');
-        })->skipPresenter(false)->paginate(10);
+            ])->orderBy('parent_id', 'asc');
+        })->skipPresenter(false)->all();
     }
 
     public function create(CategoryRequest $request)
