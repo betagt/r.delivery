@@ -16,19 +16,19 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-yellow-light sidebar-mini" ng-app="app">
 <div class="wrapper">
     @include('admin.base.header')
     @include('admin.base.menu')
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                {{ $titulo }}
-                <small>{{ $subtitulo }}</small>
-            </h1>
-            @include('admin.base.breadcrumb')
-        </section>
+        {{--<!-- Content Header (Page header) -->--}}
+        {{--<section class="content-header">--}}
+            {{--<h1>--}}
+                {{--{{ $titulo }}--}}
+                {{--<small>{{ $subtitulo }}</small>--}}
+            {{--</h1>--}}
+            {{--@include('admin.base.breadcrumb')--}}
+        {{--</section>--}}
         <section class="content">
             @yield('content')
         </section>

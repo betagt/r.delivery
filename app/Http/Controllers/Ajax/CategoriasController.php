@@ -3,7 +3,6 @@
 namespace CodeDelivery\Http\Controllers\Ajax;
 
 use CodeDelivery\Models\Category;
-use Illuminate\Http\Request;
 use CodeDelivery\Http\Controllers\Controller;
 use CodeDelivery\Http\Requests\Admin\CategoryRequest;
 use CodeDelivery\Repositories\CategoryRepository;

@@ -10,6 +10,7 @@ use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends SimpleController implements IUsersController
 {
@@ -36,8 +37,13 @@ class UsersController extends SimpleController implements IUsersController
 
         $this->route = $this->template;
 
-        if (auth()->user()->role == 'estabelecimento')
-            $this->route = 'cliente.users';
+        if (auth()->user())
+        {
+            if (auth()->user()->role == 'estabelecimento')
+            {
+                $this->route = 'cliente.users';
+            }
+        }
 
         $this->estabelecimentoRepository = $estabelecimentoRepository;
         $this->categoryRepository = $categoryRepository;
@@ -97,15 +103,11 @@ class UsersController extends SimpleController implements IUsersController
 
     public function test()
     {
-//        $entity = $this->request->find($id);
-//
-//        $estabelecimento = $this->estabelecimentoRepository->findWhere(['user_id' => $id])->first();
-//
-//        $categorias = $this->categoryRepository->findWhere(['estabelecimento_id' => $estabelecimento->id, 'parent_id' => 0]);
+        $entity = $this->estabelecimentoRepository->findWhere(['user_id' => auth()->user()->id])->first();
 
         $titulo = 'Test angular';
         $subtitulo = 'testando formularios';
 
-        return view('admin.users.angular.test', compact('titulo', 'subtitulo'));
+        return view('admin.users.angular.test', compact('titulo', 'subtitulo', 'entity'));
     }
 }

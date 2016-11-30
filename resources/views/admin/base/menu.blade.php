@@ -90,6 +90,11 @@
                         <i class="fa fa-user"></i> <span>Meu Perfil</span>
                     </a>
                 </li>
+                <li ng-class="{ active: isActive('/categoria')}">
+                    <a href="#categoria">
+                        <i class="fa fa-info-circle"></i> <span>Categorias/Produtos</span>
+                    </a>
+                </li>
             @endif
             {{--<li class="treeview">--}}
             {{--<a href="#">--}}

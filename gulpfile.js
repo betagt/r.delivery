@@ -1,81 +1,48 @@
-var elixir = require('laravel-elixir');
+'use strict';
 
-process.env.DISABLE_NOTIFIER = true;
+const elixir = require('laravel-elixir');
 
-var vendor = "./resources/assets";
+var node = './node_modules/';
+var admin = node + 'admin-lte/';
+var adminPlugins = admin + 'plugins/';
+var assets = 'resources/assets/';
+var tema = 'tema/';
 
 elixir(function (mix) {
-  mix.sass('app.scss');
+  mix.styles(
+    [
+      admin + 'bootstrap/css/bootstrap.min.css',
+      node + 'font-awesome/css/font-awesome.css',
+      adminPlugins + 'select2/select2.css',
+      adminPlugins + 'jvectormap/jquery-jvectormap-1.2.2.css',
+      admin + 'dist/css/AdminLTE.css',
+      admin + 'dist/css/skins/_all-skins.css',
+      adminPlugins + 'datepicker/datepicker3.css',
+      'custom.css'
+    ], 'public/css/admin.css');
 
-  // Compile AdminLTE scripts to single file.
   mix.scripts([
-    './node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js',
-    './node_modules/admin-lte/bootstrap/js/bootstrap.js',
-    './node_modules/admin-lte/plugins/fastclick/fastclick.js',
-    './node_modules/admin-lte/dist/js/app.js',
-    './node_modules/admin-lte/plugins/sparkline/jquery.sparkline.js',
-    './node_modules/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
-    './node_modules/admin-lte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
-    './node_modules/admin-lte/plugins/slimScroll/jquery.slimscroll.js',
-    './node_modules/admin-lte/plugins/chartjs/Chart.js',
-    './node_modules/admin-lte/plugins/input-mask/jquery.inputmask.js',
-    './node_modules/admin-lte/plugins/input-mask/jquery.inputmask.date.extensions.js',
-    './node_modules/admin-lte/plugins/datepicker/bootstrap-datepicker.js',
-    './node_modules/admin-lte/plugins/datepicker/locales/bootstrap-datepicker.pt-BR.js',
-    './node_modules/admin-lte/plugins/select2/select2.js',
-    './node_modules/jquery-mask-plugin/dist/jquery.mask.js'
-    // './node_modules/angular/angular.min.js',
-    // './node_modules/angular-utils-pagination/dirPagination.js',
-    // './node_modules/angular-animate/angular-animate.min.js',
-    // vendor + '/js/custom.js',
-    // vendor + '/js/app/locale/angular-locale_pt-br.js',
-    // vendor + '/js/app/app.js',
-    // vendor + '/js/app/Controllers/EstabelecimentoController.js',
-    // vendor + '/js/app/Directives/Telefone.js'
-  ], 'public/js/admin.js');
+      adminPlugins + 'jQuery/jquery-2.2.3.min.js',
+      admin + 'bootstrap/js/bootstrap.js',
+      adminPlugins + 'fastclick/fastclick.js',
+      admin + 'dist/js/app.js',
+      adminPlugins + 'iCheck/icheck.js',
+      adminPlugins + 'sparkline/jquery.sparkline.js',
+      adminPlugins + 'jvectormap/jquery-jvectormap-1.2.2.min.js',
+      adminPlugins + 'jvectormap/jquery-jvectormap-world-mill-en.js',
+      adminPlugins + 'slimScroll/jquery.slimscroll.js',
+      adminPlugins + 'chartjs/Chart.js',
+      adminPlugins + 'input-mask/jquery.inputmask.js',
+      adminPlugins + 'input-mask/jquery.inputmask.date.extensions.js',
+      adminPlugins + 'datepicker/bootstrap-datepicker.js',
+      adminPlugins + 'datepicker/locales/bootstrap-datepicker.pt-BR.js',
+      adminPlugins + 'select2/select2.js',
+      'custom.js'
+    ], 'public/js/admin.js');
 
-  // Compile AdminLTE to single file.
-  mix.styles([
-    './node_modules/admin-lte/bootstrap/css/bootstrap.min.css',
-    './node_modules/font-awesome/css/font-awesome.css',
-    './node_modules/admin-lte/plugins/select2/select2.css',
-    './node_modules/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
-    './node_modules/admin-lte/dist/css/AdminLTE.css',
-    './node_modules/admin-lte/dist/css/skins/_all-skins.css',
-    './node_modules/admin-lte/plugins/datepicker/datepicker3.css',
-    vendor + '/css/custom.css'
-  ], 'public/css/admin.css')
+  mix.copy(assets + 'js/app', 'public/js/app');
+  mix.browserify('./public/js/app/app.js');
 
-  // Copy AdminLTE assets.
-  mix.copy('./node_modules/font-awesome/fonts', 'public/fonts')
-    .copy('./node_modules/admin-lte/bootstrap/dist/fonts', 'public/fonts')
-    .copy('./node_modules/admin-lte/dist/img', 'public/img')
-});
-
-var gulp = require('gulp'),
-  uglify = require('gulp-uglify'),
-  server = require('gulp-live-server'),
-  browserify = require('gulp-browserify'),
-  rename = require('gulp-rename');
-
-gulp.task('default', ['browserify', 'watch']);
-
-gulp.task('watch', function() {
-  gulp.watch('resources/assets/js/app/**/*.js', ['browserify']);
-});
-
-// gulp.task('serve', function(){
-//   var serve = server.static('./public', 8000);
-//   serve.start();
-//   gulp.watch('public/js/**/*.js', function(file){
-//     server.notify.apply(serve, [file]);
-//   });
-// });
-
-gulp.task('browserify', function(){
-  return gulp.src(['resources/assets/js/app/app.js'])
-    .pipe(browserify())
-    //.pipe(uglify())
-    .pipe(rename('app.js'))
-    .pipe(gulp.dest('public/js/'));
+  mix.copy(admin + 'dist/img', 'public/dist/img');
+  mix.copy(assets + 'fonts', 'public/fonts');
 });

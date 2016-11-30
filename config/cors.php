@@ -11,7 +11,7 @@ return [
     | to accept any value.
     |
     */
-    'supportsCredentials' => false,
+    'supportsCredentials' => true,
     'allowedOrigins' => ['*'],
     'allowedHeaders' => ['*'], // ex : ['Content-Type', 'Accept']
     'allowedMethods' => ['*'], // ex: ['GET', 'POST', 'PUT',  'DELETE']

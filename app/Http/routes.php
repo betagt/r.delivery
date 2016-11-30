@@ -1,15 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +9,26 @@ Route::get('/test', [
     'uses' => 'TestController@index',
     'as' => 'test.index'
 ]);
+
+Route::get('angular/token', 'Angular\TokenController@getToken');
+
+Route::group(['prefix' => 'api/angular', 'middleware' => 'cors', 'namespace' => 'Angular'], function(){
+
+    Route::group(['prefix' => 'categoria', 'as' => 'categoria.'], function(){
+        Route::get('', 'CategoriaController@index');
+        Route::post('delete', 'CategoriaController@removeSelected');
+        Route::post('salvar', 'CategoriaController@create');
+        //Route::post('upload', 'CategoriaController@upload');
+        Route::put('atualizar/{id}', 'CategoriaController@update');
+        Route::group(['prefix' => 'produto', 'as' => 'produto.'], function(){
+            Route::get('{categoryId}', 'ProdutoController@index');
+            Route::post('delete', 'ProdutoController@removeSelected');
+            Route::post('salvar', 'ProdutoController@create');
+            Route::put('atualizar/{id}', 'ProdutoController@update');
+        });
+    });
+});
+
 
 Route::group(['prefix' => 'cliente', 'middleware' => 'auth.checkrole:estabelecimento', 'as' => 'cliente.', 'namespace' => 'Admin'], function () {
     Route::get('', [
@@ -207,44 +217,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole:admin', 'as' 
         });
 
     });
-//    Route::group(['prefix' => 'categorias', 'as' => 'categories.'], function () {
-//        Route::get('', [
-//            'as' => 'index',
-//            'uses' => 'CategoriesController@index'
-//        ]);
-//        Route::get('create', [
-//            'as' => 'create',
-//            'uses' => 'CategoriesController@create'
-//        ]);
-//        Route::get('print/{id}', [
-//            'as' => 'print',
-//            'uses' => 'CategoriesController@printReport'
-//        ]);
-//        Route::get('show/{id}', [
-//            'as' => 'show',
-//            'uses' => 'CategoriesController@show'
-//        ]);
-//        Route::get('edit/{id}', [
-//            'as' => 'edit',
-//            'uses' => 'CategoriesController@edit'
-//        ]);
-//        Route::post('store', [
-//            'as' => 'store',
-//            'uses' => 'CategoriesController@store'
-//        ]);
-//        Route::post('update/{id}', [
-//            'as' => 'update',
-//            'uses' => 'CategoriesController@update'
-//        ]);
-//        Route::get('destroy/{id}', [
-//            'as' => 'destroy',
-//            'uses' => 'CategoriesController@destroy'
-//        ]);
-//        Route::post('destroy', [
-//            'as' => 'destroySelected',
-//            'uses' => 'CategoriesController@destroySelected'
-//        ]);
-//    });
 });
 
 Route::group(['prefix' => 'costumer', 'middleware' => 'auth.checkrole:client', 'as' => 'costumer.'], function () {
@@ -407,6 +379,3 @@ Route::group(['middleware' => 'cors'], function () {
         Route::get('order', ['as' => 'order.index', 'uses' => 'CheckoutController@index']);
     });
 });
-
-
-

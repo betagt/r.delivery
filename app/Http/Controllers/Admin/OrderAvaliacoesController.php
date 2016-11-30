@@ -9,18 +9,18 @@
 namespace CodeDelivery\Http\Controllers\Admin;
 
 
-use CodeDelivery\Http\Controllers\Admin\Contracts\IEstadosController;
+use CodeDelivery\Http\Controllers\Admin\Contracts\IOrderAvaliacoesController;
 use CodeDelivery\Http\Controllers\BetaGT\SimpleController;
 use CodeDelivery\Http\Requests\Admin\EstadoRequest;
 use CodeDelivery\Repositories\EstadoRepository;
 
-class EstadosController extends SimpleController implements IEstadosController
+class OrderAvaliacoesController extends SimpleController implements IOrderAvaliacoesController
 {
     public function __construct(EstadoRepository $repository)
     {
         $this->repository = $repository;
 
-        $this->titulo = 'Estados';
+        $this->titulo = 'OrderAvaliacoes';
 
         $this->route = 'admin.estados';
     }

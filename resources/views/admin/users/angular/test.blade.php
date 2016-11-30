@@ -1,9 +1,15 @@
 @extends('admin.base.template')
 @section('content')
     <section ng-app="app">
-        <div class="row" ng-controller="TestController" ng-init="init(1);">
+        <div class="row" ng-controller="TestController" ng-init="init({{ $entity->id }});">
+            <div ng-class="column" ng-show="edit">
+                @include('admin.users.angular.categoria_form')
+            </div>
+            <div ng-class="column" ng-show="editProdutro">
+                @include('admin.users.angular.categoria_form')
+            </div>
             <div ng-class="column">
-                <div class="box box-primary">
+                <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             Categorias dos Produtos
@@ -15,7 +21,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <button class="btn btn-primary btn-flat" ng-click="novo();">
+                        <button class="btn btn-warning btn-flat" ng-click="novo();">
                             <i class="fa fa-plus"></i> Adicionar Categoria
                         </button>
                         <div class="form-group has-feedback mt">
@@ -28,7 +34,6 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>Código</th>
                                 <th>Nome</th>
                                 <th>Categoria Responsável</th>
                                 <th>Opções</th>
@@ -36,7 +41,21 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="item in lista.data|filter:search">
-                                <td>@{{ item.id }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-warning btn-flat dropdown-toggle" type="button" id="dropdownMenu_@{{ item.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="fa fa-gears"></i> Opções
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu_@{{ item.id }}">
+                                            <li><a href="#" ng-click="novo(item.id);"><i class="fa fa-plus"></i> Incluir Sub Categoria</a></li>
+                                            <li><a href="#" ng-click="loadEntity(item)"><i class="fa fa-pencil"></i> Alterar Categoria</a></li>
+                                            <li><a href="#"  ng-click="loadEntity(item)"><i class="fa fa-close"></i> Excluir Categoria</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#"><i class="fa fa-plus"></i> Adicionr Produto</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
                                 <td>@{{ item.name }}</td>
                                 <td>
                                     <div ng-switch on="item.parent_id">
@@ -47,29 +66,6 @@
                                             @{{ item.parent.data.name }}
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default btn-flat" ng-click="novo(item.id);"
-                                            data-toggle="tooltip" data-placement="top" title="Adicionar Sub Categoria"
-                                    >
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                    <button class="btn btn-default btn-flat"
-                                            data-toggle="tooltip" data-placement="top" title="Alterar Categoria"
-                                    >
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-
-                                    <button class="btn btn-default btn-flat"
-                                            data-toggle="tooltip" data-placement="top" title="Adicionar Produto"
-                                    >
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-flat"
-                                            data-toggle="tooltip" data-placement="top" title="Excluir Categoria"
-                                    >
-                                        <i class="fa fa-close"></i>
-                                    </button>
                                 </td>
                             </tr>
                             </tbody>

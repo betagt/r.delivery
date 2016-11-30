@@ -1,7 +1,5 @@
 @extends('admin.base.template')
-@section('breadcrumbs')
-    {!! Breadcrumbs::render('admin_home') !!}
-@endsection
+@yield('breadcrumbs')
 @section('content')
     @if(Auth::user()->role == 'admin')
         @include('admin.dashboard.admin')

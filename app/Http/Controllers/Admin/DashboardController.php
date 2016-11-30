@@ -2,10 +2,12 @@
 
 namespace CodeDelivery\Http\Controllers\Admin;
 
+use CodeDelivery\Http\Requests\Request;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\EstabelecimentoRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\UserRepository;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
@@ -63,7 +65,9 @@ class DashboardController extends Controller
                 return $q->orderBy('id', 'desc');
             })->paginate(10);
 
-            return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders'));
+            setcookie("reference", base64_encode($id));
+
+            return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders'));;
         }
 
     }
