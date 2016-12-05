@@ -1,0 +1,78 @@
+<div class="telefone" ng-show="showFormUser">
+    <form name="form" novalidate
+          ng-submit="form.$valid && saveUser(user)" enctype="multipart/form-data"
+    >
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="form-group" ng-class="{'has-error': form.ddd_fixo.$touched && form.ddd_fixo.$error.required }">
+                    <lable for="ddd_fixo">
+                        <i ng-class="{'fa fa-times-circle-o': form.ddd_fixo.$touched && form.ddd_fixo.$error.required }"></i>
+                        DDD Fixo:
+                    </lable>
+                    <input type="text" name="ddd_fixo" class="form-control" ng-model='user.ddd_fixo' required/>
+                    <div class="help-block" ng-show="form.$submitted || form.ddd_fixo.$touched">
+                        <div ng-show="form.ddd_fixo.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo DDD do Telefone Fixo é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{'has-error': form.telefone_fixo.$touched && form.telefone_fixo.$error.required }">
+                    <lable for="telefone_fixo">
+                        <i ng-class="{'fa fa-times-circle-o': form.telefone_fixo.$touched && form.telefone_fixo.$error.required }"></i>
+                        Telefone Fixo:
+                    </lable>
+                    <input type="text" name="telefone_fixo" class="form-control" ng-model='user.telefone_fixo' required />
+                    <div class="help-block" ng-show="form.$submitted || form.telefone_fixo.$touched">
+                        <div ng-show="form.telefone_fixo.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Telefone Fixo é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="form-group" ng-class="{'has-error': form.ddd_celular.$touched && form.ddd_celular.$error.required }">
+                    <lable for="ddd_celular">
+                        <i ng-class="{'fa fa-times-circle-o': form.ddd_celular.$touched && form.ddd_celular.$error.required }"></i>
+                        DDD Celular:
+                    </lable>
+                    <input type="text" name="ddd_celular" class="form-control" ng-model='user.ddd_celular' />
+                    <div class="help-block" ng-show="form.$submitted || form.ddd_celular.$touched">
+                        <div ng-show="form.ddd_celular.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo DDD do Telefone Celular é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{'has-error': form.telefone_celular.$touched && form.telefone_celular.$error.required }">
+                    <lable for="telefone_celular">
+                        <i ng-class="{'fa fa-times-circle-o': form.telefone_celular.$touched && form.telefone_celular.$error.required }"></i>
+                        Telefone Celular:
+                    </lable>
+                    <input type="text" name="telefone_celular" class="form-control" ng-model='user.telefone_celular' required />
+                    <div class="help-block" ng-show="form.$submitted || form.telefone_celular.$touched">
+                        <div ng-show="form.telefone_celular.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Telefone Celular é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning btn-flat" ng-click="saveUser(user)">
+                        <i class="fa fa-floppy-o"></i> Salvar
+                    </button>
+                    <button type="reset" class="btn btn-warning btn-flat" ng-click="cancelUser()">
+                        <i class="fa fa-close"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

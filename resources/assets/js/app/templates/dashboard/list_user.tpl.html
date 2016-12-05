@@ -1,0 +1,58 @@
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Perfil do Usuário</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table class="table table-hover">
+            <tr>
+                <th width="30%">Código</th>
+                <td width="70%">{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <th>CPF</th>
+                <td>{{ user.cpf }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ user.sexo }}</td>
+            </tr>
+            <tr>
+                <th>Data de Nascimento</th>
+                <td>
+                    {{ user.data_nascimento }}
+                </td>
+            </tr>
+            <tr>
+                <th>Telefone Fixo</th>
+                <td>
+                    {{ user.ddd_fixo }} {{ user.telefone_fixo }}
+                </td>
+            </tr>
+            <tr>
+                <th>Celular</th>
+                <td>
+                    {{ user.ddd_celular }} {{ user.telefone_celular }}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-default btn-flat" ng-click="loadUser(user)">
+            <i class="fa fa-pencil"></i>
+            Alterar Telefone
+        </button>
+        <button class="btn btn-default btn-flat" ng-click="loadUserSecurity(user)">
+            <i class="fa fa-lock"></i>
+            Alterar Senha
+        </button>
+    </div>
+</div>

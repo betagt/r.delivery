@@ -26,7 +26,6 @@ module.exports = function ($scope, $log, $uibModal, $cookies, ClientAPIService) 
   $scope.token = '';
   $scope.estabelecimento = '';
   $scope.parent = '';
-  $scope.parent = '';
   $scope.entity = {};
   $scope.animationsEnabled = true;
 
@@ -48,7 +47,9 @@ module.exports = function ($scope, $log, $uibModal, $cookies, ClientAPIService) 
   $scope.init = function () {
     list(1);
 
-    $scope.estabelecimento = atob($cookies.get('reference'));
+    var reference = angular.fromJson(atob($cookies.get('reference')));
+
+    $scope.estabelecimento = reference.data.estabelecimento;
   }
 
   $scope.getToken = function () {
@@ -84,7 +85,7 @@ module.exports = function ($scope, $log, $uibModal, $cookies, ClientAPIService) 
     $scope.edit(true);
 
     $scope.entity = {
-      estabelecimento_id: $scope.estabelecimento,
+      estabelecimento_id: $scope.estabelecimento.id,
       parent_id: parent,
       name: '',
       tipo: 1,

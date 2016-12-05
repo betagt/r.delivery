@@ -8,6 +8,8 @@ require('angular-cookies');
 require('./locale/angular-locale_pt-br');
 
 var configValue = require('./config/configValue');
+var telefone = require('./directives/telefone');
+var passwordVerify = require('./directives/passwordVerify');
 var alertMsg = require('./directives/alertMsg');
 var ImageService = require('./services/ImageService');
 var ClientAPIService = require('./services/ClientAPIService');
@@ -41,11 +43,13 @@ angular.module('app').config(function ($routeProvider) {
 });
 
 angular.module('app').value('configValue', configValue);
+angular.module('app').directive('passwordVerify', [passwordVerify]);
 angular.module('app').directive('alertMsg', [alertMsg]);
+angular.module('app').directive('telefone', [telefone]);
 angular.module('app').service('ImageService', ['$http', 'configValue', ImageService]);
 angular.module('app').service('ClientAPIService', ['$http', 'configValue', ClientAPIService]);
 angular.module('app').controller('ModalService', ['$scope', '$uibModalInstance', 'title', 'message', 'entity', ModalService]);
 angular.module('app').controller('MenuController', ['$scope', '$location', MenuController]);
-angular.module('app').controller('DashboardController', ['$scope', '$log', '$uibModal', 'ClientAPIService', DashboardController]);
+angular.module('app').controller('DashboardController', ['$scope', '$log', '$uibModal', '$cookies','ImageService', 'ClientAPIService', DashboardController]);
 angular.module('app').controller('CategoriaController', ['$scope', '$log', '$uibModal', '$cookies', 'ClientAPIService', CategoriaController]);
 angular.module('app').controller('ProdutoController', ['$scope', '$log', '$uibModal', 'ClientAPIService', ProdutoController]);

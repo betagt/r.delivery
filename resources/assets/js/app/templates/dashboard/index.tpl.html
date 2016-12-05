@@ -10,35 +10,77 @@
             </ol>
         </section>
     </div>
-    <script type="text/ng-template" id="modal.tpl.html">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">{{ title }}</h4>
+    <section class="content">
+        <script type="text/ng-template" id="modal.tpl.html">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{{ title }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ message }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-flat" type="button" ng-click="ok()">
+                            <i class="fa fa-check"></i>
+                            OK
+                        </button>
+                        <button class="btn btn-warning btn-flat" type="button" ng-click="cancel()">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>{{ message }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary btn-flat" type="button" ng-click="ok()">
-                        <i class="fa fa-check"></i>
-                        OK
-                    </button>
-                    <button class="btn btn-warning btn-flat" type="button" ng-click="cancel()">
-                        <i class="fa fa-times"></i> Cancel
-                    </button>
+                <!-- /.modal-content -->
+            </div>
+        </script>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <alert-msg ng-show="message" ng-click="closeMessage()" title="Mensagem:">
+                    {{ message }}
+                </alert-msg>
+            </div>
+        </div>
+        <div class="row">
+            <div class="nav-tabs-custom tab-warning">
+                <!-- TAB NAVIGATION -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active">
+                        <a href="#tab1" role="tab" data-toggle="tab" target="_self">
+                            <i class="fa fa-money"></i> Pedidos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab2" role="tab" data-toggle="tab" target="_self">
+                            <i class="fa fa-user"></i>
+                            Dados do Usuário
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab3" role="tab" data-toggle="tab" target="_self">
+                            <i class="fa fa-building-o"></i>
+                            Dados do Estabelecimento
+                        </a>
+                    </li>
+                </ul>
+                <!-- TAB CONTENT -->
+                <div class="tab-content">
+                    <div class="active tab-pane fade in" id="tab1">
+                        <h2>Pedidos</h2>
+                        <p>Lorem ipsum.</p>
+                    </div>
+                    <div class="tab-pane fade" id="tab2">
+                        <div ng-include="'js/app/templates/dashboard/form_user.tpl.html'"></div>
+                        <div ng-include="'js/app/templates/dashboard/form_user_security.tpl.html'"></div>
+                        <div ng-include="'js/app/templates/dashboard/list_user.tpl.html'"></div>
+                    </div>
+                    <div class="tab-pane fade" id="tab3" >
+                        <div ng-include="'js/app/templates/dashboard/form_estabelecimento.tpl.html'"></div>
+                        <div ng-include="'js/app/templates/dashboard/list_estabelecimento.tpl.html'"></div>
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-    </script>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <alert-msg ng-show="message" ng-click="closeMessage()" title="Mensagem:">
-                {{ message }}
-            </alert-msg>
-        </div>
-    </div>
+    </section>
 </div>

@@ -1,0 +1,51 @@
+<div class="telefone" ng-show="showFormUserSecurity">
+    <form name="form" novalidate
+          ng-submit="form.$valid && saveUser(user)" enctype="multipart/form-data"
+    >
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{'has-error': form.password.$touched && form.password.$error.required }">
+                    <lable for="ddd_fixo">
+                        <i ng-class="{'fa fa-times-circle-o': form.password.$touched && form.password.$error.required }"></i>
+                        Senha:
+                    </lable>
+                    <input type="password" name="password" class="form-control" ng-model='user.password' required />
+                    <div class="help-block" ng-show="form.$submitted || form.password.$touched">
+                        <div ng-show="form.password.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Senha é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{'has-error': form.confirm_password.$touched && form.confirm_password.$error.required && form.confirm_password.$error.passwordVerify }">
+                    <lable for="ddd_fixo">
+                        <i ng-class="{'fa fa-times-circle-o': form.confirm_password.$touched && form.confirm_password.$error.required && form.confirm_password.$error.passwordVerify }"></i>
+                        Confirmação de Senha:
+                    </lable>
+                    <input type="password" name="confirm_password" class="form-control" ng-model='user.password_verify' pw-check='user.password' required data-password-verify="user.password"/>
+                    <div class="help-block" ng-show="form.$submitted || form.confirm_password.$touched">
+                        <div ng-show="form.confirm_password.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Confirmação de Senha é obrigatório
+                        </div>
+                        <div ng-show="form.confirm_password.$error.passwordVerify">
+                            <i class="fa fa-exclamation-circle"></i> As Senhas informadas devem ser iguais
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning btn-flat" ng-click="saveUser(user)">
+                        <i class="fa fa-floppy-o"></i> Salvar
+                    </button>
+                    <button type="reset" class="btn btn-warning btn-flat" ng-click="cancelUserSecurity()">
+                        <i class="fa fa-close"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,96 @@
+<div class="telefone" ng-show="showFormUser">
+    <form name="form" novalidate
+          ng-submit="form.$valid && saveUser(estabelecimento)" enctype="multipart/form-data"
+    >
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group" ng-class="{'has-error': form.nome.$touched && form.nome.$error.required }">
+                    <lable for="nome">
+                        <i ng-class="{'fa fa-times-circle-o': form.nome.$touched && form.nome.$error.required }"></i>
+                        Nome:
+                    </lable>
+                    <input type="text" name="nome" class="form-control" ng-model='estabelecimento.nome' required/>
+                    <div class="help-block" ng-show="form.$submitted || form.nome.$touched">
+                        <div ng-show="form.nome.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Nome é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group" >
+                    <lable for="descricao">
+                        Descrição:
+                    </lable>
+                    <textarea name="descricao" class="form-control" ng-model='estabelecimento.descricao' rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{'has-error': form.telefone.$touched && form.telefone.$error.required }">
+                    <lable for="telefone">
+                        <i ng-class="{'fa fa-times-circle-o': form.telefone.$touched && form.telefone.$error.required }"></i>
+                        Telefone:
+                    </lable>
+                    <input type="text" name="telefone" class="form-control" ng-model='estabelecimento.telefone' telefone />
+                    <div class="help-block" ng-show="form.$submitted || form.telefone.$touched">
+                        <div ng-show="form.telefone.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo Telefone é obrigatório
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="form-group" ng-class="{'has-error': form.email.$touched && form.email.$error.required }">
+                    <lable for="email">
+                        <i ng-class="{'fa fa-times-circle-o': form.email.$touched && form.email.$error.required }"></i>
+                        E-mail:
+                    </lable>
+                    <input type="email" name="email" class="form-control" ng-model='estabelecimento.email' required />
+                    <div class="help-block" ng-show="form.$submitted || form.email.$touched">
+                        <div ng-show="form.email.$error.required">
+                            <i class="fa fa-exclamation-circle"></i> O campo E-mail é obrigatório
+                        </div>
+                        <div ng-show="form.email.$error.email">
+                            <i class="fa fa-exclamation-circle"></i> E-mail inválido
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group" ng-class="{'has-error': errors.imagem[0] }">
+                    <label for="imagem">
+                        <i ng-class="{'fa fa-times-circle-o': errors.imagem[0] }"></i>
+                        Foto:
+                    </label>
+                    <input type="file" name="file" onchange="angular.element(this).scope().upload(files)" accept="image/*"/>
+                    <div class="mt mb" ng-if="imagem" ng-class="thumbnail">
+                        <img src="images/estabelecimentos/{{imagem}}" class="img-responsive">
+                    </div>
+                    <div class="help-block" ng-show="errors.imagem[0]">
+                        <div ng-show="errors.imagem[0]">
+                            <i class="fa fa-exclamation-circle"></i> {{ errors.imagem[0] }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning btn-flat" ng-click="saveUser(estabelecimento)">
+                        <i class="fa fa-floppy-o"></i> Salvar
+                    </button>
+                    <button type="reset" class="btn btn-warning btn-flat" ng-click="cancelUser()">
+                        <i class="fa fa-close"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -65,7 +65,16 @@ class DashboardController extends Controller
                 return $q->orderBy('id', 'desc');
             })->paginate(10);
 
-            setcookie("reference", base64_encode($id));
+            $reference = [
+                'data' => [
+                    'user' => auth()->user(),
+                    'estabelecimento' => $this->estabelecimentoRepository->find($id),
+                ]
+            ];
+
+            $json = json_encode($reference);
+
+            setcookie("reference", base64_encode($json));
 
             return view('admin.dashboard.index', compact('titulo', 'subtitulo', 'orders'));;
         }

@@ -27,6 +27,14 @@ Route::group(['prefix' => 'api/angular', 'middleware' => 'cors', 'namespace' => 
             Route::put('atualizar/{id}', 'ProdutoController@update');
         });
     });
+    Route::group(['prefix' => 'estabelecimento', 'as' => 'estabelecimento.'], function(){
+        Route::post('upload', 'EstabelecimentoController@upload');
+        Route::put('atualizar/{id}', 'EstabelecimentoController@update');
+    });
+    Route::group(['prefix' => 'usuario', 'as' => 'usuario.'], function(){
+        Route::post('upload', 'UsuarioController@upload');
+        Route::put('atualizar/{id}', 'UsuarioController@update');
+    });
 });
 
 

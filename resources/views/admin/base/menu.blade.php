@@ -80,14 +80,9 @@
                 </li>
             @endif
             @if (Auth::user()->role == 'estabelecimento')
-                <li>
-                    <a href="{{ route('cliente.home') }}">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('cliente.users.show', ['id' => Auth::user()->id]) }}">
-                        <i class="fa fa-user"></i> <span>Meu Perfil</span>
+                <li ng-class="{ active: isActive('/')}">
+                    <a href="#/">
+                        <i class="fa fa-dashboard"></i> <span>Principal</span>
                     </a>
                 </li>
                 <li ng-class="{ active: isActive('/categoria')}">

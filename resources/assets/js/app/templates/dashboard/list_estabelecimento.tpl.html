@@ -1,0 +1,46 @@
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Dados do Estabelecimento</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table class="table table-hover">
+            <tr>
+                <th width="30%">Código</th>
+                <td width="70%">{{ estabelecimento.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ estabelecimento.nome }}</td>
+            </tr>
+            <tr>
+                <th>Descrição</th>
+                <td>{{ estabelecimento.descricao }}</td>
+            </tr>
+            <tr>
+                <th>Telefone</th>
+                <td>{{ estabelecimento.telefone }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ estabelecimento.email }}</td>
+            </tr>
+            <tr>
+                <th>Icone</th>
+                <td>
+                    <img src="{{ estabelecimento.icone }}" alt="{{ estabelecimento.nome }}">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-default btn-flat" ng-click="loadUser(estabelecimento)">
+            <i class="fa fa-pencil"></i>
+            Alterar Estabelecimento
+        </button>
+    </div>
+</div>
